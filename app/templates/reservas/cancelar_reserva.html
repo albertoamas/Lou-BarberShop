@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Cancelar Reserva</h1>
+    
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title mb-0">¿Estás seguro de que deseas cancelar esta reserva?</h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <strong>Nota:</strong> Una vez cancelada, no podrás recuperar esta reserva.
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Detalles del Servicio:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Servicio
+                                    <span class="fw-bold">{{ reserva.servicio.nombre }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Duración
+                                    <span>{{ reserva.servicio.duracion }} minutos</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Precio
+                                    <span>${{ "%.2f"|format(reserva.servicio.precio) }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Detalles de la Cita:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Barbero
+                                    <span class="fw-bold">{{ reserva.empleado.nombre }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Fecha
+                                    <span>{{ reserva.fecha.strftime('%d/%m/%Y') }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Hora
+                                    <span>{{ reserva.hora.strftime('%H:%M') }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        {{ form.reserva_id(value=reserva.id) }}
+                        
+                        <div class="mb-3">
+                            <label for="motivo" class="form-label">{{ form.motivo.label }}</label>
+                            {{ form.motivo(class="form-control", placeholder="Por favor indícanos por qué cancelaste tu reserva (opcional)") }}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('reservas.mis_reservas') }}" class="btn btn-secondary">Volver</a>
+                            {{ form.submit(class="btn btn-danger") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Agendar una Cita</h1>
+    
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('reservas.nueva_reserva') }}">Seleccionar servicio</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('reservas.seleccionar_hora', servicio_id=servicio.id, fecha=fecha_str) }}">Seleccionar hora y barbero</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Confirmar reserva</li>
+        </ol>
+    </nav>
+    
+    <div class="row mt-4">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">Paso 3: Confirmar detalles de la reserva</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Detalles del Servicio:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Servicio
+                                    <span class="fw-bold">{{ servicio.nombre }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Duración
+                                    <span>{{ servicio.duracion }} minutos</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Precio
+                                    <span>${{ "%.2f"|format(servicio.precio) }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Detalles de la Cita:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Barbero
+                                    <span class="fw-bold">{{ empleado.nombre }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Fecha
+                                    <span>{{ fecha.strftime('%d/%m/%Y') }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Hora
+                                    <span>{{ hora }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <strong>Política de cancelación:</strong> Puedes cancelar tu cita hasta 2 horas antes del horario programado.
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('reservas.confirmar_reserva') }}">
+                        <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
+                        <input type="hidden" name="empleado_id" value="{{ empleado.id }}">
+                        <input type="hidden" name="fecha" value="{{ fecha_str }}">
+                        <input type="hidden" name="hora" value="{{ hora }}">
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ url_for('reservas.seleccionar_hora', servicio_id=servicio.id, fecha=fecha_str) }}" class="btn btn-secondary">Volver</a>
+                            <button type="submit" class="btn btn-success">Confirmar Reserva</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

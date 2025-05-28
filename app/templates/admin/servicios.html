@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5 animate__animated animate__fadeIn">
+    <!-- Header con estilo moderno -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Gestionar Servicios</h1>
+        <div class="d-flex justify-content-center">
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-cut"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+        </div>
+        <p class="lead text-muted">Administra los servicios ofrecidos por Lou Barbershop</p>
+    </div>
+    
+    <div class="row g-4">
+        <!-- Formulario para agregar un nuevo servicio -->
+        <div class="col-lg-5">
+            <div class="card admin-card shadow-sm border-0">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-plus-circle me-2"></i>
+                    <h5 class="card-title mb-0">Agregar Nuevo Servicio</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="{{ url_for('admin.agregar_servicio') }}" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label fw-bold">
+                                <i class="fas fa-signature me-2"></i>Nombre del Servicio
+                            </label>
+                            <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label fw-bold">
+                                <i class="fas fa-align-left me-2"></i>Descripción
+                            </label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="precio" class="form-label fw-bold">
+                                    <i class="fas fa-tag me-2"></i>Precio (S/.)
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">S/.</span>
+                                    <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="duracion" class="form-label fw-bold">
+                                    <i class="fas fa-clock me-2"></i>Duración (min)
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="duracion" name="duracion" min="15" step="15" required>
+                                    <span class="input-group-text">min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label fw-bold">
+                                <i class="fas fa-image me-2"></i>Imagen Asociada
+                            </label>
+                            <select class="form-select" id="imagen" name="imagen">
+                                <option value="corte.jpg">Corte de Cabello</option>
+                                <option value="barba.jpg">Barba</option>
+                                <option value="peinado.jpg">Peinado</option>
+                                <option value="facial.jpg">Tratamiento Facial</option>
+                                <option value="combo.jpg">Combo Completo</option>
+                            </select>
+                            <small class="form-text text-muted">Selecciona la imagen que mejor represente este servicio</small>
+                        </div>
+                        
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus-circle me-2"></i>Agregar Servicio
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+                    {% if servicios %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Duración</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for servicio in servicios %}
+                                <tr>
+                                    <td>{{ servicio.nombre }}</td>
+                                    <td>{{ servicio.descripcion }}</td>
+                                    <td>S/. {{ servicio.precio }}</td>
+                                    <td>{{ servicio.duracion }} min</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarServicio{{ servicio.id }}">
+                                            Editar
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarServicio{{ servicio.id }}">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Modal Editar -->
+                                <div class="modal fade" id="editarServicio{{ servicio.id }}" tabindex="-1" aria-labelledby="editarServicioLabel{{ servicio.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editarServicioLabel{{ servicio.id }}">Editar Servicio</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ url_for('admin.editar_servicio', servicio_id=servicio.id) }}" method="post">
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="nombre{{ servicio.id }}" class="form-label">Nombre del Servicio</label>
+                                                        <input type="text" class="form-control" id="nombre{{ servicio.id }}" name="nombre" value="{{ servicio.nombre }}" required>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="descripcion{{ servicio.id }}" class="form-label">Descripción</label>
+                                                        <textarea class="form-control" id="descripcion{{ servicio.id }}" name="descripcion" rows="3" required>{{ servicio.descripcion }}</textarea>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="precio{{ servicio.id }}" class="form-label">Precio (S/.)</label>
+                                                        <input type="number" class="form-control" id="precio{{ servicio.id }}" name="precio" step="0.01" min="0" value="{{ servicio.precio }}" required>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="duracion{{ servicio.id }}" class="form-label">Duración (minutos)</label>
+                                                        <input type="number" class="form-control" id="duracion{{ servicio.id }}" name="duracion" min="15" step="15" value="{{ servicio.duracion }}" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Modal Eliminar -->
+                                <div class="modal fade" id="eliminarServicio{{ servicio.id }}" tabindex="-1" aria-labelledby="eliminarServicioLabel{{ servicio.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="eliminarServicioLabel{{ servicio.id }}">Confirmar Eliminación</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>¿Estás seguro de que deseas eliminar el servicio <strong>{{ servicio.nombre }}</strong>?</p>
+                                                <p class="text-danger">Esta acción no se puede deshacer y podría afectar las reservas existentes.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <a href="{{ url_for('admin.eliminar_servicio', servicio_id=servicio.id) }}" class="btn btn-danger">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">No hay servicios registrados.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{{ url_for('admin.index') }}" class="btn btn-secondary">Volver al Panel de Administración</a>
+    </div>
+</div>
+{% endblock %}

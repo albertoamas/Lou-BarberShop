@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center text-md-start">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 animate-fadeInUp">
+                <h1 class="display-4 fw-bold mb-4">Estilo y Confianza en Cada Corte</h1>
+                <p class="lead mb-4">En Lou Barbershop ofrecemos el mejor servicio de barbería con estilo moderno y ambiente acogedor. Nuestros barberos expertos harán que luzcas y te sientas mejor.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-secondary">
+                        <i class="fas fa-calendar-plus me-2"></i>Reservar Ahora
+                    </a>
+                    <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-light">
+                        <i class="fas fa-list me-2"></i>Ver Servicios
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 d-none d-md-block animate-fadeInUp" style="animation-delay: 0.2s;">
+                <img src="{{ url_for('static', filename='img/barber-hero.png') }}" class="img-fluid rounded-3" alt="Lou Barbershop">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 section-title">¿Por qué elegirnos?</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.1s;">
+                <div class="card h-100 feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Barberos Expertos</h3>
+                    <p class="text-muted">Nuestro equipo está formado por profesionales con años de experiencia en las últimas tendencias.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div class="card h-100 feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Reserva Online</h3>
+                    <p class="text-muted">Agenda tu cita en minutos desde cualquier dispositivo y a cualquier hora.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div class="card h-100 feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3>Satisfacción Garantizada</h3>
+                    <p class="text-muted">Tu satisfacción es nuestra prioridad. Nos aseguramos de que salgas feliz con tu nuevo look.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 section-title">Nuestros Servicios</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.1s;">
+                <div class="card h-100 service-card">
+                    <img src="{{ url_for('static', filename='img/service-haircut.jpg') }}" class="card-img-top" alt="Corte de Cabello">
+                    <div class="card-body">
+                        <h4 class="card-title">Corte de Cabello</h4>
+                        <p class="card-text text-muted">Nuestros barberos te darán el corte perfecto según tu estilo y tipo de cabello.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary w-100">Reservar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div class="card h-100 service-card">
+                    <img src="{{ url_for('static', filename='img/service-beard.jpg') }}" class="card-img-top" alt="Arreglo de Barba">
+                    <div class="card-body">
+                        <h4 class="card-title">Arreglo de Barba</h4>
+                        <p class="card-text text-muted">Perfilado y mantenimiento profesional para tu barba, con productos de calidad.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary w-100">Reservar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div class="card h-100 service-card">
+                    <img src="{{ url_for('static', filename='img/service-facial.jpg') }}" class="card-img-top" alt="Tratamiento Facial">
+                    <div class="card-body">
+                        <h4 class="card-title">Tratamiento Facial</h4>
+                        <p class="card-text text-muted">Revitaliza tu piel con nuestros tratamientos faciales especializados para hombres.</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary w-100">Reservar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ url_for('reservas.index') }}" class="btn btn-lg btn-outline-primary">
+                <i class="fas fa-list me-2"></i>Ver Todos los Servicios
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Inicializar animaciones al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        const animatedElements = document.querySelectorAll('.animate-fadeInUp');
+        
+        // Función para verificar si un elemento está en el viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        }
+        
+        // Activar animación para elementos visibles
+        function checkAnimations() {
+            animatedElements.forEach(element => {
+                if (isInViewport(element)) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+        
+        // Inicializar todos los elementos como invisibles
+        animatedElements.forEach(element => {
+            element.style.opacity = '0';
+        });
+        
+        // Comprobar animaciones al cargar y al hacer scroll
+        checkAnimations();
+        window.addEventListener('scroll', checkAnimations);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Mis Reservas</h1>
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nueva Reserva
+        </a>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">Reservas Pendientes</h5>
+        </div>
+        <div class="card-body">
+            {% if reservas_activas %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Barbero</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reservas_activas %}
+                        <tr>
+                            <td>{{ reserva.servicio.nombre }}</td>
+                            <td>{{ reserva.empleado.nombre }}</td>
+                            <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ reserva.hora.strftime('%H:%M') }}</td>
+                            <td>
+                                {% if reserva.estado == 'pendiente' %}
+                                <span class="badge bg-warning">Pendiente</span>
+                                {% elif reserva.estado == 'confirmada' %}
+                                <span class="badge bg-success">Confirmada</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('reservas.cancelar_reserva', reserva_id=reserva.id) }}" class="btn btn-danger btn-sm">
+                                    Cancelar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                No tienes reservas pendientes. 
+                <a href="{{ url_for('reservas.nueva_reserva') }}" class="alert-link">¡Agenda una cita ahora!</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="card-title mb-0">Historial de Reservas</h5>
+        </div>
+        <div class="card-body">
+            {% if historial %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Barbero</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in historial %}
+                        <tr>
+                            <td>{{ reserva.servicio.nombre }}</td>
+                            <td>{{ reserva.empleado.nombre }}</td>
+                            <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ reserva.hora.strftime('%H:%M') }}</td>
+                            <td>
+                                {% if reserva.estado == 'completada' %}
+                                <span class="badge bg-info">Completada</span>
+                                {% elif reserva.estado == 'cancelada' %}
+                                <span class="badge bg-danger">Cancelada</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-info">No tienes historial de reservas.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

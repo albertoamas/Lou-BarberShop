@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container admin-dashboard py-5 animate__animated animate__fadeIn">
+    <!-- Header de administración con estilo moderno -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Panel de Administración</h1>
+        <div class="d-flex justify-content-center">
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-cogs"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+        </div>
+        <p class="lead text-muted">Gestiona todos los aspectos de Lou Barbershop desde un solo lugar</p>
+    </div>
+    
+    <!-- Tarjetas de estadísticas con diseño mejorado -->
+    <div class="row mb-5 g-4">
+        <div class="col-md-3">
+            <div class="card admin-card stat-card bg-primary text-white shadow">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5 class="card-title fw-bold mb-3">Reservas Pendientes</h5>
+                    <h2 class="display-4 fw-bold mb-3">{{ pendientes }}</h2>
+                    <a href="{{ url_for('admin.reservas', estado='pendiente') }}" class="btn btn-light btn-sm mt-2 px-4">
+                        <i class="fas fa-eye me-1"></i> Ver todas
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card admin-card stat-card bg-success text-white shadow">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h5 class="card-title fw-bold mb-3">Reservas Confirmadas</h5>
+                    <h2 class="display-4 fw-bold mb-3">{{ confirmadas }}</h2>
+                    <a href="{{ url_for('admin.reservas', estado='confirmada') }}" class="btn btn-light btn-sm mt-2 px-4">
+                        <i class="fas fa-eye me-1"></i> Ver todas
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card admin-card stat-card bg-info text-white shadow">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h5 class="card-title fw-bold mb-3">Reservas Completadas</h5>
+                    <h2 class="display-4 fw-bold mb-3">{{ completadas }}</h2>
+                    <a href="{{ url_for('admin.reservas', estado='completada') }}" class="btn btn-light btn-sm mt-2 px-4">
+                        <i class="fas fa-eye me-1"></i> Ver todas
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card admin-card stat-card bg-secondary text-white shadow">
+                <div class="card-body text-center p-4">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h5 class="card-title fw-bold mb-3">Clientes Registrados</h5>
+                    <h2 class="display-4 fw-bold mb-3">{{ clientes }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <!-- Reservas para hoy con diseño mejorado -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-calendar-day me-2"></i>
+                    <h5 class="card-title mb-0">Reservas para hoy</h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if reservas_hoy %}
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="px-3">Cliente</th>
+                                    <th>Servicio</th>
+                                    <th>Barbero</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th class="text-end pe-3">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reserva in reservas_hoy %}
+                                <tr>
+                                    <td class="px-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-user-circle text-secondary me-2 fs-5"></i>
+                                            <span>{{ reserva.cliente.nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td>{{ reserva.servicio.nombre }}</td>
+                                    <td>{{ reserva.empleado.nombre }}</td>
+                                    <td><i class="far fa-clock me-1"></i>{{ reserva.hora.strftime('%H:%M') }}</td>
+                                    <td>
+                                        {% if reserva.estado == 'pendiente' %}
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="fas fa-clock me-1"></i>Pendiente
+                                        </span>
+                                        {% elif reserva.estado == 'confirmada' %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle me-1"></i>Confirmada
+                                        </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end pe-3">
+                                        <div class="btn-group btn-group-sm">
+                                            {% if reserva.estado == 'pendiente' %}
+                                            <a href="{{ url_for('admin.confirmar_reserva', reserva_id=reserva.id) }}" class="btn btn-success">
+                                                <i class="fas fa-check me-1"></i>Confirmar
+                                            </a>
+                                            {% endif %}
+                                            
+                                            {% if reserva.estado in ['pendiente', 'confirmada'] %}
+                                            <a href="{{ url_for('admin.completar_reserva', reserva_id=reserva.id) }}" class="btn btn-info">
+                                                <i class="fas fa-check-double me-1"></i>Completar
+                                            </a>
+                                            <a href="{{ url_for('admin.cancelar_reserva', reserva_id=reserva.id) }}" class="btn btn-danger">
+                                                <i class="fas fa-times me-1"></i>Cancelar
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info m-3">
+                        <i class="fas fa-info-circle me-2"></i>No hay reservas programadas para hoy.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Acciones rápidas y estadísticas con nuevo diseño -->
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-dark text-white d-flex align-items-center">
+                    <i class="fas fa-bolt me-2"></i>
+                    <h5 class="card-title mb-0">Acciones Rápidas</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <a href="{{ url_for('admin.reservas') }}" class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: var(--primary); color: white; border-radius: 8px;">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Gestionar Reservas</h5>
+                                    <span class="badge bg-primary rounded-pill">{{ pendientes + confirmadas }}</span>
+                                </div>
+                                <p class="mb-1 text-muted">Ver y administrar todas las reservas del sistema</p>
+                            </div>
+                        </a>
+                        <a href="{{ url_for('admin.servicios') }}" class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: var(--secondary); color: white; border-radius: 8px;">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Gestionar Servicios</h5>
+                                    <span class="badge bg-secondary rounded-pill">{{ servicios }}</span>
+                                </div>
+                                <p class="mb-1 text-muted">Añadir, editar y eliminar servicios ofrecidos</p>
+                            </div>
+                        </a>
+                        <a href="{{ url_for('admin.empleados') }}" class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: var(--accent); color: white; border-radius: 8px;">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Gestionar Empleados</h5>
+                                    <span class="badge bg-info rounded-pill">{{ empleados }}</span>
+                                </div>
+                                <p class="mb-1 text-muted">Añadir, editar y eliminar barberos</p>
+                            </div>
+                        </a>
+                        <a href="{{ url_for('admin.horarios_no_disponibles') }}" class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: var(--danger); color: white; border-radius: 8px;">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Horarios No Disponibles</h5>
+                                </div>
+                                <p class="mb-1 text-muted">Bloquear días o franjas horarias</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-dark text-white d-flex align-items-center">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <h5 class="card-title mb-0">Información del Sistema</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card bg-light border-0">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-user-tie text-primary fa-3x mb-3"></i>
+                                    <h3 class="fw-bold">{{ empleados }}</h3>
+                                    <p class="text-muted mb-0">Empleados</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light border-0">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-cut text-secondary fa-3x mb-3"></i>
+                                    <h3 class="fw-bold">{{ servicios }}</h3>
+                                    <p class="text-muted mb-0">Servicios</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-success mt-4">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Consejo:</strong> Recuerda confirmar todas las reservas pendientes para mejorar la experiencia de tus clientes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

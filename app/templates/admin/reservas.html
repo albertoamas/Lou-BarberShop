@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Gestionar Reservas</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Filtrar Reservas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex">
+                        <a href="{{ url_for('admin.reservas', estado='todas') }}" class="btn {{ 'btn-primary' if estado_filtro == 'todas' else 'btn-outline-primary' }} me-2">Todas</a>
+                        <a href="{{ url_for('admin.reservas', estado='pendiente') }}" class="btn {{ 'btn-warning' if estado_filtro == 'pendiente' else 'btn-outline-warning' }} me-2">Pendientes</a>
+                        <a href="{{ url_for('admin.reservas', estado='confirmada') }}" class="btn {{ 'btn-success' if estado_filtro == 'confirmada' else 'btn-outline-success' }} me-2">Confirmadas</a>
+                        <a href="{{ url_for('admin.reservas', estado='completada') }}" class="btn {{ 'btn-info' if estado_filtro == 'completada' else 'btn-outline-info' }} me-2">Completadas</a>
+                        <a href="{{ url_for('admin.reservas', estado='cancelada') }}" class="btn {{ 'btn-danger' if estado_filtro == 'cancelada' else 'btn-outline-danger' }}">Canceladas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">Listado de Reservas</h5>
+                </div>
+                <div class="card-body">
+                    {% if reservas %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Servicio</th>
+                                    <th>Barbero</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reserva in reservas %}
+                                <tr>
+                                    <td>{{ reserva.id }}</td>
+                                    <td>{{ reserva.cliente.nombre }}</td>
+                                    <td>{{ reserva.servicio.nombre }}</td>
+                                    <td>{{ reserva.empleado.nombre }}</td>
+                                    <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
+                                    <td>{{ reserva.hora.strftime('%H:%M') }}</td>
+                                    <td>
+                                        {% if reserva.estado == 'pendiente' %}
+                                        <span class="badge bg-warning">Pendiente</span>
+                                        {% elif reserva.estado == 'confirmada' %}
+                                        <span class="badge bg-success">Confirmada</span>
+                                        {% elif reserva.estado == 'completada' %}
+                                        <span class="badge bg-info">Completada</span>
+                                        {% elif reserva.estado == 'cancelada' %}
+                                        <span class="badge bg-danger">Cancelada</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if reserva.estado == 'pendiente' %}
+                                        <a href="{{ url_for('admin.confirmar_reserva', reserva_id=reserva.id) }}" class="btn btn-success btn-sm">Confirmar</a>
+                                        {% endif %}
+                                        
+                                        {% if reserva.estado in ['pendiente', 'confirmada'] %}
+                                        <a href="{{ url_for('admin.completar_reserva', reserva_id=reserva.id) }}" class="btn btn-info btn-sm">Completar</a>
+                                        <a href="{{ url_for('admin.cancelar_reserva', reserva_id=reserva.id) }}" class="btn btn-danger btn-sm">Cancelar</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">No hay reservas con el filtro seleccionado.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{{ url_for('admin.index') }}" class="btn btn-secondary">Volver al Panel de Administración</a>
+    </div>
+</div>
+{% endblock %}

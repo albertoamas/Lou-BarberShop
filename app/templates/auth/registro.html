@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <h2 class="auth-title">Registro de Usuario</h2>
+    
+    <form method="POST" action="{{ url_for('auth.registro') }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            <label for="nombre">{{ form.nombre.label }}</label>
+            {{ form.nombre(class="form-control", placeholder="Ej. Juan Pérez") }}
+            {% for error in form.nombre.errors %}
+            <div class="invalid-feedback">
+                {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="email">{{ form.email.label }}</label>
+            {{ form.email(class="form-control", placeholder="tu@email.com") }}
+            {% for error in form.email.errors %}
+            <div class="invalid-feedback">
+                {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="telefono">{{ form.telefono.label }}</label>
+            {{ form.telefono(class="form-control", placeholder="Ej. 5512345678") }}
+            {% for error in form.telefono.errors %}
+            <div class="invalid-feedback">
+                {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="password">{{ form.password.label }}</label>
+            {{ form.password(class="form-control", placeholder="Mínimo 6 caracteres") }}
+            {% for error in form.password.errors %}
+            <div class="invalid-feedback">
+                {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            <label for="password2">{{ form.password2.label }}</label>
+            {{ form.password2(class="form-control", placeholder="Repite tu contraseña") }}
+            {% for error in form.password2.errors %}
+            <div class="invalid-feedback">
+                {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary btn-auth") }}
+        </div>
+    </form>
+    
+    <div class="auth-footer mt-3">
+        <p>¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">Inicia sesión aquí</a></p>
+    </div>
+</div>
+{% endblock %}

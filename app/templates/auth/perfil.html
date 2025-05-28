@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <img src="https://ui-avatars.com/api/?name={{ current_user.nombre }}&background=random" alt="avatar"
+                        class="rounded-circle img-fluid" style="width: 150px;">
+                    <h5 class="my-3">{{ current_user.nombre }}</h5>
+                    <p class="text-muted mb-1">Cliente</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <a href="#" class="btn btn-primary">Editar Perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Nombre completo</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ current_user.nombre }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Email</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ current_user.email }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Teléfono</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ current_user.telefono }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="mb-0">Miembro desde</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="text-muted mb-0">{{ current_user.creado_en.strftime('%d/%m/%Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Mis Reservas</h5>
+                </div>
+                <div class="card-body">
+                    {% if current_user.reservas.count() > 0 %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Barbero</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reserva in current_user.reservas %}
+                                <tr>
+                                    <td>{{ reserva.servicio.nombre }}</td>
+                                    <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
+                                    <td>{{ reserva.hora.strftime('%H:%M') }}</td>
+                                    <td>{{ reserva.empleado.nombre }}</td>
+                                    <td>
+                                        {% if reserva.estado == 'pendiente' %}
+                                        <span class="badge bg-warning">Pendiente</span>
+                                        {% elif reserva.estado == 'confirmada' %}
+                                        <span class="badge bg-success">Confirmada</span>
+                                        {% elif reserva.estado == 'cancelada' %}
+                                        <span class="badge bg-danger">Cancelada</span>
+                                        {% elif reserva.estado == 'completada' %}
+                                        <span class="badge bg-info">Completada</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
+                                        <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        No tienes reservas pendientes. 
+                        <a href="#" class="alert-link">¡Agenda una cita ahora!</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

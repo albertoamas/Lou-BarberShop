@@ -1,0 +1,13 @@
+prefix=D:/Universidad/QuintoSemestre/Tecnologia_web_II/TrabajoFinal/env/Library
+exec_prefix=D:/Universidad/QuintoSemestre/Tecnologia_web_II/TrabajoFinal/env/Library
+libdir=D:/Universidad/QuintoSemestre/Tecnologia_web_II/TrabajoFinal/env/Library/lib
+sharedlibdir=D:/Universidad/QuintoSemestre/Tecnologia_web_II/TrabajoFinal/env/Library/lib
+includedir=D:/Universidad/QuintoSemestre/Tecnologia_web_II/TrabajoFinal/env/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
