@@ -5,58 +5,188 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Agendar una Cita</h1>
-    
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('reservas.nueva_reserva') }}">Seleccionar servicio</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Seleccionar hora y barbero</li>
-            <li class="breadcrumb-item disabled">Confirmar reserva</li>
-        </ol>
-    </nav>
-    
-    <div class="row mt-4">
-        <div class="col-md-8 mx-auto">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="card-title mb-0">Paso 2: Seleccionar barbero y hora</h5>
+<div class="container py-5">
+    <!-- Header elegante -->
+    <div class="text-center mb-5">
+        <div class="appointment-badge mb-4">
+            <span class="badge bg-dark text-white px-4 py-3 rounded-pill fs-6">
+                <i class="fas fa-calendar-alt me-2"></i>Agendar una Cita
+            </span>
+        </div>
+        <h1 class="display-4 fw-bold mb-4">
+            Selecciona tu <span class="text-secondary">Barbero</span> y <span class="text-secondary">Horario</span>
+        </h1>
+        <div class="divider-custom mx-auto mb-4">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-cut"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+    </div>
+      <!-- Stepper de progreso elegante -->
+    <div class="progress-stepper mb-5">
+        <div class="stepper-container">
+            <div class="step completed">
+                <div class="step-circle">
+                    <i class="fas fa-check"></i>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-info">
-                        <strong>Servicio:</strong> {{ servicio.nombre }} - ${{ "%.2f"|format(servicio.precio) }} ({{ servicio.duracion }} min)<br>
-                        <strong>Fecha:</strong> {{ fecha.strftime('%d/%m/%Y') }}
+                <div class="step-content">
+                    <div class="step-title">Servicio</div>
+                    <div class="step-subtitle">Seleccionado</div>
+                </div>
+            </div>
+            
+            <div class="step-connector completed"></div>
+            
+            <div class="step active">
+                <div class="step-circle">
+                    <span>2</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Horario</div>
+                    <div class="step-subtitle">En progreso</div>
+                </div>
+            </div>
+            
+            <div class="step-connector"></div>
+            
+            <div class="step">
+                <div class="step-circle">
+                    <span>3</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Confirmar</div>
+                    <div class="step-subtitle">Pendiente</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-10 mx-auto">
+            <!-- Información del servicio seleccionado -->
+            <div class="card shadow-sm mb-4 border-0 service-info-card">
+                <div class="card-header bg-dark text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-info-circle me-3 fs-5"></i>
+                        <h5 class="card-title mb-0 fw-bold">Información de tu Reserva</h5>
                     </div>
-                    
-                    <h5 class="mt-4 mb-3">Barberos disponibles:</h5>
-                    
-                    <div class="row">
+                </div>
+                <div class="card-body bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <div class="service-detail-item">
+                                <i class="fas fa-cut text-secondary me-2"></i>
+                                <div>
+                                    <strong>Servicio:</strong>
+                                    <div class="fs-5 fw-semibold">{{ servicio.nombre }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="service-detail-item">
+                                <i class="fas fa-dollar-sign text-secondary me-2"></i>
+                                <div>
+                                    <strong>Precio:</strong>
+                                    <div class="fs-5 fw-semibold text-success">Bs {{ "%.0f"|format(servicio.precio) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="service-detail-item">
+                                <i class="fas fa-clock text-secondary me-2"></i>
+                                <div>
+                                    <strong>Duración:</strong>
+                                    <div class="fs-6">{{ servicio.duracion }} min</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="service-detail-item">
+                                <i class="fas fa-calendar text-secondary me-2"></i>
+                                <div>
+                                    <strong>Fecha:</strong>
+                                    <div class="fs-6 fw-semibold">{{ fecha.strftime('%d/%m/%Y') }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barberos disponibles -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-tie me-3 fs-5"></i>
+                            <h5 class="card-title mb-0 fw-bold">Barberos Disponibles</h5>
+                        </div>
+                        <span class="badge bg-secondary">{{ disponibilidad|length }} disponible{{ 's' if disponibilidad|length != 1 else '' }}</span>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    {% if disponibilidad %}
+                    <div class="row g-4">
                         {% for empleado_id, info in disponibilidad.items() %}
-                        <div class="col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ info.nombre }}</h5>
-                                    <h6 class="card-subtitle mb-3 text-muted">{{ info.especialidad }}</h6>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm barber-selection-card">
+                                <div class="card-body p-4">
+                                    <!-- Header del barbero -->
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="barber-avatar bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            <i class="fas fa-user-tie text-secondary fa-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="card-title mb-1 fw-bold">{{ info.nombre }}</h5>
+                                            <h6 class="card-subtitle text-muted">{{ info.especialidad }}</h6>
+                                        </div>
+                                    </div>
                                     
-                                    <p class="mb-2">Horarios disponibles:</p>
-                                    <div class="d-flex flex-wrap">
-                                        {% for hora in info.horas %}
-                                        <a href="{{ url_for('reservas.confirmar_reserva', servicio_id=servicio.id, empleado_id=empleado_id, fecha=fecha_str, hora=hora) }}" 
-                                           class="btn btn-outline-primary btn-sm me-2 mb-2">
-                                            {{ hora }}
-                                        </a>
-                                        {% endfor %}
+                                    <!-- Divider decorativo -->
+                                    <div class="barber-divider mb-4"></div>
+                                    
+                                    <!-- Horarios disponibles -->
+                                    <div class="mb-3">
+                                        <p class="mb-3 fw-semibold text-dark time-slots-title">
+                                            <i class="fas fa-clock text-secondary me-2"></i>
+                                            Horarios disponibles:
+                                        </p>
+                                        <div class="time-slots-grid">
+                                            {% for hora in info.horas %}
+                                            <a href="{{ url_for('reservas.confirmar_reserva', servicio_id=servicio.id, empleado_id=empleado_id, fecha=fecha_str, hora=hora) }}" 
+                                               class="time-slot-btn">
+                                                <i class="far fa-clock me-1"></i>
+                                                {{ hora }}
+                                            </a>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-                    
-                    <div class="mt-3 text-center">
-                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-secondary">Volver</a>
+                    {% else %}
+                    <div class="no-availability-message">
+                        <div class="text-center py-5">
+                            <div class="mb-4">
+                                <i class="fas fa-calendar-times text-muted no-availability-icon"></i>
+                            </div>
+                            <h4 class="text-muted mb-3">No hay horarios disponibles</h4>
+                            <p class="text-muted mb-4">Lo sentimos, no hay barberos disponibles para la fecha seleccionada.</p>
+                            <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Seleccionar otra fecha
+                            </a>
+                        </div>
                     </div>
+                    {% endif %}
                 </div>
+            </div>
+            
+            <!-- Botones de navegación -->
+            <div class="text-center mt-4">
+                <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-outline-secondary btn-lg px-4 back-btn">
+                    <i class="fas fa-arrow-left me-2"></i>Volver
+                </a>
             </div>
         </div>
     </div>

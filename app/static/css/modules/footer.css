@@ -1,0 +1,266 @@
+/* ==================== FOOTER STYLES - Lou Barbershop ==================== */
+/* Estilos para el pie de página y elementos relacionados */
+
+/* ========== FOOTER BASE ========== */
+footer {
+    margin-top: auto;
+    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 100%) !important;
+    padding: 2rem 0 !important;
+    color: #FFFFFF !important;
+}
+
+footer p {
+    margin-bottom: 0;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+footer .social-icons a {
+    color: #FFFFFF !important;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    transform: scale(1.2);
+    color: #CCCCCC !important;
+}
+
+footer h5 {
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+/* ========== FOOTER MODERNO ========== */
+.footer-modern {
+    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 100%);
+    color: #FFFFFF;
+    padding: 4rem 0 2rem;
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* Removido backdrop-filter y box-shadow costosos */
+    /* Removido animation para mejor rendimiento */
+    contain: layout style paint;
+    transform: translateZ(0); /* Activar aceleración por hardware */
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    transform: translateZ(0); /* Activar aceleración por hardware */
+}
+
+/* ========== BRAND DEL FOOTER ========== */
+.footer-brand {
+    margin-bottom: 2rem;
+}
+
+.footer-brand-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: -2px;
+}
+
+.footer-brand-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 0.9;
+    margin-bottom: -5px;
+    letter-spacing: 1px;
+}
+
+.footer-brand-type {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #FFFFFF;
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-top: -3px;
+}
+
+.footer-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 300px;
+}
+
+/* ========== SECCIONES DEL FOOTER ========== */
+.footer-section h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease, transform 0.2s ease; /* Transiciones más rápidas */
+}
+
+.footer-list li:hover {
+    color: #FFFFFF;
+    /* Optimizado: reducido el translateX para mejor rendimiento */
+    transform: translateX(2px);
+}
+
+.footer-list i {
+    margin-right: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+.footer-list li:hover i {
+    color: #FFFFFF;
+}
+
+/* ========== ICONOS SOCIALES ========== */
+.social-icons-modern {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icon-modern {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    transition: all 0.2s ease; /* Transición más rápida */
+    backface-visibility: hidden; /* Prevenir parpadeo */
+    text-decoration: none;
+}
+
+.social-icon-modern:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    /* Optimizado: solo transform simple, removido scale y box-shadow costosos */
+    transform: translateY(-2px);
+}
+
+.social-icon-modern.facebook:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+}
+
+.social-icon-modern.instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-color: #bc1888;
+}
+
+.social-icon-modern.twitter:hover {
+    background: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.social-icon-modern.tiktok:hover {
+    background: linear-gradient(45deg, #ff0050 0%, #000000 100%);
+    border-color: #ff0050;
+}
+
+.social-icon-modern.whatsapp:hover {
+    background: #25d366;
+    border-color: #25d366;
+}
+
+/* ========== PIE DEL FOOTER ========== */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ========== ANIMACIONES ========== */
+/* Animación footerSlideUp removida para optimizar rendimiento */
+
+/* Optimización: Usar will-change solo cuando sea necesario */
+.social-icon-modern {
+    will-change: transform;
+}
+
+.social-icon-modern:hover {
+    will-change: auto;
+}
+
+/* ========== OPTIMIZACIONES DE RENDIMIENTO ========== */
+/* Las optimizaciones ya están integradas en las clases principales */
+
+/* Optimizar media queries para reducir reflow */
+@media (max-width: 768px) {
+    .footer-modern {
+        padding: 3rem 0 1.5rem;
+        contain: layout style; /* Reducir contain en móvil */
+    }
+    
+    .footer-description {
+        max-width: none;
+        text-align: center;
+    }
+    
+    .footer-brand h5 {
+        font-size: 1.5rem;
+        justify-content: center;
+    }
+    
+    .social-icons-modern {
+        justify-content: center;
+    }
+      .footer-brand-title {
+        font-size: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-brand-name {
+        font-size: 1.8rem;
+    }
+    
+    .footer-brand-type {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */

@@ -1,0 +1,876 @@
+/* ========================================
+   ADMIN PANEL - ESTILOS MODERNOS
+   Panel administrativo con diseño coherente con Lou Barbershop
+   ======================================== */
+
+/* Variables para admin */
+:root {
+    --admin-primary: #121212;
+    --admin-secondary: #333333;
+    --admin-accent: #808080;
+    --admin-light: #ffffff;
+    --admin-border: rgba(0, 0, 0, 0.1);
+    --admin-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --admin-border-radius: 15px;
+}
+
+/* Layout del dashboard */
+.admin-dashboard {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.admin-dashboard .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: var(--admin-primary);
+}
+
+.admin-dashboard .display-4 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--admin-primary);
+}
+
+/* Tarjetas administrativas modernas */
+.admin-card {
+    border-radius: var(--admin-border-radius);
+    background: var(--admin-light);
+    border: 1px solid var(--admin-border);
+    box-shadow: var(--admin-shadow);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Tarjetas de estadísticas mejoradas */
+.stat-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%);
+    border-radius: var(--admin-border-radius);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+}
+
+.stat-card:hover::before {
+    transform: translateX(0%) translateY(0%) rotate(45deg);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.stat-card .card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.stat-card .display-4 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.stat-card .card-title {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card .btn-light {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stat-card .btn-light:hover {
+    background: white;
+    color: var(--admin-primary);
+    transform: translateY(-2px);
+}
+
+/* Estilos de tabla administrativas mejoradas */
+.admin-card .table {
+    margin-bottom: 0;
+    background: transparent;
+}
+
+.admin-card .table th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    color: var(--admin-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 0.75rem;
+}
+
+.admin-card .table td {
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid var(--admin-border);
+    padding: 1rem 0.75rem;
+    color: var(--admin-secondary);
+}
+
+.admin-card .table-hover tbody tr {
+    transition: all 0.3s ease;
+}
+
+.admin-card .table-hover tbody tr:hover {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.05) 0%, rgba(51, 51, 51, 0.05) 100%);
+    transform: translateX(5px);
+}
+
+/* Lista de grupos administrativos */
+.admin-card .list-group-item {
+    border: none;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+}
+
+.admin-card .list-group-item:hover {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.08) 0%, rgba(51, 51, 51, 0.08) 100%);
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-card .list-group-item.list-group-item-action:hover {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.1) 0%, rgba(51, 51, 51, 0.1) 100%);
+}
+
+/* Badges y elementos de estado modernos */
+.admin-card .badge {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-card .badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.admin-card .badge:hover::before {
+    left: 100%;
+}
+
+/* Grupos de botones administrativos */
+.admin-card .btn-group-sm .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 0 2px;
+    transition: all 0.3s ease;
+}
+
+.admin-card .btn-group-sm .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Headers de tarjetas administrativas */
+.admin-card .card-header {
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--admin-border-radius) var(--admin-border-radius) 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-card .card-header .card-title {
+    color: white !important;
+    font-weight: 600;
+}
+
+.admin-card .card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
+}
+
+.admin-card .card-header.bg-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+}
+
+.admin-card .card-header.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+}
+
+.admin-card .card-header.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%) !important;
+}
+
+.admin-card .card-header.bg-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #d39e00 100%) !important;
+    color: var(--admin-primary) !important;
+}
+
+.admin-card .card-header.bg-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%) !important;
+}
+
+.admin-card .card-header.bg-dark {
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%) !important;
+}
+
+.admin-card .card-header.bg-dark .card-title,
+.admin-card .card-header.bg-dark h5 {
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Header elegante para reservas del día */
+.elegant-dark-header {
+    background: linear-gradient(135deg, #121212 0%, #333333 100%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.elegant-dark-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1), 
+        rgba(255, 255, 255, 0.4), 
+        rgba(255, 255, 255, 0.1)
+    );
+}
+
+.elegant-dark-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        transparent 30%, 
+        rgba(255, 255, 255, 0.05) 50%, 
+        transparent 70%
+    );
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+}
+
+.elegant-dark-header:hover::after {
+    transform: translateX(0%) translateY(0%) rotate(45deg);
+}
+
+.elegant-dark-header .card-title,
+.elegant-dark-header h5 {
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Optimización para tabla de reservas */
+.admin-card .table-responsive-sm {
+    overflow-x: hidden;
+}
+
+.admin-card .table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.admin-card .table th,
+.admin-card .table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-card .table th:first-child,
+.admin-card .table td:first-child {
+    width: 30%;
+    white-space: normal;
+}
+
+.admin-card .table th:nth-child(2),
+.admin-card .table td:nth-child(2) {
+    width: 20%;
+}
+
+.admin-card .table th:nth-child(3),
+.admin-card .table td:nth-child(3) {
+    width: 15%;
+}
+
+.admin-card .table th:nth-child(4),
+.admin-card .table td:nth-child(4) {
+    width: 10%;
+}
+
+.admin-card .table th:nth-child(5),
+.admin-card .table td:nth-child(5) {
+    width: 15%;
+}
+
+.admin-card .table th:last-child,
+.admin-card .table td:last-child {
+    width: 10%;
+    min-width: 120px;
+}
+
+/* Botones compactos solo con iconos */
+.admin-card .btn-sm {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.875rem;
+    min-width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive para dispositivos móviles */
+@media (max-width: 768px) {
+    .admin-card .table-responsive-sm {
+        overflow-x: auto;
+    }
+    
+    .admin-card .table {
+        table-layout: auto;
+        min-width: 700px;
+    }
+    
+    .admin-card .table th,
+    .admin-card .table td {
+        white-space: nowrap;
+        min-width: auto;
+    }
+}
+
+/* Admin Alert Styles */
+.admin-dashboard .alert {
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-dashboard .alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+}
+
+.admin-dashboard .alert-info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+}
+
+.admin-dashboard .alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+}
+
+.admin-dashboard .alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+}
+
+/* Admin Icon Containers */
+.admin-dashboard .icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+/* Admin Modal Enhancements */
+.admin-dashboard .modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.admin-dashboard .modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--primary) 0%, #0056b3 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.admin-dashboard .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 15px 15px;
+}
+
+/* Admin Form Styles */
+.admin-dashboard .form-control {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.admin-dashboard .form-control:hover {
+    border-color: rgba(0, 123, 255, 0.5);
+}
+
+.admin-dashboard .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.admin-dashboard .form-label {
+    font-weight: 600;
+    color: var(--admin-secondary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.admin-dashboard .input-group {
+    transition: all 0.3s ease;
+}
+
+.admin-dashboard .input-group:focus-within {
+    transform: translateY(-2px);
+}
+
+.admin-dashboard .input-group-text {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    color: var(--admin-secondary);
+}
+
+/* Admin Header Badge */
+.admin-header-badge {
+    animation: fadeInDown 0.8s ease-out;
+}
+
+/* Divider Custom Styles */
+.divider-custom {
+    margin: 2.5rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider-custom .divider-custom-line {
+    width: 100%;
+    max-width: 7rem;
+    height: 0.25rem;
+    background-color: var(--admin-accent);
+    border-radius: 1rem;
+    border-color: var(--admin-accent);
+}
+
+.divider-custom .divider-custom-line:first-child {
+    margin-right: 1rem;
+}
+
+.divider-custom .divider-custom-line:last-child {
+    margin-left: 1rem;
+}
+
+.divider-custom .divider-custom-icon {
+    color: var(--admin-accent);
+    font-size: 2rem;
+}
+
+/* Pulse Animation para status indicators */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Fade In Down Animation */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Modal Styles */
+.admin-dashboard .modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.admin-dashboard .modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%);
+    color: white;
+    padding: 1.5rem;
+}
+
+.admin-dashboard .modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.admin-dashboard .modal-body {
+    padding: 2rem;
+}
+
+.admin-dashboard .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background: #f8f9fa;
+    padding: 1.5rem;
+}
+
+.admin-dashboard .btn-close {
+    filter: invert(1);
+}
+
+/* Enhanced Button Styles */
+.admin-dashboard .btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.admin-dashboard .btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.admin-dashboard .btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+}
+
+.admin-dashboard .btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    border: none;
+}
+
+.admin-dashboard .btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #d39e00 100%);
+    border: none;
+    color: var(--admin-primary);
+}
+
+.admin-dashboard .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);
+    border: none;
+}
+
+.admin-dashboard .btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+    border: none;
+}
+
+.admin-dashboard .btn-outline-dark {
+    border: 2px solid var(--admin-primary);
+    color: var(--admin-primary);
+    font-weight: 600;
+}
+
+.admin-dashboard .btn-outline-dark:hover {
+    background: var(--admin-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Badge Styles */
+.admin-dashboard .badge {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Icon Container Enhancements */
+.admin-dashboard .icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #0056b3 100%);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* Table Enhancements */
+.admin-dashboard .table th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    color: var(--admin-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 0.75rem;
+    border-bottom: 2px solid var(--admin-border);
+}
+
+.admin-dashboard .table td {
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid var(--admin-border);
+    padding: 1rem 0.75rem;
+    color: var(--admin-secondary);
+}
+
+.admin-dashboard .table-hover tbody tr:hover {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(0, 86, 179, 0.05) 100%);
+    transform: translateX(3px);
+    transition: all 0.3s ease;
+}
+
+/* Empty State Styling */
+.admin-dashboard .text-center.py-5 {
+    padding: 3rem 1rem !important;
+}
+
+.admin-dashboard .text-center.py-5 .icon-container {
+    margin: 0 auto 1.5rem;
+}
+
+/* Loading States */
+.admin-dashboard .btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.admin-dashboard .btn.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Enhancements */
+@media (max-width: 992px) {
+    .admin-dashboard .btn-lg {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .admin-dashboard .icon-container {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-dashboard .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .admin-dashboard .modal-header,
+    .admin-dashboard .modal-footer {
+        padding: 1rem;
+    }
+    
+    .admin-dashboard .display-4 {
+        font-size: 2rem;
+    }
+    
+    .admin-dashboard .lead {
+        font-size: 1rem;
+    }
+}
+
+/* ========================================
+   ESTILOS PARA RESERVAS DEL DÍA
+   ======================================== */
+
+/* Header de reservas moderno */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    position: relative;
+}
+
+.bg-gradient-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%);
+    background-size: 20px 20px;
+    opacity: 0.1;
+}
+
+/* Avatar de usuario mejorado */
+.avatar {
+    transition: all 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+/* Badges modernos con bordes */
+.badge.border {
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+}
+
+/* Botones de acción mejorados */
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Tabla de reservas mejorada */
+.table-responsive table th {
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+    transform: scale(1.01);
+    transition: all 0.3s ease;
+}
+
+/* Estado vacío mejorado */
+.text-center.py-5 i {
+    opacity: 0.6;
+    margin-bottom: 1rem;
+}
+
+/* Animaciones sutiles */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.admin-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Mejoras responsive */
+@media (max-width: 768px) {
+    .d-flex.gap-2 {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+    
+    .btn-sm {
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}

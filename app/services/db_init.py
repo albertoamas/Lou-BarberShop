@@ -26,15 +26,37 @@ def init_db():
         db.session.add(admin)
         db.session.commit()
         print("Usuario administrador creado correctamente")
-    
-    # Crear servicios de ejemplo si no existen
+      # Crear servicios de ejemplo si no existen
     if Servicio.query.count() == 0:
-        servicios = [
-            Servicio(nombre='Corte de Cabello', duracion=30, precio=15.00),
-            Servicio(nombre='Afeitado', duracion=20, precio=10.00),
-            Servicio(nombre='Corte y Afeitado', duracion=45, precio=22.00),
-            Servicio(nombre='Diseño de Barba', duracion=25, precio=12.00),
-            Servicio(nombre='Tratamiento Facial', duracion=30, precio=20.00)
+        servicios = [            Servicio(
+                nombre='Corte de cabello',
+                descripcion='Corte de cabello profesional adaptado a tu estilo, incluyendo lavado y secado.',
+                duracion=45,
+                precio=50.00
+            ),Servicio(
+                nombre='Barba',
+                descripcion='Arreglo y perfilado profesional de barba con productos de calidad.',
+                duracion=30,
+                precio=40.00
+            ),
+            Servicio(
+                nombre='Corte y perfilado de cejas',
+                descripcion='Diseño y perfilado de cejas para un look impecable.',
+                duracion=20,
+                precio=60.00
+            ),
+            Servicio(
+                nombre='Corte y barba',
+                descripcion='Servicio combinado de corte de cabello y arreglo de barba.',
+                duracion=60,
+                precio=70.00
+            ),
+            Servicio(
+                nombre='Servicio completo (corte, barba, cejas)',
+                descripcion='Paquete completo que incluye corte de cabello, arreglo de barba y perfilado de cejas.',
+                duracion=90,
+                precio=80.00
+            )
         ]
         db.session.add_all(servicios)
         db.session.commit()

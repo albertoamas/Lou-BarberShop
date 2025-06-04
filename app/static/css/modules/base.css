@@ -1,0 +1,92 @@
+/* ==================== BASE STYLES - Lou Barbershop ==================== */
+/* Variables CSS, resets y estilos globales fundamentales */
+
+/* ========== VARIABLES CSS ========== */
+:root {
+    --primary: #121212;          /* Negro profundo */
+    --secondary: #333333;        /* Negro medio */
+    --accent: #808080;           /* Gris medio */
+    --light: #FFFFFF;            /* Blanco puro */
+    --dark: #000000;             /* Negro absoluto */
+    --success: #2E8B57;          /* Verde oscuro */
+    --warning: #B0B0B0;          /* Gris claro */
+    --danger: #8B0000;           /* Rojo oscuro */
+    --gray: #6c757d;             /* Gris (mantenido) */
+    --border-radius: 8px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+/* ========== ESTILOS GLOBALES ========== */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #FFFFFF; /* Blanco puro para un look minimalista */
+}
+
+main {
+    flex: 1;
+}
+
+/* ========== ESTILOS PARA TÍTULOS ========== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.section-title {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: var(--secondary);
+}
+
+.text-white.section-title::after {
+    background-color: var(--light);
+}
+
+/* ========== COLORES DE TEXTO ========== */
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.text-white-50 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ========== VIEWPORT UTILITIES ========== */
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.min-vh-60 {
+    min-height: 60vh;
+}
+
+/* ========== SMOOTH SCROLL ========== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Compensar altura del navbar fijo */
+}
+
+/* ========== TRANSICIONES COMUNES ========== */
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+.transition-transform {
+    transition: transform 0.3s ease;
+}

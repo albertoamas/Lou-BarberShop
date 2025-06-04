@@ -1,0 +1,308 @@
+/* ==================== HOME PAGE STYLES - Lou Barbershop ==================== */
+/* Estilos específicos para la página de inicio */
+
+/* ========== HERO BADGE ========== */
+.hero-badge {
+    margin-bottom: 1.5rem;
+}
+
+.hero-badge .badge {
+    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 100%) !important;
+    color: #FFFFFF !important;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    /* Mejoras para anti-aliasing del texto */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.hero-badge .badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hero-badge .badge i {
+    color: #FFFFFF;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* ========== ICONOS DE SERVICIOS ========== */
+.icon-container-xl i {
+    color: #FFFFFF !important;
+    font-size: 1.8rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Mejoras para anti-aliasing de iconos */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-container-xl.gradient-primary {
+    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 100%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.icon-container-xl:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.icon-container-xl:hover i {
+    color: #F8F9FA !important;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* ========== HERO SECTION ========== */
+.hero-section {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 6rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -5rem;
+    left: 0;
+    right: 0;
+    height: 10rem;
+    background: var(--light);
+    transform: skewY(-3deg);
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    color: var(--light);
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.hero-section .highlight {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: white;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* ========== HERO MODERNO ========== */
+.home-hero {
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.home-hero::before {
+    display: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content::before {
+    display: none;
+}
+
+.hero-content:hover::before {
+    display: none;
+}
+
+.highlight-modern {
+    position: relative;
+    color: var(--dark);
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+}
+
+.highlight-modern::after {
+    display: none;
+}
+
+/* ========== ESTADÍSTICAS DEL HERO ========== */
+.hero-stats {
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+}
+
+.stat-item-home {
+    text-align: center;
+}
+
+.stat-number-home {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--dark);
+    display: block;
+    line-height: 1;
+}
+
+.stat-label-home {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.25rem;
+}
+
+/* ========== BOTONES DEL HERO ========== */
+.hero-buttons .btn {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ========== IMAGEN DEL HERO ========== */
+.hero-image-container {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    margin: -1rem;
+}
+
+.hero-image-modern {
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 3;
+}
+
+/* ========== SECCIÓN DE CARACTERÍSTICAS ========== */
+.features-section {
+    background: white;
+}
+
+.section-badge .badge {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ========== VISTA PREVIA DE SERVICIOS ========== */
+.services-preview-section {
+    background: #f8f9fa;
+}
+
+/* ========== SECCIÓN CTA DE INICIO ========== */
+.home-cta-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.home-cta-section h2 {
+    color: #FFFFFF !important;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-decoration {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.1);
+    transform: rotate(15deg);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+    .home-hero {
+        min-height: 85vh;
+        text-align: center;
+    }
+    
+    .hero-stats {
+        margin-top: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .cta-buttons-home {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-buttons-home .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}

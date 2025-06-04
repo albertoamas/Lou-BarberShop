@@ -1,0 +1,219 @@
+/* ==================== ANIMATIONS - Lou Barbershop ==================== */
+/* Todas las animaciones, keyframes y efectos de movimiento */
+
+/* ========== ANIMACIONES BÁSICAS ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05); 
+    }
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px); 
+    }
+    50% { 
+        transform: translateY(-10px); 
+    }
+}
+
+/* ========== ANIMACIONES ESPECÍFICAS DE PÁGINA ========== */
+
+/* Animación para iconos de citas */
+.appointment-icon {
+    animation: pulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    will-change: transform;
+}
+
+/* Animación para iconos de servicios */
+.services-icon {
+    animation: pulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    will-change: transform;
+}
+
+/* Animación para badges del hero */
+.hero-badge .badge {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ========== ANIMACIONES DE HERO ========== */
+.highlight-modern::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0.2rem;
+    width: 100%;
+    height: 5px;
+    background-color: var(--light);
+    transform: scaleX(0.8);
+    transition: transform 0.3s ease;
+}
+
+.hero-section:hover .highlight::after {
+    transform: scaleX(1);
+}
+
+@keyframes slideIn {
+    from {
+        width: 0;
+        left: 50%;
+    }
+    to {
+        width: 100%;
+        left: 0;
+    }
+}
+
+/* ========== EFECTOS DE FONDO ANIMADOS ========== */
+.appointment-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-opacity="0.03"><path d="M30,30 L60,0 L60,60 L0,60 Z"/></g></svg>');
+    animation: float 25s ease-in-out infinite;
+    z-index: 0;
+}
+
+.services-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-opacity="0.03"><path d="M30,30 L60,0 L60,60 L0,60 Z"/></g></svg>');
+    animation: float 25s ease-in-out infinite;
+    z-index: 0;
+}
+
+.home-cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-opacity="0.03"><circle cx="40" cy="40" r="30"/></g></svg>');
+    animation: float 30s ease-in-out infinite;
+}
+
+.cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-opacity="0.05"><circle cx="40" cy="40" r="30"/></g></svg>');
+    animation: float 30s ease-in-out infinite;
+}
+
+/* ========== DECORACIONES ANIMADAS ========== */
+.hero-decoration-1 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, white, transparent);
+    top: -50px;
+    right: -50px;
+    animation: float 20s ease-in-out infinite;
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.hero-decoration-2 {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(-45deg, white, transparent);
+    bottom: -30px;
+    left: -30px;
+    animation: float 25s ease-in-out infinite reverse;
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+/* ========== ANIMACIONES DE HOVER ========== */
+.hero-image-modern:hover {
+    transform: translateY(-15px) scale(1.03);
+    filter: brightness(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    position: relative;
+}
+
+.feature-card-modern:hover .feature-icon-modern {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-card-premium:hover .service-icon-modern {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-card-home:hover .service-icon-home {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.employee-card:hover img {
+    transform: scale(1.05);
+}
+
+/* ========== ANIMACIONES DE BRAND ========== */
+.brand-icon {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.footer-brand-icon {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* ========== OPTIMIZACIÓN DE RENDIMIENTO ========== */
+.service-card-modern,
+.appointment-form-card,
+.submit-btn {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Limitar el contexto de apilamiento de las animaciones */
+.animate-fadeInUp,
+.animate-slideInUp {
+    position: relative;
+    z-index: auto;
+}
+
+/* ========== ANIMACIONES RESPONSIVAS ========== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

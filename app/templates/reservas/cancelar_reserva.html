@@ -29,7 +29,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Precio
-                                    <span>${{ "%.2f"|format(reserva.servicio.precio) }}</span>
+                                    <span>Bs {{ "%.0f"|format(reserva.servicio.precio) }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -39,14 +39,13 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Barbero
                                     <span class="fw-bold">{{ reserva.empleado.nombre }}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                </li>                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Fecha
-                                    <span>{{ reserva.fecha.strftime('%d/%m/%Y') }}</span>
+                                    <span>{{ reserva.fecha|strftime('%d/%m/%Y') }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Hora
-                                    <span>{{ reserva.hora.strftime('%H:%M') }}</span>
+                                    <span>{{ reserva.hora|strftime('%H:%M') }}</span>
                                 </li>
                             </ul>
                         </div>

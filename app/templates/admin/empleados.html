@@ -1,77 +1,148 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Gestionar Empleados</h1>
+<div class="container admin-dashboard py-5">
+    <!-- Header moderno de gestión de empleados -->
+    <div class="text-center mb-5">
+        <div class="admin-header-badge mb-4">
+            <span class="badge bg-dark text-white px-4 py-3 rounded-pill fs-6">
+                <i class="fas fa-users me-2"></i>Gestión de Empleados
+            </span>
+        </div>
+        <h1 class="display-4 fw-bold mb-4">
+            Gestionar <span style="color: var(--admin-accent);">Empleados</span>
+        </h1>
+        <div class="divider-custom mx-auto mb-4">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-user-tie"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <p class="lead text-muted fs-5">
+            Administra el equipo de barberos de Lou Barbershop
+        </p>
+    </div>
     
-    <div class="row mb-4">
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="card-title mb-0">Agregar Nuevo Empleado</h5>
+    <div class="row g-4">
+        <!-- Formulario para agregar empleado -->
+        <div class="col-lg-5">
+            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-plus-circle me-2"></i>
+                    <h5 class="card-title mb-0 fw-bold">Agregar Nuevo Empleado</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form action="{{ url_for('admin.agregar_empleado') }}" method="post">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <label for="nombre" class="form-label fw-bold">
+                                <i class="fas fa-user me-2"></i>Nombre Completo
+                            </label>
+                            <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="especialidad" class="form-label">Especialidad</label>
+                            <label for="especialidad" class="form-label fw-bold">
+                                <i class="fas fa-star me-2"></i>Especialidad
+                            </label>
                             <input type="text" class="form-control" id="especialidad" name="especialidad" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="telefono" class="form-label">Teléfono</label>
+                            <label for="telefono" class="form-label fw-bold">
+                                <i class="fas fa-phone me-2"></i>Teléfono
+                            </label>
                             <input type="tel" class="form-control" id="telefono" name="telefono">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="correo" class="form-label">Correo Electrónico</label>
+                            <label for="correo" class="form-label fw-bold">
+                                <i class="fas fa-envelope me-2"></i>Correo Electrónico
+                            </label>
                             <input type="email" class="form-control" id="correo" name="correo">
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">Agregar Empleado</button>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus-circle me-2"></i>Agregar Empleado
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
         
-        <div class="col-md-7">
-            <div class="card">
-                <div class="card-header bg-info text-white">
-                    <h5 class="card-title mb-0">Empleados Actuales</h5>
+        <!-- Lista de empleados -->
+        <div class="col-lg-7">
+            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-info text-white d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-list-alt me-2"></i>
+                        <h5 class="card-title mb-0 fw-bold">Empleados Actuales</h5>
+                    </div>
+                    <span class="badge bg-light text-dark fs-6 px-3 py-2">
+                        {{ empleados|length }} empleado{{ 's' if empleados|length != 1 else '' }}
+                    </span>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-0">
                     {% if empleados %}
                     <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Especialidad</th>
-                                    <th>Teléfono</th>
-                                    <th>Correo</th>
-                                    <th>Acciones</th>
+                                    <th class="px-3 fw-bold">Empleado</th>
+                                    <th class="fw-bold">Contacto</th>
+                                    <th class="text-end pe-3 fw-bold">Acciones</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                            </thead>                            <tbody>
                                 {% for empleado in empleados %}
-                                <tr>
-                                    <td>{{ empleado.nombre }}</td>
-                                    <td>{{ empleado.especialidad }}</td>
-                                    <td>{{ empleado.telefono or 'No registrado' }}</td>
-                                    <td>{{ empleado.correo or 'No registrado' }}</td>
+                                <tr class="align-middle">
+                                    <td class="px-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-container bg-primary me-3">
+                                                <i class="fas fa-user-tie"></i>
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold">{{ empleado.nombre }}</span>
+                                                <br>
+                                                <small class="text-muted">{{ empleado.especialidad }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>
-                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarEmpleado{{ empleado.id }}">
-                                            Editar
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarEmpleado{{ empleado.id }}">
-                                            Eliminar
-                                        </button>
+                                        <div>
+                                            {% if empleado.telefono %}
+                                            <div class="mb-1">
+                                                <i class="fas fa-phone text-muted me-1"></i>
+                                                <small>{{ empleado.telefono }}</small>
+                                            </div>
+                                            {% endif %}
+                                            {% if empleado.correo %}
+                                            <div>
+                                                <i class="fas fa-envelope text-muted me-1"></i>
+                                                <small>{{ empleado.correo }}</small>
+                                            </div>
+                                            {% endif %}
+                                            {% if not empleado.telefono and not empleado.correo %}
+                                            <span class="text-muted">No registrado</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-1 justify-content-end">
+                                            <button type="button" class="btn btn-warning btn-sm px-3" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#editarEmpleado{{ empleado.id }}"
+                                                    title="Editar empleado">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm px-3" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#eliminarEmpleado{{ empleado.id }}"
+                                                    title="Eliminar empleado">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 

@@ -19,7 +19,7 @@ class ReservaForm(FlaskForm):
         super(ReservaForm, self).__init__(*args, **kwargs)
         
         # Cargar opciones de servicios
-        self.servicio_id.choices = [(s.id, f"{s.nombre} - ${s.precio:.2f} ({s.duracion} min)") 
+        self.servicio_id.choices = [(s.id, f"{s.nombre} - Bs {s.precio:.0f} ({s.duracion} min)") 
                                for s in Servicio.query.order_by(Servicio.nombre).all()]
         
         # Cargar opciones de empleados
@@ -71,7 +71,7 @@ class BuscarDisponibilidadForm(FlaskForm):
         super(BuscarDisponibilidadForm, self).__init__(*args, **kwargs)
         
         # Cargar opciones de servicios
-        self.servicio_id.choices = [(s.id, f"{s.nombre} - ${s.precio:.2f} ({s.duracion} min)") 
+        self.servicio_id.choices = [(s.id, f"{s.nombre} - Bs {s.precio:.0f} ({s.duracion} min)") 
                                for s in Servicio.query.order_by(Servicio.nombre).all()]
     
     def validate_fecha(self, fecha):

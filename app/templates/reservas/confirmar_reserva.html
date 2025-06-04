@@ -1,74 +1,136 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Agendar una Cita</h1>
-    
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('reservas.nueva_reserva') }}">Seleccionar servicio</a></li>
-            <li class="breadcrumb-item"><a href="{{ url_for('reservas.seleccionar_hora', servicio_id=servicio.id, fecha=fecha_str) }}">Seleccionar hora y barbero</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Confirmar reserva</li>
-        </ol>
-    </nav>
-    
-    <div class="row mt-4">
+<div class="container py-5">
+    <!-- Header elegante -->
+    <div class="text-center mb-5">
+        <div class="appointment-badge mb-4">
+            <span class="badge bg-dark text-white px-4 py-3 rounded-pill fs-6">
+                <i class="fas fa-check-circle me-2"></i>Confirmar Cita
+            </span>
+        </div>
+        <h1 class="display-4 fw-bold mb-4">
+            Confirma tu <span class="text-secondary">Reserva</span> y <span class="text-secondary">Detalles</span>
+        </h1>
+        <div class="divider-custom mx-auto mb-4">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-cut"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+    </div>    
+    <!-- Stepper de Progreso Elegante -->
+    <div class="progress-stepper mb-5">
+        <div class="stepper-container">
+            <!-- Paso 1: Servicio (Completado) -->
+            <div class="step completed">
+                <div class="step-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Servicio</div>
+                    <div class="step-subtitle">Completado</div>
+                </div>
+            </div>
+
+            <!-- Paso 2: Horario (Completado) -->
+            <div class="step completed">
+                <div class="step-circle">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Horario</div>
+                    <div class="step-subtitle">Completado</div>
+                </div>
+            </div>
+
+            <!-- Paso 3: Confirmar (Activo) -->
+            <div class="step active">
+                <div class="step-circle">
+                    <span>3</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Confirmar</div>
+                    <div class="step-subtitle">En progreso</div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="row">
         <div class="col-md-8 mx-auto">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h5 class="card-title mb-0">Paso 3: Confirmar detalles de la reserva</h5>
+            <div class="card confirmation-card">
+                <div class="card-header confirmation-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Confirmar detalles de la reserva
+                    </h5>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <h5>Detalles del Servicio:</h5>
-                            <ul class="list-group list-group-flush">
+                    <div class="confirmation-grid mb-4">
+                        <div class="detail-panel">
+                            <h5 class="panel-title">
+                                <i class="fas fa-cut me-2"></i>
+                                Detalles del Servicio
+                            </h5>                            <ul class="list-group list-group-flush modern-list">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Servicio
-                                    <span class="fw-bold">{{ servicio.nombre }}</span>
+                                    <span class="fw-bold text-dark">{{ servicio.nombre }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Duración
-                                    <span>{{ servicio.duracion }} minutos</span>
+                                    <span class="badge bg-secondary">{{ servicio.duracion }} min</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Precio
-                                    <span>${{ "%.2f"|format(servicio.precio) }}</span>
+                                    <span class="fw-bold text-success">Bs {{ "%.0f"|format(servicio.precio) }}</span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-md-6">
-                            <h5>Detalles de la Cita:</h5>
-                            <ul class="list-group list-group-flush">
+                        <div class="detail-panel">
+                            <h5 class="panel-title">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                Detalles de la Cita
+                            </h5>                            <ul class="list-group list-group-flush modern-list">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Barbero
-                                    <span class="fw-bold">{{ empleado.nombre }}</span>
+                                    <span class="fw-bold text-dark">{{ empleado.nombre }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Fecha
-                                    <span>{{ fecha.strftime('%d/%m/%Y') }}</span>
+                                    <span class="badge bg-info">{{ fecha.strftime('%d/%m/%Y') }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Hora
-                                    <span>{{ hora }}</span>
+                                    <span class="badge bg-warning text-dark">{{ hora }}</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     
-                    <div class="alert alert-warning">
-                        <strong>Política de cancelación:</strong> Puedes cancelar tu cita hasta 2 horas antes del horario programado.
-                    </div>
-                    
+                    <div class="policy-notice">
+                        <div class="policy-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="policy-content">
+                            <strong>Política de cancelación:</strong> 
+                            Puedes cancelar tu cita hasta 2 horas antes del horario programado.
+                        </div>
+                    </div>                    
                     <form method="POST" action="{{ url_for('reservas.confirmar_reserva') }}">
                         <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
                         <input type="hidden" name="empleado_id" value="{{ empleado.id }}">
                         <input type="hidden" name="fecha" value="{{ fecha_str }}">
                         <input type="hidden" name="hora" value="{{ hora }}">
                         
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ url_for('reservas.seleccionar_hora', servicio_id=servicio.id, fecha=fecha_str) }}" class="btn btn-secondary">Volver</a>
-                            <button type="submit" class="btn btn-success">Confirmar Reserva</button>
+                        <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                            <a href="{{ url_for('reservas.seleccionar_hora', servicio_id=servicio.id, fecha=fecha_str) }}" 
+                               class="btn btn-modern-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>
+                                Volver
+                            </a>
+                            <button type="submit" class="btn btn-modern-primary">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Confirmar Reserva
+                            </button>
                         </div>
                     </form>
                 </div>

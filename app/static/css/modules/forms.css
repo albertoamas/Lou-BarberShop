@@ -1,0 +1,224 @@
+/* ==================== FORM STYLES - Lou Barbershop ==================== */
+/* Estilos para formularios, controles de entrada y elementos relacionados */
+
+/* ========== CONTROLES DE FORMULARIO BASE ========== */
+.form-control, .form-select {
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.7);
+}
+
+/* ========== ETIQUETAS DE FORMULARIO ========== */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+.form-label i {
+    color: var(--dark) !important;
+}
+
+.form-text {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+/* ========== FORMULARIO DE CITA MEJORADO ========== */
+.appointment-form .form-group {
+    position: relative;
+}
+
+.form-select-wrapper {
+    position: relative;
+}
+
+.custom-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    background: white;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: none;
+}
+
+.custom-select:focus {
+    border-color: var(--dark);
+    box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.25);
+}
+
+.select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.form-select-wrapper:hover .select-arrow {
+    color: var(--dark) !important;
+}
+
+/* ========== CONTROLES DE FECHA ========== */
+.date-input-wrapper {
+    position: relative;
+}
+
+.custom-date {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-date:focus {
+    border-color: var(--dark);
+    box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.25);
+}
+
+.date-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+}
+
+/* ========== ALERTAS ========== */
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.alert-success {
+    background-color: rgba(56, 176, 0, 0.1);
+    color: var(--success);
+}
+
+.alert-danger {
+    background-color: rgba(255, 0, 110, 0.1);
+    color: var(--danger);
+}
+
+.alert-warning {
+    background-color: rgba(255, 190, 11, 0.1);
+    color: #d97706;
+}
+
+.alert-info {
+    background-color: rgba(46, 196, 182, 0.1);
+    color: var(--accent);
+}
+
+/* ========== ELEMENTOS DE PROGRESO DE RESERVA ========== */
+.reservation-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.reservation-progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e9ecef;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    margin: 0 2rem;
+    background: white;
+    padding: 0.5rem;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: var(--dark);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.step-title {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #6c757d;
+    text-align: center;
+}
+
+.step.active .step-title {
+    color: var(--dark);
+    font-weight: bold;
+}
+
+/* ========== ICONOS DE FORMULARIO ========== */
+.select-arrow,
+.date-icon {
+    color: var(--gray) !important;
+}
+
+.form-select-wrapper:hover .select-arrow {
+    color: var(--dark) !important;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+    .custom-select,
+    .custom-date {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .step {
+        margin: 0 1rem;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .step-title {
+        font-size: 0.75rem;
+    }
+}

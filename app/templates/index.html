@@ -1,118 +1,236 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section text-center text-md-start">
+<!-- Hero Section Modernizado -->
+<section class="home-hero pt-3 pb-5">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6 animate-fadeInUp">
-                <h1 class="display-4 fw-bold mb-4">Estilo y Confianza en Cada Corte</h1>
-                <p class="lead mb-4">En Lou Barbershop ofrecemos el mejor servicio de barbería con estilo moderno y ambiente acogedor. Nuestros barberos expertos harán que luzcas y te sientas mejor.</p>
-                <div class="d-flex flex-wrap gap-2">
-                    <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-secondary">
-                        <i class="fas fa-calendar-plus me-2"></i>Reservar Ahora
-                    </a>
-                    <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-light">
-                        <i class="fas fa-list me-2"></i>Ver Servicios
-                    </a>
+        <div class="row align-items-center min-vh-60">
+            <div class="col-lg-6 animate-fadeInUp">
+                <div class="hero-content">                    <div class="hero-badge mb-4">
+                        <span class="badge bg-dark text-white px-3 py-2 rounded-pill">
+                            <i class="fas fa-cut me-2"></i>Barbería Premium
+                        </span>
+                    </div><h1 class="display-2 fw-bold mb-4 text-dark">
+                        Estilo y <span class="highlight-modern">Confianza</span><br>
+                        en Cada Corte
+                    </h1>
+                    <div class="divider-custom mx-0 mb-4">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-scissors"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>                    <p class="lead mb-5 text-dark">
+                        En <span class="fw-bold text-dark">Lou Barbershop</span> ofrecemos el mejor servicio de barbería con estilo moderno y ambiente acogedor. Nuestros barberos expertos harán que luzcas y te sientas mejor.
+                    </p>
+                    <div class="hero-buttons d-flex flex-wrap gap-3">
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-hero-primary btn-lg">
+                            <i class="fas fa-calendar-plus me-2"></i>Reservar Ahora
+                        </a>
+                        <a href="{{ url_for('reservas.index') }}" class="btn btn-hero-secondary btn-lg">
+                            <i class="fas fa-list me-2"></i>Ver Servicios
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 d-none d-md-block animate-fadeInUp" style="animation-delay: 0.2s;">
-                <img src="{{ url_for('static', filename='img/barber-hero.png') }}" class="img-fluid rounded-3" alt="Lou Barbershop">
+            <div class="col-lg-6 d-none d-lg-block animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div class="hero-image-container">
+                    <div class="hero-decoration-1"></div>
+                    <div class="hero-decoration-2"></div>
+                    <img src="{{ url_for('static', filename='img/LouBarbershop.png') }}" class="img-fluid hero-image-modern" alt="Lou Barbershop">
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Section -->
-<section class="py-5">
+<!-- Features Section Modernizada -->
+<section class="features-section py-5 mt-5">
     <div class="container">
-        <h2 class="text-center mb-5 section-title">¿Por qué elegirnos?</h2>
+        <div class="text-center mb-5">
+            <div class="section-badge mb-3">
+                <span class="badge bg-dark text-white px-3 py-2 rounded-pill">
+                    <i class="fas fa-star me-2"></i>¿Por qué elegirnos?
+                </span>
+            </div>
+            <h2 class="display-4 fw-bold section-title">Excelencia en Cada Detalle</h2>
+            <p class="lead text-muted">Descubre lo que nos hace únicos</p>
+        </div>
         
-        <div class="row g-4">
-            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.1s;">
-                <div class="card h-100 feature-card">
-                    <div class="feature-icon">
+        <div class="row g-4">            <div class="col-lg-4 animate-fadeInUp" style="animation-delay: 0.1s;">                <div class="feature-card-modern gradient-top-border h-100">
+                    <div class="feature-icon-modern icon-container-lg gradient-primary icon-hover-rotate">
                         <i class="fas fa-cut"></i>
                     </div>
-                    <h3>Barberos Expertos</h3>
-                    <p class="text-muted">Nuestro equipo está formado por profesionales con años de experiencia en las últimas tendencias.</p>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Barberos Expertos</h4>
+                        <p class="feature-description">Nuestro equipo está formado por profesionales con años de experiencia en las últimas tendencias y técnicas de corte.</p>
+                        <div class="feature-highlight">
+                            <i class="fas fa-award text-warning me-2"></i>
+                            <span>Certificados profesionales</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.2s;">
-                <div class="card h-100 feature-card">
-                    <div class="feature-icon">
+              <div class="col-lg-4 animate-fadeInUp" style="animation-delay: 0.2s;">                <div class="feature-card-modern gradient-top-border h-100">
+                    <div class="feature-icon-modern icon-container-lg gradient-primary icon-hover-rotate">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <h3>Reserva Online</h3>
-                    <p class="text-muted">Agenda tu cita en minutos desde cualquier dispositivo y a cualquier hora.</p>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Reserva Online</h4>
+                        <p class="feature-description">Agenda tu cita en minutos desde cualquier dispositivo y a cualquier hora. Sistema moderno y fácil de usar.</p>
+                        <div class="feature-highlight">
+                            <i class="fas fa-mobile-alt text-info me-2"></i>
+                            <span>Disponible 24/7</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.3s;">
-                <div class="card h-100 feature-card">
-                    <div class="feature-icon">
+              <div class="col-lg-4 animate-fadeInUp" style="animation-delay: 0.3s;">                <div class="feature-card-modern gradient-top-border h-100">
+                    <div class="feature-icon-modern icon-container-lg gradient-primary icon-hover-rotate">
                         <i class="fas fa-smile"></i>
                     </div>
-                    <h3>Satisfacción Garantizada</h3>
-                    <p class="text-muted">Tu satisfacción es nuestra prioridad. Nos aseguramos de que salgas feliz con tu nuevo look.</p>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Satisfacción Garantizada</h4>
+                        <p class="feature-description">Tu satisfacción es nuestra prioridad. Nos aseguramos de que salgas feliz con tu nuevo look y experiencia.</p>
+                        <div class="feature-highlight">
+                            <i class="fas fa-thumbs-up text-success me-2"></i>
+                            <span>100% de satisfacción</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Services Preview -->
-<section class="py-5 bg-light">
+<!-- Services Preview Modernizado -->
+<section class="services-preview-section py-5 bg-light">
     <div class="container">
-        <h2 class="text-center mb-5 section-title">Nuestros Servicios</h2>
+        <div class="text-center mb-5">
+            <div class="section-badge mb-3">
+                <span class="badge bg-dark text-white px-3 py-2 rounded-pill">
+                    <i class="fas fa-scissors me-2"></i>Nuestros Servicios
+                </span>
+            </div>
+            <h2 class="display-4 fw-bold section-title text-dark">Servicios Profesionales</h2>
+            <p class="lead text-muted">Transformamos tu imagen con los mejores servicios</p>
+        </div>
         
-        <div class="row g-4">
-            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.1s;">
-                <div class="card h-100 service-card">
-                    <img src="{{ url_for('static', filename='img/service-haircut.jpg') }}" class="card-img-top" alt="Corte de Cabello">
-                    <div class="card-body">
-                        <h4 class="card-title">Corte de Cabello</h4>
-                        <p class="card-text text-muted">Nuestros barberos te darán el corte perfecto según tu estilo y tipo de cabello.</p>
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 animate-fadeInUp" style="animation-delay: 0.1s;">                <div class="service-card-home h-100">
+                    <div class="service-card-header-home">
+                        <div class="icon-container-xl gradient-primary">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <div class="service-badge-home">Popular</div>
                     </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary w-100">Reservar</a>
+                    <div class="service-card-body-home">
+                        <h4 class="service-title-home">Corte de Cabello</h4>
+                        <p class="service-description-home">Corte de cabello profesional adaptado a tu estilo, incluyendo lavado y secado con productos premium.</p>
+                        <div class="service-features-home">
+                            <div class="feature-item-home">
+                                <i class="fas fa-check text-success me-2"></i>Consulta personalizada
+                            </div>
+                            <div class="feature-item-home">
+                                <i class="fas fa-check text-success me-2"></i>Productos de calidad
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card-footer-home">
+                        <div class="service-price-home">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-primary rounded-pill">45 min</span>                            <span class="price-value-home">Bs 50</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-service-home gradient-primary shimmer-effect w-100">Reservar Ahora</a>
                     </div>
                 </div>
             </div>
             
-            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.2s;">
-                <div class="card h-100 service-card">
-                    <img src="{{ url_for('static', filename='img/service-beard.jpg') }}" class="card-img-top" alt="Arreglo de Barba">
-                    <div class="card-body">
-                        <h4 class="card-title">Arreglo de Barba</h4>
-                        <p class="card-text text-muted">Perfilado y mantenimiento profesional para tu barba, con productos de calidad.</p>
+            <div class="col-lg-4 animate-fadeInUp" style="animation-delay: 0.2s;">                <div class="service-card-home h-100">                    <div class="service-card-header-home">
+                        <div class="icon-container-xl gradient-primary">
+                            <i class="fas fa-male"></i>
+                        </div>
                     </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary w-100">Reservar</a>
+                    <div class="service-card-body-home">
+                        <h4 class="service-title-home">Arreglo de Barba</h4>
+                        <p class="service-description-home">Arreglo y perfilado profesional de barba con productos de calidad y técnicas especializadas.</p>
+                        <div class="service-features-home">
+                            <div class="feature-item-home">
+                                <i class="fas fa-check text-success me-2"></i>Perfilado preciso
+                            </div>
+                            <div class="feature-item-home">
+                                <i class="fas fa-check text-success me-2"></i>Aceites naturales
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card-footer-home">
+                        <div class="service-price-home">                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-primary rounded-pill">30 min</span>
+                                <span class="price-value-home">Bs 40</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-service-home gradient-primary shimmer-effect w-100">Reservar Ahora</a>
                     </div>
                 </div>
             </div>
             
-            <div class="col-md-4 animate-fadeInUp" style="animation-delay: 0.3s;">
-                <div class="card h-100 service-card">
-                    <img src="{{ url_for('static', filename='img/service-facial.jpg') }}" class="card-img-top" alt="Tratamiento Facial">
-                    <div class="card-body">
-                        <h4 class="card-title">Tratamiento Facial</h4>
-                        <p class="card-text text-muted">Revitaliza tu piel con nuestros tratamientos faciales especializados para hombres.</p>
+            <div class="col-lg-4 animate-fadeInUp" style="animation-delay: 0.3s;">                <div class="service-card-home h-100">                    <div class="service-card-header-home">
+                        <div class="icon-container-xl gradient-primary">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="service-badge-home recommended">Recomendado</div>
                     </div>
-                    <div class="card-footer bg-transparent">
-                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary w-100">Reservar</a>
+                    <div class="service-card-body-home">
+                        <h4 class="service-title-home">Corte y Barba</h4>
+                        <p class="service-description-home">Servicio combinado de corte de cabello y arreglo de barba para un look completamente renovado.</p>
+                        <div class="service-features-home">
+                            <div class="feature-item-home">
+                                <i class="fas fa-check text-success me-2"></i>Servicio completo
+                            </div>
+                            <div class="feature-item-home">
+                                <i class="fas fa-check text-success me-2"></i>Mejor precio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card-footer-home">
+                        <div class="service-price-home">                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-primary rounded-pill">60 min</span>
+                                <span class="price-value-home">Bs 70</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-service-home gradient-primary shimmer-effect w-100">Reservar Ahora</a>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="text-center mt-5">
-            <a href="{{ url_for('reservas.index') }}" class="btn btn-lg btn-outline-primary">
+        <div class="text-center">
+            <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-dark btn-lg">
                 <i class="fas fa-list me-2"></i>Ver Todos los Servicios
             </a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="home-cta-section gradient-primary py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="cta-content-home animate-fadeInUp">
+                    <i class="fas fa-calendar-check display-1 text-white mb-4 cta-icon-home"></i>
+                    <h2 class="display-4 fw-bold mb-4">¿Listo para Tu Nueva Imagen?</h2>
+                    <p class="lead mb-5 text-white-75">
+                        No esperes más. Reserva tu cita hoy y experimenta el mejor servicio de barbería en la ciudad. Tu nueva imagen te está esperando.
+                    </p>
+                    <div class="cta-buttons-home d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-cta-primary-home btn-lg">
+                            <i class="fas fa-calendar-plus me-2"></i>Reservar Cita
+                        </a>                        <a href="https://api.whatsapp.com/message/QSTVDVFU3LFEC1?autoload=1&app_absent=0" class="btn btn-cta-secondary-home btn-lg" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i>Llamar Ahora
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -138,6 +256,7 @@
             animatedElements.forEach(element => {
                 if (isInViewport(element)) {
                     element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
                 }
             });
         }
@@ -145,11 +264,64 @@
         // Inicializar todos los elementos como invisibles
         animatedElements.forEach(element => {
             element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'all 0.6s ease';
         });
         
         // Comprobar animaciones al cargar y al hacer scroll
         checkAnimations();
         window.addEventListener('scroll', checkAnimations);
+        
+        // Efecto parallax suave para decoraciones
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-decoration-1, .hero-decoration-2');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.classList.contains('hero-decoration-1') ? 0.5 : 0.3;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Contador animado para estadísticas
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number-home');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/\D/g, ''));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (counter.textContent.includes('%')) {
+                        counter.textContent = Math.floor(current) + '%';
+                    } else if (counter.textContent.includes('+')) {
+                        counter.textContent = Math.floor(current) + '+';
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+        
+        // Iniciar contador cuando la sección sea visible
+        const heroSection = document.querySelector('.home-hero');
+        if (heroSection && isInViewport(heroSection)) {
+            setTimeout(animateCounters, 1000);
+        }
+        
+        window.addEventListener('scroll', function() {
+            if (heroSection && isInViewport(heroSection)) {
+                setTimeout(animateCounters, 1000);
+            }
+        });
     });
 </script>
 {% endblock %}

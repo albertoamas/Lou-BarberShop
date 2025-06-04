@@ -5,110 +5,241 @@
 {% endblock %}
 
 {% block content %}
-<div class="container py-5 animate__animated animate__fadeIn">
-    <!-- Header con estilo moderno -->
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Agenda tu Cita</h1>
-        <div class="d-flex justify-content-center">
-            <div class="divider-custom">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-cut"></i></div>
-                <div class="divider-custom-line"></div>
+<!-- Hero Section de Agenda -->
+<section class="appointment-hero bg-dark text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="hero-content animate-fadeInUp">
+                    <i class="fas fa-calendar-check display-1 text-white mb-4 appointment-icon"></i>
+                    <h1 class="display-3 fw-bold mb-3">Agenda tu Cita</h1>
+                    <div class="divider-custom mx-auto mb-4">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-cut"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>
+                    <p class="lead mb-4">Reserva tu cita en Lou Barbershop de manera fácil y rápida</p>
+                    <p class="text-white-50">Selecciona tu servicio preferido y la fecha que mejor te convenga</p>
+                </div>
             </div>
         </div>
-        <p class="lead text-muted">Selecciona tu servicio preferido y la fecha que mejor te convenga</p>
     </div>
-    
-    <div class="row mt-4 g-4">
-        <!-- Formulario de reserva -->
-        <div class="col-lg-6">
-            <div class="card shadow-sm reservation-card border-0">
-                <div class="card-header bg-primary text-white d-flex align-items-center">
-                    <i class="fas fa-calendar-alt me-2"></i>
-                    <h5 class="card-title mb-0">Paso 1: Seleccionar servicio y fecha</h5>
+</section>
+
+<div class="container py-5">    <!-- Stepper de progreso elegante -->
+    <div class="progress-stepper mb-5">
+        <div class="stepper-container">
+            <div class="step active">
+                <div class="step-circle">
+                    <span>1</span>
                 </div>
-                <div class="card-body p-4">
-                    <form method="POST" action="{{ url_for('reservas.nueva_reserva') }}">
-                        {{ form.hidden_tag() }}
-                        
-                        <div class="mb-4">
-                            <label for="servicio_id" class="form-label fw-bold">
-                                <i class="fas fa-list-alt me-2"></i>{{ form.servicio_id.label }}
-                            </label>
-                            {{ form.servicio_id(class="form-select form-control-lg") }}
-                            {% for error in form.servicio_id.errors %}
-                            <div class="text-danger mt-2">
-                                <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="fecha" class="form-label fw-bold">
-                                <i class="fas fa-calendar me-2"></i>{{ form.fecha.label }}
-                            </label>
-                            {{ form.fecha(class="form-control form-control-lg", type="date", min=now_str) }}
-                            {% for error in form.fecha.errors %}
-                            <div class="text-danger mt-2">
-                                <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
-                        <div class="text-center">
-                            {{ form.submit(class="btn btn-primary btn-lg px-5 py-2") }}
-                        </div>
-                    </form>
+                <div class="step-content">
+                    <div class="step-title">Servicio</div>
+                    <div class="step-subtitle">En progreso</div>
+                </div>
+            </div>
+            
+            <div class="step-connector"></div>
+            
+            <div class="step">
+                <div class="step-circle">
+                    <span>2</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Horario</div>
+                    <div class="step-subtitle">Pendiente</div>
+                </div>
+            </div>
+            
+            <div class="step-connector"></div>
+            
+            <div class="step">
+                <div class="step-circle">
+                    <span>3</span>
+                </div>
+                <div class="step-content">
+                    <div class="step-title">Confirmar</div>
+                    <div class="step-subtitle">Pendiente</div>
                 </div>
             </div>
         </div>
-        
-        <!-- Información de servicios con imágenes -->
-        <div class="col-lg-6">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-secondary text-white d-flex align-items-center">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <h5 class="card-title mb-0">Nuestros Servicios</h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="service-list">
-                        {% for servicio in form.servicio_id.choices %}
-                        {% set nombre = servicio[1].split(' - ')[0] %}
-                        {% set duracion = servicio[1].split('(')[1].split(')')[0] %}
-                        {% set precio = servicio[1].split(' - ')[1].split(' ')[0] %}
-                        
-                        <div class="service-item d-flex p-3 border-bottom">
-                            {% if 'corte' in nombre.lower() %}
-                                <img src="{{ url_for('static', filename='img/corte.jpg') }}" alt="{{ nombre }}" class="service-img me-3">
-                            {% elif 'barba' in nombre.lower() %}
-                                <img src="{{ url_for('static', filename='img/barba.jpg') }}" alt="{{ nombre }}" class="service-img me-3">
-                            {% elif 'peinado' in nombre.lower() %}
-                                <img src="{{ url_for('static', filename='img/peinado.jpg') }}" alt="{{ nombre }}" class="service-img me-3">
-                            {% elif 'facial' in nombre.lower() %}
-                                <img src="{{ url_for('static', filename='img/facial.jpg') }}" alt="{{ nombre }}" class="service-img me-3">
-                            {% else %}
-                                <img src="{{ url_for('static', filename='img/combo.jpg') }}" alt="{{ nombre }}" class="service-img me-3">
-                            {% endif %}
+    </div>    
+    <!-- Contenido principal rediseñado -->
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <!-- Formulario principal centrado -->
+            <div class="main-booking-container">
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <div class="header-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <div class="header-content">
+                            <h2 class="booking-title">Nueva Reserva</h2>
+                            <p class="booking-subtitle">Completa la información para agendar tu cita</p>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-body">
+                        <form method="POST" action="{{ url_for('reservas.nueva_reserva') }}" class="modern-booking-form">
+                            {{ form.hidden_tag() }}
                             
-                            <div class="service-info">
-                                <h5 class="mb-1">{{ nombre }}</h5>
-                                <div class="d-flex">
-                                    <span class="badge bg-primary me-2"><i class="far fa-clock me-1"></i>{{ duracion }}</span>
-                                    <span class="badge bg-secondary"><i class="fas fa-tag me-1"></i>S/. {{ precio }}</span>
+                            <!-- Grid de formulario -->
+                            <div class="form-grid">
+                                <!-- Selección de servicio -->
+                                <div class="form-section">
+                                    <div class="form-section-header">
+                                        <i class="fas fa-scissors"></i>
+                                        <span>Selecciona tu Servicio</span>
+                                    </div>
+                                    <div class="service-selector">
+                                        {{ form.servicio_id(class="form-control modern-select", id="servicio_selector") }}
+                                        <div class="select-indicator">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
+                                    {% for error in form.servicio_id.errors %}
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Selección de fecha -->
+                                <div class="form-section">
+                                    <div class="form-section-header">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Elige la Fecha</span>
+                                    </div>
+                                    <div class="date-selector">
+                                        {{ form.fecha(class="form-control modern-date", type="date", min=now_str) }}
+                                        <div class="date-indicator">
+                                            <i class="fas fa-calendar-day"></i>
+                                        </div>
+                                    </div>
+                                    {% for error in form.fecha.errors %}
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>{{ error }}
+                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                        </div>
-                        {% endfor %}
+                            
+                            <!-- Botón de envío -->
+                            <div class="form-actions">
+                                {{ form.submit(class="btn-modern-primary") }}
+                                <div class="action-hint">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Reserva con 24 horas de anticipación</span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             
-            <!-- Información adicional -->
-            <div class="card mt-3 border-0 shadow-sm">
-                <div class="card-body p-3">
-                    <div class="alert alert-info mb-0">
-                        <i class="fas fa-lightbulb me-2"></i> 
-                        <strong>Consejo:</strong> Recomendamos reservar con al menos 24 horas de anticipación para asegurar tu horario preferido.
+            <!-- Panel de información mejorado -->
+            <div class="info-panels-container">
+                <div class="info-panels-grid">
+                    <!-- Panel de servicios -->
+                    <div class="info-panel services-panel-modern">
+                        <div class="panel-header">
+                            <div class="panel-icon">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div class="panel-title">
+                                <h4>Nuestros Servicios</h4>
+                                <p>Servicios profesionales de barbería</p>
+                            </div>
+                        </div>                        <div class="services-showcase">
+                            {% for servicio in form.servicio_id.choices %}
+                            {% set nombre = servicio[1].split(' - ')[0] %}
+                            {% set duracion = servicio[1].split('(')[1].split(')')[0] %}
+                            {% set precio_raw = servicio[1].split(' - ')[1] %}
+                            {% set precio = precio_raw.replace('Bs ', '').split(' ')[0] %}
+                            
+                            <div class="service-showcase-item" data-service-value="{{ servicio[0] }}">
+                                <div class="service-icon-modern">
+                                    {% if 'corte' in nombre.lower() and 'barba' in nombre.lower() %}
+                                        <i class="fas fa-user-tie"></i>
+                                    {% elif 'corte' in nombre.lower() and 'cejas' in nombre.lower() %}
+                                        <i class="fas fa-eye"></i>
+                                    {% elif 'corte' in nombre.lower() %}
+                                        <i class="fas fa-cut"></i>
+                                    {% elif 'barba' in nombre.lower() %}
+                                        <i class="fas fa-male"></i>
+                                    {% elif 'completo' in nombre.lower() %}
+                                        <i class="fas fa-crown"></i>
+                                    {% else %}
+                                        <i class="fas fa-scissors"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="service-info-modern">
+                                    <h6>{{ nombre }}</h6>
+                                    <div class="service-meta">
+                                        <span class="duration">{{ duracion }}</span>
+                                        <span class="price">Bs {{ precio }}</span>
+                                    </div>
+                                </div>
+                                <div class="service-selector-btn">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Panel de información -->
+                    <div class="info-panel business-info-panel">
+                        <div class="panel-header">
+                            <div class="panel-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="panel-title">
+                                <h4>Información Importante</h4>
+                                <p>Detalles sobre nuestro servicio</p>
+                            </div>
+                        </div>
+                        <div class="info-items">
+                            <div class="info-item">
+                                <div class="info-item-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="info-item-content">
+                                    <h6>Horarios de Atención</h6>
+                                    <p>Lunes a Sábado: 9:00 AM - 7:00 PM<br>Domingos: Cerrado</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-item-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="info-item-content">
+                                    <h6>Política de Reservas</h6>
+                                    <p>Reserva con 24 horas de anticipación<br>Cancelación gratuita hasta 2 horas antes</p>
+                                </div>
+                            </div>
+                              <div class="info-item">
+                                <div class="info-item-icon">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                                <div class="info-item-content">
+                                    <h6>Garantía de Calidad</h6>
+                                    <p>100% satisfacción garantizada<br>Barberos profesionales certificados</p>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-item-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="info-item-content">
+                                    <h6>Contacto</h6>
+                                    <p>+591 70123456<br>loubarbershop@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

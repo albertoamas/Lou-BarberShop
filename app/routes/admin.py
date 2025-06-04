@@ -316,15 +316,15 @@ def agregar_empleado():
     correo = request.form.get('correo')
     
     if not all([nombre, especialidad]):
-        flash('El nombre y la especialidad son obligatorios', 'danger')
+        flash('Nombre y especialidad son obligatorios', 'danger')
         return redirect(url_for('admin.empleados'))
     
     # Crear el empleado
     empleado = Empleado(
         nombre=nombre,
         especialidad=especialidad,
-        telefono=telefono,
-        correo=correo
+        telefono=telefono if telefono else None,
+        correo=correo if correo else None
     )
     
     db.session.add(empleado)
@@ -346,14 +346,14 @@ def editar_empleado(empleado_id):
     correo = request.form.get('correo')
     
     if not all([nombre, especialidad]):
-        flash('El nombre y la especialidad son obligatorios', 'danger')
+        flash('Nombre y especialidad son obligatorios', 'danger')
         return redirect(url_for('admin.empleados'))
     
     # Actualizar el empleado
     empleado.nombre = nombre
     empleado.especialidad = especialidad
-    empleado.telefono = telefono
-    empleado.correo = correo
+    empleado.telefono = telefono if telefono else None
+    empleado.correo = correo if correo else None
     
     db.session.commit()
     
@@ -367,17 +367,11 @@ def eliminar_empleado(empleado_id):
     """Elimina un empleado"""
     empleado = Empleado.query.get_or_404(empleado_id)
     
-    # Verificar si hay reservas asociadas a este empleado
-    reservas = Reserva.query.filter_by(empleado_id=empleado_id).count()
-    
-    if reservas > 0:
-        flash('No se puede eliminar este empleado porque tiene reservas asociadas', 'warning')
+    # Verificar si el empleado tiene reservas asociadas
+    reservas = Reserva.query.filter_by(empleado_id=empleado_id).first()
+    if reservas:
+        flash('No se puede eliminar el empleado porque tiene reservas asociadas', 'warning')
         return redirect(url_for('admin.empleados'))
-    
-    # Verificar si hay horarios no disponibles asociados a este empleado
-    horarios = HorarioNoDisponible.query.filter_by(empleado_id=empleado_id).all()
-    for horario in horarios:
-        db.session.delete(horario)
     
     db.session.delete(empleado)
     db.session.commit()

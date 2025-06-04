@@ -1,0 +1,95 @@
+/**
+ * Lou Barbershop - CSS Principal Modular
+ * Archivo principal que importa todos los módulos CSS
+ * 
+ * Orden de importación optimizado:
+ * 1. Base (variables, reset, globales)
+ * 2. Utilidades
+ * 3. Animaciones
+ * 4. Componentes base (botones, formularios, tarjetas)
+ * 5. Navegación y footer
+ * 6. Páginas específicas
+ */
+
+/* ========================================
+   ESTILOS BASE Y UTILIDADES
+   ======================================== */
+@import url('modules/base.css');
+@import url('modules/utilities.css');
+@import url('modules/animations.css');
+
+/* ========================================
+   COMPONENTES BASE
+   ======================================== */
+@import url('modules/buttons.css');
+@import url('modules/forms.css');
+@import url('modules/cards.css');
+
+/* ========================================
+   NAVEGACIÓN Y PIE DE PÁGINA
+   ======================================== */
+@import url('modules/navbar.css');
+@import url('modules/footer.css');
+
+/* ========================================
+   PÁGINAS ESPECÍFICAS
+   ======================================== */
+@import url('modules/home.css');
+@import url('modules/reservas.css');
+@import url('modules/servicios.css');
+@import url('modules/admin.css');
+@import url('modules/auth.css');
+
+/* ========================================
+   ESTILOS ADICIONALES GLOBALES
+   ======================================== */
+
+/* Asegurar que el contenido principal tenga el espaciado correcto */
+main {
+    min-height: calc(100vh - var(--navbar-height, 80px) - var(--footer-height, 200px));
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Optimizaciones de rendimiento */
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos para elementos de carga */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,58 +1,149 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Banner de Servicios -->
-<div class="bg-primary text-white py-5 mb-5 rounded-bottom">
+<!-- Hero Section de Servicios -->
+<section class="services-hero bg-dark text-white py-5">
     <div class="container">
-        <h1 class="display-4 fw-bold mb-3">Nuestros Servicios</h1>
-        <p class="lead fs-4">Descubre nuestra variedad de servicios profesionales para que luzcas impecable</p>
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="hero-content animate-fadeInUp">
+                    <i class="fas fa-cut display-1 text-white mb-4 services-icon"></i>
+                    <h1 class="display-3 fw-bold mb-3">Nuestros Servicios</h1>
+                    <div class="divider-custom mx-auto mb-4">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-scissors"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>
+                    <p class="lead mb-4">Descubre nuestra variedad de servicios profesionales</p>
+                    <p class="text-white-50">Diseñados para que luzcas impecable en cada ocasión</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
-<div class="container">
-    <div class="row g-4">
-        {% for servicio in servicios %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 service-card animate-fadeInUp" data-delay="{{ loop.index0 * 0.1 }}">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="service-icon me-3">
-                            {% if 'corte' in servicio.nombre.lower() %}
+<div class="container py-5">
+    <!-- Estadísticas de servicios -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="services-stats">
+                <div class="stat-item">
+                    <div class="stat-number">{{ servicios|length }}</div>
+                    <div class="stat-title">Servicios Disponibles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-title">Satisfacción Garantizada</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5★</div>
+                    <div class="stat-title">Calificación Promedio</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid de servicios mejorado -->
+    <div class="services-container">
+        <div class="row g-4">
+            {% for servicio in servicios %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="service-card-premium gradient-top-border h-100 animate-fadeInUp" data-delay="{{ loop.index0 * 0.1 }}">
+                    <div class="service-card-header">
+                        <div class="service-icon-modern icon-container-lg gradient-primary icon-shadow">
+                            {% if 'corte' in servicio.nombre.lower() and 'barba' in servicio.nombre.lower() %}
+                                <i class="fas fa-user-tie"></i>
+                            {% elif 'corte' in servicio.nombre.lower() and 'cejas' in servicio.nombre.lower() %}
+                                <i class="fas fa-eye"></i>
+                            {% elif 'corte' in servicio.nombre.lower() %}
                                 <i class="fas fa-cut"></i>
                             {% elif 'barba' in servicio.nombre.lower() %}
-                                <i class="fas fa-user-tie"></i>
+                                <i class="fas fa-male"></i>
                             {% elif 'facial' in servicio.nombre.lower() %}
                                 <i class="fas fa-spa"></i>
                             {% elif 'masaje' in servicio.nombre.lower() %}
                                 <i class="fas fa-hands"></i>
                             {% elif 'color' in servicio.nombre.lower() %}
                                 <i class="fas fa-paint-brush"></i>
+                            {% elif 'completo' in servicio.nombre.lower() %}
+                                <i class="fas fa-crown"></i>
                             {% else %}
-                                <i class="fas fa-heart"></i>
+                                <i class="fas fa-scissors"></i>
                             {% endif %}
                         </div>
-                        <h3 class="card-title mb-0">{{ servicio.nombre }}</h3>
-                    </div>
-                    <p class="card-text mb-3">{{ servicio.descripcion if servicio.descripcion else "Servicio profesional realizado por nuestros expertos barberos." }}</p>
-                    
-                    <div class="d-flex justify-content-between align-items-center mb-3 mt-auto">
-                        <span class="badge bg-primary rounded-pill">{{ servicio.duracion }} min</span>
-                        <span class="fw-bold text-primary">S/. {{ "%.2f"|format(servicio.precio) }}</span>
+                        <div class="service-badge">
+                            <i class="far fa-clock me-1"></i>{{ servicio.duracion }} min
+                        </div>
                     </div>
                     
-                    <a href="{{ url_for('reservas.nueva_reserva') }}?servicio_id={{ servicio.id }}" class="btn btn-primary w-100">
-                        <i class="fas fa-calendar-plus me-2"></i>Reservar
-                    </a>
+                    <div class="service-card-body">
+                        <h3 class="service-title">{{ servicio.nombre }}</h3>
+                        <p class="service-description">
+                            {{ servicio.descripcion if servicio.descripcion else "Servicio profesional realizado por nuestros expertos barberos con técnicas modernas y productos de primera calidad." }}
+                        </p>
+                        
+                        <div class="service-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Productos Premium</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Barberos Expertos</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Ambiente Relajante</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card-footer">
+                        <div class="service-price">
+                            <span class="price-label">Precio:</span>
+                            <span class="price-value">Bs {{ "%.0f"|format(servicio.precio) }}</span>
+                        </div>
+                        <a href="{{ url_for('reservas.nueva_reserva') }}?servicio_id={{ servicio.id }}" 
+                           class="btn btn-service-premium gradient-primary shimmer-effect">
+                            <i class="fas fa-calendar-plus me-2"></i>
+                            Reservar Ahora
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Call to Action mejorado -->
+    <div class="cta-section mt-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="cta-card gradient-primary">
+                    <div class="cta-content">
+                        <h2 class="cta-title">¿Listo para tu transformación?</h2>
+                        <p class="cta-description">
+                            Reserva tu cita ahora y disfruta de la mejor experiencia en barbería de la ciudad.
+                            Nuestros expertos están listos para brindarte el mejor servicio.
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-cta-primary">
+                                <i class="fas fa-calendar-check me-2"></i>
+                                Agendar Cita
+                            </a>
+                            <a href="tel:+591-12345678" class="btn btn-cta-secondary">
+                                <i class="fas fa-phone me-2"></i>
+                                Llamar Ahora
+                            </a>
+                        </div>
+                    </div>
+                    <div class="cta-decoration">
+                        <i class="fas fa-cut"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
-
-    <div class="text-center mt-5 mb-5">
-        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-lg btn-secondary">
-            <i class="fas fa-calendar-check me-2"></i>Agendar una Cita
-        </a>    </div>
 </div>
 {% endblock %}
 

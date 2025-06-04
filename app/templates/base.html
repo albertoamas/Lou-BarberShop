@@ -5,71 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - Lou Barbershop</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&family=Anton&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <!-- Estilos personalizados modularizados -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                <i class="fas fa-cut me-2"></i>Lou Barbershop
+<body>    <nav class="navbar navbar-expand-lg navbar-dark sticky-top navbar-modern gradient-primary" id="mainNavbar">
+        <div class="container-fluid px-3">            <a class="brand-modern" href="{{ url_for('main.index') }}">
+                <div class="brand-text">
+                    <div class="brand-name">Lou</div>
+                    <div class="brand-type">BARBERSHOP</div>
+                </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.index') }}">
+            <div class="collapse navbar-collapse navbar-collapse-modern" id="navbarNav">
+                <ul class="navbar-nav ms-auto">                    <li class="nav-item">
+                        <a class="nav-link nav-link-modern" href="{{ url_for('main.index') }}">
                             <i class="fas fa-home me-1"></i> Inicio
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.about') }}">
-                            <i class="fas fa-info-circle me-1"></i> Acerca de
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('reservas.index') }}">
+                    </li>                    <li class="nav-item">
+                        <a class="nav-link nav-link-modern" href="{{ url_for('reservas.index') }}">
                             <i class="fas fa-list me-1"></i> Servicios
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('reservas.nueva_reserva') }}">
+                        <a class="nav-link nav-link-modern" href="{{ url_for('reservas.nueva_reserva') }}">
                             <i class="fas fa-calendar-plus me-1"></i> Reservar
                         </a>
-                    </li>                    {% if current_user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                    </li>{% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown user-dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-modern" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                             <i class="fas fa-user-circle me-1"></i> {{ current_user.nombre }}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-modern">
                             <li>
-                                <a class="dropdown-item" href="{{ url_for('auth.perfil') }}">
+                                <a class="dropdown-item dropdown-item-modern" href="{{ url_for('auth.perfil') }}">
                                     <i class="fas fa-id-card me-2"></i> Mi Perfil
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ url_for('reservas.mis_reservas') }}">
+                                <a class="dropdown-item dropdown-item-modern" href="{{ url_for('reservas.mis_reservas') }}">
                                     <i class="fas fa-calendar-check me-2"></i> Mis Reservas
                                 </a>
                             </li>
                             {% if current_user.is_admin() %}
                             <li>
-                                <a class="dropdown-item" href="{{ url_for('admin.index') }}">
+                                <a class="dropdown-item dropdown-item-modern" href="{{ url_for('admin.index') }}">
                                     <i class="fas fa-cogs me-2"></i> Panel Admin
                                 </a>
                             </li>
                             {% endif %}
-                            <li><hr class="dropdown-divider"></li>
+                            <li><hr class="dropdown-divider dropdown-divider-modern"></li>
                             <li>
-                                <a class="dropdown-item" href="{{ url_for('auth.logout') }}">
+                                <a class="dropdown-item dropdown-item-modern" href="{{ url_for('auth.logout') }}">
                                     <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión
                                 </a>
                             </li>
@@ -77,12 +68,12 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.login') }}">
+                        <a class="nav-link nav-link-auth" href="{{ url_for('auth.login') }}">
                             <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.registro') }}">
+                        <a class="nav-link nav-link-auth" href="{{ url_for('auth.registro') }}">
                             <i class="fas fa-user-plus me-1"></i> Registrarse
                         </a>
                     </li>
@@ -90,7 +81,7 @@
                 </ul>
             </div>
         </div>
-    </nav>    <main class="py-4">
+    </nav><main class="py-4">
         <div class="container mt-4">
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -112,42 +103,87 @@
             {% endif %}
             {% endwith %}
 
-            {% block content %}{% endblock %}
-        </div>
-    </main>
-
-    <footer class="bg-dark text-white py-4 mt-5">
+            {% block content %}{% endblock %}        </div>    </main>    <footer class="footer-modern mt-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h5 class="text-uppercase mb-3"><i class="fas fa-cut me-2"></i>Lou Barbershop</h5>
-                    <p class="mb-3">Tu lugar de confianza para lucir bien y sentirte mejor.</p>
-                    <div class="social-icons">
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+            <div class="footer-content">
+                <div class="row">
+                    <!-- Sección de Marca -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-brand">                            <h5 class="footer-brand-title">
+                                <div class="footer-brand-text">
+                                    <div class="footer-brand-name">Lou</div>
+                                    <div class="footer-brand-type">BARBERSHOP</div>
+                                </div>
+                            </h5><p class="footer-description">
+                                Tu lugar de confianza para lucir bien y sentirte mejor. Transformamos tu imagen con estilo profesional y atención personalizada.
+                            </p>
+                            <div class="social-icons-modern">
+                                <a target="_blank" href="https://www.facebook.com/profile.php?id=61557642968718" class="social-icon-modern facebook" title="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a target="_blank" href="https://www.instagram.com/lou_barbershopp/" class="social-icon-modern instagram" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a target="_blank" href="https://api.whatsapp.com/message/QSTVDVFU3LFEC1?autoload=1&app_absent=0" class="social-icon-modern whatsapp" title="WhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a target="_blank" href="https://www.tiktok.com/@loubarbershop_tja" class="social-icon-modern tiktok" title="TikTok">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección de Horarios -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="footer-section">
+                            <h5>Horarios de Atención</h5>
+                            <ul class="footer-list">
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    Lunes - Viernes: 9:00 AM - 7:00 PM
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    Sábado: 9:00 AM - 6:00 PM
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    Domingo: Cerrado
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                      <!-- Sección de Contacto -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-section">
+                            <h5>Información de Contacto</h5>
+                            <ul class="footer-list">
+                                <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Ramón rojas entre Bolivar y Domingo Paz, Tarija
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    +591 77872911
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    info@loubarbershop.com
+                                </li>
+                                <li>
+                                    <i class="fas fa-info-circle"></i>
+                                    <a href="{{ url_for('main.about') }}" style="color: inherit; text-decoration: none;">Acerca de Nosotros</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h5 class="text-uppercase mb-3">Horario</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="far fa-clock me-2"></i> Lunes - Viernes: 9:00 AM - 7:00 PM</li>
-                        <li><i class="far fa-clock me-2"></i> Sábado: 9:00 AM - 6:00 PM</li>
-                        <li><i class="far fa-clock me-2"></i> Domingo: Cerrado</li>
-                    </ul>
+                
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Lou Barbershop. Todos los derechos reservados.
                 </div>
-                <div class="col-md-4">
-                    <h5 class="text-uppercase mb-3">Contacto</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i> Av. Principal 123, Ciudad</li>
-                        <li><i class="fas fa-phone me-2"></i> (01) 234-5678</li>
-                        <li><i class="fas fa-envelope me-2"></i> info@loubarbershop.com</li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="my-4 bg-light">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 Lou Barbershop. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer><!-- Bootstrap JS -->

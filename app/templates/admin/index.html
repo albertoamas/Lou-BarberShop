@@ -1,20 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container admin-dashboard py-5 animate__animated animate__fadeIn">
-    <!-- Header de administración con estilo moderno -->
+<div class="container admin-dashboard py-5">
+    <!-- Header moderno del panel administrativo -->
     <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Panel de Administración</h1>
-        <div class="d-flex justify-content-center">
-            <div class="divider-custom">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-cogs"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
+        <div class="admin-header-badge mb-4">
+            <span class="badge bg-dark text-white px-4 py-3 rounded-pill fs-6">
+                <i class="fas fa-cogs me-2"></i>Panel de Administración
+            </span>
         </div>
-        <p class="lead text-muted">Gestiona todos los aspectos de Lou Barbershop desde un solo lugar</p>
+        <h1 class="display-3 fw-bold mb-4">
+            Dashboard <span style="color: var(--admin-accent);">Lou Barbershop</span>
+        </h1>
+        <div class="divider-custom mx-auto mb-4">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-crown"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <p class="lead text-muted fs-5">
+            Controla y gestiona todos los aspectos de tu barbería desde este panel centralizado
+        </p>
     </div>
-    
+
     <!-- Tarjetas de estadísticas con diseño mejorado -->
     <div class="row mb-5 g-4">
         <div class="col-md-3">
@@ -67,69 +74,110 @@
                     </div>
                     <h5 class="card-title fw-bold mb-3">Clientes Registrados</h5>
                     <h2 class="display-4 fw-bold mb-3">{{ clientes }}</h2>
+                    <a href="#" class="btn btn-light btn-sm mt-2 px-4">
+                        <i class="fas fa-eye me-1"></i> Ver todos
+                    </a>
                 </div>
             </div>
         </div>
-    </div>    
-    <!-- Reservas para hoy con diseño mejorado -->
+    </div>    <!-- Reservas para hoy con diseño moderno mejorado -->
     <div class="row mb-4">
         <div class="col-md-12">
-            <div class="card admin-card shadow-sm">
-                <div class="card-header bg-primary text-white d-flex align-items-center">
-                    <i class="fas fa-calendar-day me-2"></i>
-                    <h5 class="card-title mb-0">Reservas para hoy</h5>
-                </div>
-                <div class="card-body p-0">
+            <div class="card admin-card shadow-sm">                <div class="card-header bg-dark text-white py-3 elegant-dark-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h5 class="card-title mb-0 fw-bold">Reservas para hoy</h5>
+                                <small class="text-white-50">{{ reservas_hoy|length }} citas programadas</small>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-white text-dark px-3 py-2">
+                                <i class="fas fa-calendar-check me-1"></i>
+                                Hoy
+                            </span>
+                        </div>
+                    </div>
+                </div>                <div class="card-body p-0">
                     {% if reservas_hoy %}
-                    <div class="table-responsive">
+                    <div class="table-responsive-sm">
                         <table class="table table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="px-3">Cliente</th>
-                                    <th>Servicio</th>
-                                    <th>Barbero</th>
-                                    <th>Hora</th>
-                                    <th>Estado</th>
-                                    <th class="text-end pe-3">Acciones</th>
+                                    <th class="px-3 py-3 border-0">Cliente</th>
+                                    <th class="py-3 border-0">Servicio</th>
+                                    <th class="py-3 border-0">Barbero</th>
+                                    <th class="py-3 border-0 text-center">Hora</th>
+                                    <th class="py-3 border-0 text-center">Estado</th>
+                                    <th class="py-3 border-0 text-center" style="width: 120px;">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for reserva in reservas_hoy %}
-                                <tr>
-                                    <td class="px-3">
+                                <tr class="border-bottom">
+                                    <td class="px-3 py-3">
                                         <div class="d-flex align-items-center">
-                                            <i class="fas fa-user-circle text-secondary me-2 fs-5"></i>
-                                            <span>{{ reserva.cliente.nombre }}</span>
+                                            <div class="avatar bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
+                                                <i class="fas fa-user text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold text-dark">{{ reserva.cliente.nombre }}</div>
+                                                <small class="text-muted">{{ reserva.cliente.email }}</small>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td>{{ reserva.servicio.nombre }}</td>
-                                    <td>{{ reserva.empleado.nombre }}</td>
-                                    <td><i class="far fa-clock me-1"></i>{{ reserva.hora.strftime('%H:%M') }}</td>
-                                    <td>
+                                    <td class="py-3">
+                                        <div class="fw-medium">{{ reserva.servicio.nombre }}</div>
+                                        <small class="text-muted">${{ "%.0f"|format(reserva.servicio.precio) }}</small>
+                                    </td>
+                                    <td class="py-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-cut text-muted me-2"></i>
+                                            <span>{{ reserva.empleado.nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="far fa-clock text-primary me-2"></i>
+                                            <span class="fw-semibold">{{ reserva.hora|strftime('%H:%M') }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-center">
                                         {% if reserva.estado == 'pendiente' %}
-                                        <span class="badge bg-warning text-dark">
+                                        <span class="badge bg-warning bg-opacity-15 text-warning border border-warning">
                                             <i class="fas fa-clock me-1"></i>Pendiente
                                         </span>
                                         {% elif reserva.estado == 'confirmada' %}
-                                        <span class="badge bg-success">
+                                        <span class="badge bg-success bg-opacity-15 text-success border border-success">
                                             <i class="fas fa-check-circle me-1"></i>Confirmada
+                                        </span>
+                                        {% elif reserva.estado == 'completada' %}
+                                        <span class="badge bg-info bg-opacity-15 text-info border border-info">
+                                            <i class="fas fa-check-double me-1"></i>Completada
                                         </span>
                                         {% endif %}
                                     </td>
-                                    <td class="text-end pe-3">
-                                        <div class="btn-group btn-group-sm">
+                                    <td class="py-3 text-center">
+                                        <div class="d-flex gap-1 justify-content-center">
                                             {% if reserva.estado == 'pendiente' %}
-                                            <a href="{{ url_for('admin.confirmar_reserva', reserva_id=reserva.id) }}" class="btn btn-success">
-                                                <i class="fas fa-check me-1"></i>Confirmar
+                                            <a href="{{ url_for('admin.confirmar_reserva', reserva_id=reserva.id) }}"
+                                                class="btn btn-success btn-sm"
+                                                title="Confirmar reserva">
+                                                <i class="fas fa-check"></i>
                                             </a>
                                             {% endif %}
                                             
                                             {% if reserva.estado in ['pendiente', 'confirmada'] %}
-                                            <a href="{{ url_for('admin.completar_reserva', reserva_id=reserva.id) }}" class="btn btn-info">
-                                                <i class="fas fa-check-double me-1"></i>Completar
+                                            <a href="{{ url_for('admin.completar_reserva', reserva_id=reserva.id) }}"
+                                                class="btn btn-info btn-sm"
+                                                title="Marcar como completada">
+                                                <i class="fas fa-check-double"></i>
                                             </a>
-                                            <a href="{{ url_for('admin.cancelar_reserva', reserva_id=reserva.id) }}" class="btn btn-danger">
-                                                <i class="fas fa-times me-1"></i>Cancelar
+                                            <a href="{{ url_for('admin.cancelar_reserva', reserva_id=reserva.id) }}"
+                                                class="btn btn-outline-danger btn-sm"
+                                                title="Cancelar reserva"
+                                               onclick="return confirm('¿Estás seguro de que quieres cancelar esta reserva?')">
+                                                <i class="fas fa-times"></i>
                                             </a>
                                             {% endif %}
                                         </div>
@@ -140,15 +188,21 @@
                         </table>
                     </div>
                     {% else %}
-                    <div class="alert alert-info m-3">
-                        <i class="fas fa-info-circle me-2"></i>No hay reservas programadas para hoy.
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="fas fa-calendar-day text-muted" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="text-muted mb-2">No hay reservas para hoy</h5>
+                        <p class="text-muted mb-3">Parece que tienes un día libre. ¡Perfecto para prepararte para mañana!</p>                        <a href="{{ url_for('admin.reservas') }}" class="btn btn-dark">
+                            <i class="fas fa-calendar-plus me-2"></i>Ver todas las reservas
+                        </a>
                     </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Acciones rápidas y estadísticas con nuevo diseño -->
     <div class="row g-4">
         <div class="col-md-6">
@@ -221,7 +275,7 @@
                         <div class="col-md-6">
                             <div class="card bg-light border-0">
                                 <div class="card-body text-center">
-                                    <i class="fas fa-user-tie text-primary fa-3x mb-3"></i>
+                                    <i class="fas fa-user-tie text-secondary fa-3x mb-3"></i>
                                     <h3 class="fw-bold">{{ empleados }}</h3>
                                     <p class="text-muted mb-0">Empleados</p>
                                 </div>
