@@ -86,6 +86,5 @@ class BuscarDisponibilidadForm(FlaskForm):
 
 class CancelarReservaForm(FlaskForm):
     """Formulario para cancelar una reserva"""
-    reserva_id = HiddenField('ID de Reserva', validators=[DataRequired()])
     motivo = StringField('Motivo de Cancelación')
     submit = SubmitField('Cancelar Reserva')

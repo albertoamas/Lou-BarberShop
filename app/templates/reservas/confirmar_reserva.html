@@ -114,8 +114,8 @@
                             <strong>Política de cancelación:</strong> 
                             Puedes cancelar tu cita hasta 2 horas antes del horario programado.
                         </div>
-                    </div>                    
-                    <form method="POST" action="{{ url_for('reservas.confirmar_reserva') }}">
+                    </div>                      <form method="POST" action="{{ url_for('reservas.confirmar_reserva') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="servicio_id" value="{{ servicio.id }}">
                         <input type="hidden" name="empleado_id" value="{{ empleado.id }}">
                         <input type="hidden" name="fecha" value="{{ fecha_str }}">

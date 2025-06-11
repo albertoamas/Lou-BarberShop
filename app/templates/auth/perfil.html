@@ -1,116 +1,302 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modules/perfil.css') }}">
+{% endblock %}
+
 {% block content %}
-<div class="container py-5">
-    <div class="row">        <div class="col-lg-4">
-            <div class="card mb-4 hover-lift-lg transition-all">
-                <div class="card-body text-center">
-                    <img src="https://ui-avatars.com/api/?name={{ current_user.nombre }}&background=random" alt="avatar"
-                        class="rounded-circle img-fluid" style="width: 150px;">
-                    <h5 class="my-3">{{ current_user.nombre }}</h5>
-                    <p class="text-muted mb-1">Cliente</p>
-                    <div class="d-flex justify-content-center mb-2">
-                        <a href="#" class="btn btn-primary hover-lift-sm transition-all">Editar Perfil</a>
+<div class="profile-page">
+    <!-- Header del perfil -->
+    <section class="profile-header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="profile-badge profile-fade-in">
+                        <i class="fas fa-user-circle me-2"></i>Panel Personal
                     </div>
+                    <h1 class="profile-fade-in">Mi Perfil</h1>
+                    <p class="profile-fade-in">Gestiona tu información personal y preferencias</p>
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="mb-0">Nombre completo</p>
+    </section>
+
+    <!-- Contenido principal -->
+    <div class="profile-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Tarjeta principal del perfil -->
+                <div class="profile-main-card profile-hover-lift profile-fade-in">
+                    <div class="row g-0">
+                        <!-- Sección del avatar -->
+                        <div class="col-lg-4">
+                            <div class="profile-avatar-section">
+                                <div class="profile-avatar-container">
+                                    <img src="https://ui-avatars.com/api/?name={{ current_user.nombre }}&background=667eea&color=fff&size=200&bold=true" 
+                                         alt="Avatar de {{ current_user.nombre }}" 
+                                         class="profile-avatar">
+                                    <div class="profile-avatar-badge">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                                
+                                <h2 class="profile-name">{{ current_user.nombre }}</h2>
+                                <p class="profile-role">
+                                    Cliente Premium
+                                    <span class="profile-verified-badge">
+                                        <i class="fas fa-shield-alt"></i> Verificado
+                                    </span>
+                                </p>
+                                
+                                <!-- Estadísticas del usuario -->
+                                <div class="profile-stats">
+                                    <div class="profile-stat">
+                                        <span class="profile-stat-number">{{ current_user.reservas.count() }}</span>
+                                        <span class="profile-stat-label">Reservas</span>
+                                    </div>
+                                    <div class="profile-stat">
+                                        <span class="profile-stat-number">{{ current_user.reservas.filter_by(estado='completada').count() }}</span>
+                                        <span class="profile-stat-label">Completadas</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Botones de acción -->
+                                <div class="profile-actions">
+                                    <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn-profile-primary">
+                                        <i class="fas fa-calendar-plus"></i>
+                                        Nueva Reserva
+                                    </a>
+                                    <a href="{{ url_for('reservas.mis_reservas') }}" class="btn-profile-secondary">
+                                        <i class="fas fa-history"></i>
+                                        Mis Reservas
+                                    </a>
+                                </div>
+                                
+                                <!-- Fecha de registro -->
+                                <div class="profile-member-since">
+                                    <i class="fas fa-calendar-check"></i>
+                                    Miembro desde {{ current_user.creado_en.strftime('%B %Y') }}
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ current_user.nombre }}</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="mb-0">Email</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ current_user.email }}</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="mb-0">Teléfono</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ current_user.telefono }}</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <p class="mb-0">Miembro desde</p>
-                        </div>
-                        <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ current_user.creado_en.strftime('%d/%m/%Y') }}</p>
+                        
+                        <!-- Sección de información detallada -->
+                        <div class="col-lg-8">
+                            <div class="profile-details-section">
+                                <h3 class="profile-section-title">
+                                    <i class="fas fa-info-circle"></i>
+                                    Información Personal
+                                </h3>
+                                
+                                <div class="profile-info-grid">
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <div class="profile-info-label">Nombre Completo</div>
+                                            <div class="profile-info-value">{{ current_user.nombre }}</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <div class="profile-info-label">Correo Electrónico</div>
+                                            <div class="profile-info-value">{{ current_user.email }}</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-icon">
+                                            <i class="fas fa-phone"></i>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <div class="profile-info-label">Teléfono</div>
+                                            <div class="profile-info-value">{{ current_user.telefono or 'No especificado' }}</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-icon">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <div class="profile-info-label">Fecha de Registro</div>
+                                            <div class="profile-info-value">{{ current_user.creado_en.strftime('%d de %B, %Y') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <hr class="profile-divider">
+                                
+                                <!-- Sección de preferencias -->
+                                <h3 class="profile-section-title">
+                                    <i class="fas fa-cog"></i>
+                                    Configuración de Cuenta
+                                </h3>
+                                
+                                <div class="profile-info-grid">
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-icon">
+                                            <i class="fas fa-bell"></i>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <div class="profile-info-label">Notificaciones</div>
+                                            <div class="profile-info-value">Activadas</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="profile-info-item">
+                                        <div class="profile-info-icon">
+                                            <i class="fas fa-shield-alt"></i>
+                                        </div>
+                                        <div class="profile-info-content">
+                                            <div class="profile-info-label">Estado de Verificación</div>
+                                            <div class="profile-info-value">Cuenta Verificada</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="mb-0">Mis Reservas</h5>
-                </div>
-                <div class="card-body">
-                    {% if current_user.reservas.count() > 0 %}
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Servicio</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Barbero</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for reserva in current_user.reservas %}
-                                <tr>
-                                    <td>{{ reserva.servicio.nombre }}</td>
-                                    <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
-                                    <td>{{ reserva.hora.strftime('%H:%M') }}</td>
-                                    <td>{{ reserva.empleado.nombre }}</td>
-                                    <td>
-                                        {% if reserva.estado == 'pendiente' %}
-                                        <span class="badge bg-warning">Pendiente</span>
-                                        {% elif reserva.estado == 'confirmada' %}
-                                        <span class="badge bg-success">Confirmada</span>
-                                        {% elif reserva.estado == 'cancelada' %}
-                                        <span class="badge bg-danger">Cancelada</span>
-                                        {% elif reserva.estado == 'completada' %}
-                                        <span class="badge bg-info">Completada</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
-                                        <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                
+                <!-- Tarjetas adicionales -->
+                <div class="row mt-4">
+                    <div class="col-lg-6 mb-4">
+                        <div class="profile-additional-card profile-fade-in">
+                            <div class="profile-card-header">
+                                <h5>
+                                    <i class="fas fa-chart-line"></i>
+                                    Actividad Reciente
+                                </h5>
+                            </div>
+                            <div class="profile-card-body">                                {% if current_user.reservas.count() > 0 %}
+                                    <div class="timeline">
+                                        {% for reserva in current_user.reservas[:3] %}
+                                        <div class="timeline-item">
+                                            <div class="timeline-marker"></div>
+                                            <div class="timeline-content">
+                                                <h6>{{ reserva.servicio.nombre }}</h6>
+                                                <p class="text-muted mb-0">{{ reserva.fecha.strftime('%d/%m/%Y') }} - {{ reserva.empleado.nombre }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-muted mb-0">No hay actividad reciente</p>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                    {% else %}
-                    <div class="alert alert-info">
-                        No tienes reservas pendientes. 
-                        <a href="#" class="alert-link">¡Agenda una cita ahora!</a>
+                    
+                    <div class="col-lg-6 mb-4">
+                        <div class="profile-additional-card profile-fade-in">
+                            <div class="profile-card-header">
+                                <h5>
+                                    <i class="fas fa-star"></i>
+                                    Servicios Favoritos
+                                </h5>
+                            </div>
+                            <div class="profile-card-body">
+                                <div class="service-preferences">
+                                    <div class="service-preference-item">
+                                        <i class="fas fa-cut text-primary"></i>
+                                        <span>Corte Clásico</span>
+                                    </div>
+                                    <div class="service-preference-item">
+                                        <i class="fas fa-user-tie text-primary"></i>
+                                        <span>Corte + Barba</span>
+                                    </div>
+                                    <div class="service-preference-item">
+                                        <i class="fas fa-spa text-primary"></i>
+                                        <span>Tratamiento Facial</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+/* Estilos adicionales específicos para esta página */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: #667eea;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #e9ecef;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 1.5rem;
+    width: 2px;
+    height: calc(100% + 1rem);
+    background: #e9ecef;
+}
+
+.timeline-item:last-child::before {
+    display: none;
+}
+
+.timeline-content h6 {
+    margin-bottom: 0.25rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.service-preferences {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.service-preference-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.service-preference-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.service-preference-item i {
+    width: 20px;
+    text-align: center;
+}
+</style>
 {% endblock %}

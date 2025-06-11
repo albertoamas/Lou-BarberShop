@@ -1459,3 +1459,583 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
 .service-showcase-item.selected .service-selector-btn i::before {
     content: "\f00c"; /* Font Awesome check icon */
 }
+
+/* ========== ESTILOS PARA MIS RESERVAS ========== */
+
+/* Hero Section de Mis Reservas */
+.my-reservations-hero {
+    background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.my-reservations-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Asegurar que el texto sea visible */
+.my-reservations-hero h1 {
+    color: white !important;
+}
+
+.my-reservations-hero .lead {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.reservation-badge .badge {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Estadísticas del hero - SOLO para reservas */
+.hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-stats .stat-item {
+    text-align: center;
+    color: white;
+}
+
+.hero-stats .stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.stat-divider {
+    width: 2px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
+}
+
+/* Botón de nueva reserva destacado */
+.btn-modern-primary-large {
+    background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(18, 18, 18, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.btn-modern-primary-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(18, 18, 18, 0.4);
+    color: white;
+}
+
+.btn-modern-primary-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-modern-primary-large:hover::before {
+    left: 100%;
+}
+
+/* Tarjetas modernas */
+.modern-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Headers modernos */
+.modern-header {
+    padding: 1.5rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: between;
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    color: white !important;
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+    color: white !important;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.header-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.header-text h5 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.header-subtitle {
+    opacity: 0.9;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.header-badge .badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Grid de reservas */
+.reservations-grid {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .reservations-grid {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+}
+
+/* Tarjetas de reserva individual */
+.reservation-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.reservation-card:hover {
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.reservation-header {
+    display: flex;
+    justify-content: between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.service-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.service-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.1rem;
+}
+
+.service-details h6 {
+    margin: 0;
+    font-weight: 700;
+    color: #121212;
+    font-size: 1.1rem;
+}
+
+.service-price {
+    margin: 0.25rem 0 0 0;
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background: rgba(255, 193, 7, 0.1);
+    color: #856404;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.status-confirmed {
+    background: rgba(40, 167, 69, 0.1);
+    color: #155724;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.status-completed {
+    background: rgba(23, 162, 184, 0.1);
+    color: #0c5460;
+    border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.status-cancelled {
+    background: rgba(220, 53, 69, 0.1);
+    color: #721c24;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+/* Detalles de reserva */
+.reservation-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+}
+
+.detail-icon {
+    width: 35px;
+    height: 35px;
+    background: rgba(18, 18, 18, 0.1);
+    color: #121212;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.detail-value {
+    font-size: 0.9rem;
+    color: #121212;
+    font-weight: 600;
+    margin-top: 0.1rem;
+}
+
+/* Acciones de reserva */
+.reservation-actions {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel-modern {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    color: white;
+}
+
+/* Lista de historial */
+.history-list {
+    padding: 1.5rem;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item:hover {
+    background: rgba(248, 249, 250, 0.5);
+    margin: 0 -1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border-radius: 10px;
+}
+
+.date-circle {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.date-day {
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.date-month {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.history-content {
+    flex: 1;
+}
+
+.history-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.service-info-history h6 {
+    margin: 0;
+    font-weight: 700;
+    color: #121212;
+    font-size: 1.1rem;
+}
+
+.service-employee {
+    margin: 0.25rem 0 0 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.history-status {
+    display: flex;
+    align-items: flex-start;
+}
+
+.history-details {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.history-time,
+.history-price,
+.history-rating {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.history-rating {
+    color: #ffc107;
+}
+
+/* Estados vacíos */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6c757d;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #495057;
+}
+
+.empty-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========== ESTILOS PARA PAGINACIÓN DEL HISTORIAL ========== */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.pagination-modern {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination-modern .page-item {
+    margin: 0;
+}
+
+.pagination-modern .page-link {
+    border: none;
+    background: transparent;
+    color: #6c757d;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    min-width: 45px;
+    text-align: center;
+}
+
+.pagination-modern .page-link:hover {
+    background: rgba(18, 18, 18, 0.1);
+    color: #121212;
+    transform: translateY(-2px);
+}
+
+.pagination-modern .page-item.active .page-link {
+    background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(18, 18, 18, 0.3);
+}
+
+.pagination-modern .page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-modern .page-item.disabled .page-link:hover {
+    background: transparent;
+    transform: none;
+}
+
+/* Información de paginación */
+.pagination-info {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.pagination-info strong {
+    color: #121212;
+}
+
+/* ========== RESPONSIVE PARA HISTORIAL ========== */
+@media (max-width: 768px) {
+    .history-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .history-header {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .history-status {
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+    
+    .history-details {
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .date-circle {
+        margin: 0 auto 1rem;
+    }
+}

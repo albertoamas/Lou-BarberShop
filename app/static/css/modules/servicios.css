@@ -29,23 +29,34 @@
     filter: brightness(1.1);
 }
 
-.stat-number {
+/* Estilos específicos para estadísticas de servicios con mayor especificidad */
+.services-stats .stat-number {
     font-size: 3.5rem;
     font-weight: 900;
-    color: #000000;
+    color: var(--primary) !important;
     margin-bottom: 0.5rem;
     line-height: 1;
     display: block;
     position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.stat-title {
-    color: #000000;
+.services-stats .stat-title {
+    color: var(--secondary) !important;
     font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 0.5rem;
+}
+
+/* Selector aún más específico para asegurar que funcione */
+.container .services-stats .stat-item .stat-number {
+    color: var(--primary) !important;
+}
+
+.container .services-stats .stat-item .stat-title {
+    color: var(--secondary) !important;
 }
 
 /* Separadores entre estadísticas */
@@ -171,3 +182,130 @@
 .stat-item:nth-child(1) { animation-delay: 0.1s; }
 .stat-item:nth-child(2) { animation-delay: 0.2s; }
 .stat-item:nth-child(3) { animation-delay: 0.3s; }
+/* ========== FIX PARA ESPECIFICIDAD DE COLORES ========== */
+/* Reglas de alta prioridad para asegurar que los números sean visibles */
+
+/* Targeting directo a la página de servicios */
+body .services-stats .stat-number,
+.container .row .col-12 .services-stats .stat-item .stat-number {
+    color: var(--primary) !important;
+    text-shadow: none !important;
+}
+
+body .services-stats .stat-title,
+.container .row .col-12 .services-stats .stat-item .stat-title {
+    color: var(--secondary) !important;
+}
+
+/* Asegurar que no se herede el color blanco de otros componentes */
+.services-stats * {
+    color: inherit;
+}
+
+.services-stats .stat-number {
+    color: var(--primary) !important;
+}
+
+.services-stats .stat-title {
+    color: var(--secondary) !important;
+}
+
+/* ========== ANIMACIONES DE HOVER PARA TARJETAS DE SERVICIOS ========== */
+/* Reforzar las animaciones de hover para las tarjetas de servicios */
+
+/* Animaciones principales de las tarjetas */
+.service-card-premium {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    will-change: transform, box-shadow;
+    transform: translateZ(0); /* Optimización de hardware */
+}
+
+/* Efecto hover principal - elevación suave */
+.service-card-premium:hover {
+    transform: translateY(-10px) scale(1.01) !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2) !important;
+    z-index: 10;
+}
+
+/* Animaciones de iconos dentro de las tarjetas */
+.service-card-premium .service-icon-modern {
+    transition: all 0.3s ease !important;
+}
+
+.service-card-premium:hover .service-icon-modern {
+    transform: scale(1.15) rotate(8deg) !important;
+}
+
+/* Animaciones del badge */
+.service-card-premium .service-badge {
+    transition: all 0.3s ease !important;
+}
+
+.service-card-premium:hover .service-badge {
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Efecto de shimmer en los botones */
+.service-card-premium .btn-service-premium {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease !important;
+}
+
+.service-card-premium:hover .btn-service-premium {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Animación de contenido */
+.service-card-premium .service-card-body {
+    transition: all 0.3s ease !important;
+}
+
+.service-card-premium:hover .service-card-body {
+    transform: translateY(-2px) !important;
+}
+
+/* ========== ANIMACIONES ADICIONALES PARA UX MEJORADA ========== */
+
+/* Animación de entrada en cascada */
+.service-card-premium {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.service-card-premium:nth-child(1) { animation-delay: 0.1s; }
+.service-card-premium:nth-child(2) { animation-delay: 0.2s; }
+.service-card-premium:nth-child(3) { animation-delay: 0.3s; }
+.service-card-premium:nth-child(4) { animation-delay: 0.4s; }
+.service-card-premium:nth-child(5) { animation-delay: 0.5s; }
+.service-card-premium:nth-child(6) { animation-delay: 0.6s; }
+
+/* Animación de focus para accesibilidad */
+.service-card-premium:focus-within {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+/* ========== RESPONSIVE OPTIMIZATIONS ========== */
+@media (max-width: 768px) {
+    .service-card-premium:hover {
+        transform: translateY(-5px) scale(1.005) !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+}
+
+/* Optimización para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+    .service-card-premium:hover {
+        transform: none !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .service-card-premium:active {
+        transform: translateY(-3px) scale(0.98) !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+}

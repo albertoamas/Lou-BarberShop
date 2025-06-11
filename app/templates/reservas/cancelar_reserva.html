@@ -49,11 +49,8 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    
-                    <form method="POST">
+                    </div>                    <form method="POST">
                         {{ form.hidden_tag() }}
-                        {{ form.reserva_id(value=reserva.id) }}
                         
                         <div class="mb-3">
                             <label for="motivo" class="form-label">{{ form.motivo.label }}</label>

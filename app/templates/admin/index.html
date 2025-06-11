@@ -125,10 +125,9 @@
                                                 <small class="text-muted">{{ reserva.cliente.email }}</small>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td class="py-3">
+                                    </td>                                    <td class="py-3">
                                         <div class="fw-medium">{{ reserva.servicio.nombre }}</div>
-                                        <small class="text-muted">${{ "%.0f"|format(reserva.servicio.precio) }}</small>
+                                        <small class="text-muted">Bs {{ "%.0f"|format(reserva.servicio.precio) }}</small>
                                     </td>
                                     <td class="py-3">
                                         <div class="d-flex align-items-center">

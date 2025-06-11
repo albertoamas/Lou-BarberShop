@@ -21,138 +21,147 @@
             Administra todas las reservas de tu barbería desde un solo lugar
         </p>
     </div>
-    
-    <!-- Filtros de reservas con diseño mejorado -->
-    <div class="row mb-5">
+      <!-- Filtros de reservas con diseño minimalista -->
+    <div class="row mb-4">
         <div class="col-md-12">
-            <div class="card admin-card shadow-sm">
-                <div class="card-header bg-primary text-white d-flex align-items-center">
-                    <i class="fas fa-filter me-2"></i>
-                    <h5 class="card-title mb-0 fw-bold">Filtrar Reservas</h5>
+            <div class="filter-container">
+                <div class="filter-header">
+                    <span class="filter-title">
+                        <i class="fas fa-filter"></i>
+                        Filtrar por estado
+                    </span>
                 </div>
-                <div class="card-body p-4">
-                    <div class="d-flex flex-wrap gap-2">
-                        <a href="{{ url_for('admin.reservas', estado='todas') }}" 
-                           class="btn {{ 'btn-primary' if estado_filtro == 'todas' else 'btn-outline-primary' }} px-4 py-2 fw-semibold">
-                            <i class="fas fa-list me-1"></i>Todas
-                        </a>
-                        <a href="{{ url_for('admin.reservas', estado='pendiente') }}" 
-                           class="btn {{ 'btn-warning' if estado_filtro == 'pendiente' else 'btn-outline-warning' }} px-4 py-2 fw-semibold">
-                            <i class="fas fa-clock me-1"></i>Pendientes
-                        </a>
-                        <a href="{{ url_for('admin.reservas', estado='confirmada') }}" 
-                           class="btn {{ 'btn-success' if estado_filtro == 'confirmada' else 'btn-outline-success' }} px-4 py-2 fw-semibold">
-                            <i class="fas fa-check-circle me-1"></i>Confirmadas
-                        </a>
-                        <a href="{{ url_for('admin.reservas', estado='completada') }}" 
-                           class="btn {{ 'btn-info' if estado_filtro == 'completada' else 'btn-outline-info' }} px-4 py-2 fw-semibold">
-                            <i class="fas fa-clipboard-check me-1"></i>Completadas
-                        </a>
-                        <a href="{{ url_for('admin.reservas', estado='cancelada') }}" 
-                           class="btn {{ 'btn-danger' if estado_filtro == 'cancelada' else 'btn-outline-danger' }} px-4 py-2 fw-semibold">
-                            <i class="fas fa-times-circle me-1"></i>Canceladas
-                        </a>
-                    </div>
+                <div class="filter-options">
+                    <a href="{{ url_for('admin.reservas', estado='todas') }}" 
+                       class="filter-option {{ 'active' if estado_filtro == 'todas' else '' }}">
+                        <span>Todas</span>
+                    </a>
+                    <a href="{{ url_for('admin.reservas', estado='pendiente') }}" 
+                       class="filter-option {{ 'active' if estado_filtro == 'pendiente' else '' }}">
+                        <span>Pendientes</span>
+                    </a>
+                    <a href="{{ url_for('admin.reservas', estado='confirmada') }}" 
+                       class="filter-option {{ 'active' if estado_filtro == 'confirmada' else '' }}">
+                        <span>Confirmadas</span>
+                    </a>
+                    <a href="{{ url_for('admin.reservas', estado='completada') }}" 
+                       class="filter-option {{ 'active' if estado_filtro == 'completada' else '' }}">
+                        <span>Completadas</span>
+                    </a>
+                    <a href="{{ url_for('admin.reservas', estado='cancelada') }}" 
+                       class="filter-option {{ 'active' if estado_filtro == 'cancelada' else '' }}">
+                        <span>Canceladas</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>    <!-- Listado de reservas con diseño mejorado -->
+    </div><!-- Listado de reservas con diseño idéntico a "Reservas para hoy" -->
     <div class="row">
         <div class="col-md-12">
             <div class="card admin-card shadow-sm">
-                <div class="card-header bg-dark text-white d-flex align-items-center justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-list-alt me-2"></i>
-                        <h5 class="card-title mb-0 fw-bold">Listado de Reservas</h5>
+                <div class="card-header bg-dark text-white py-3 elegant-dark-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h5 class="card-title mb-0 fw-bold">Listado de Reservas</h5>
+                                <small class="text-white-50">{{ reservas|length }} reserva{{ 's' if reservas|length != 1 else '' }}</small>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-white text-dark px-3 py-2">
+                                <i class="fas fa-list-alt me-1"></i>
+                                Gestión
+                            </span>
+                        </div>
                     </div>
-                    <span class="badge bg-light text-dark fs-6 px-3 py-2">
-                        {{ reservas|length }} reserva{{ 's' if reservas|length != 1 else '' }}
-                    </span>
-                </div>
-                <div class="card-body p-0">
+                </div>                <div class="card-body p-0">
                     {% if reservas %}
-                    <div class="table-responsive">
+                    <div class="table-responsive-sm">
                         <table class="table table-hover mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="px-3 fw-bold">ID</th>
-                                    <th class="fw-bold">Cliente</th>
-                                    <th class="fw-bold">Servicio</th>
-                                    <th class="fw-bold">Barbero</th>
-                                    <th class="fw-bold">Fecha</th>
-                                    <th class="fw-bold">Hora</th>
-                                    <th class="fw-bold">Estado</th>
-                                    <th class="text-end pe-3 fw-bold">Acciones</th>
+                                    <th class="px-3 py-3 border-0">Cliente</th>
+                                    <th class="py-3 border-0">Servicio</th>
+                                    <th class="py-3 border-0">Barbero</th>
+                                    <th class="py-3 border-0 text-center">Fecha</th>
+                                    <th class="py-3 border-0 text-center">Hora</th>
+                                    <th class="py-3 border-0 text-center">Estado</th>
+                                    <th class="py-3 border-0 text-center" style="width: 120px;">Acciones</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                            </thead>                            <tbody>
                                 {% for reserva in reservas %}
-                                <tr class="align-middle">
-                                    <td class="px-3">
-                                        <span class="badge bg-secondary">#{{ reserva.id }}</span>
-                                    </td>
-                                    <td>
+                                <tr class="border-bottom">
+                                    <td class="px-3 py-3">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-container bg-primary me-2">
-                                                <i class="fas fa-user"></i>
+                                            <div class="avatar bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
+                                                <i class="fas fa-user text-primary"></i>
                                             </div>
-                                            <span class="fw-semibold">{{ reserva.cliente.nombre }}</span>
+                                            <div>
+                                                <div class="fw-semibold text-dark">{{ reserva.cliente.nombre }}</div>
+                                                <small class="text-muted">{{ reserva.cliente.email }}</small>
+                                            </div>
+                                        </div>
+                                    </td>                                    <td class="py-3">
+                                        <div class="fw-medium">{{ reserva.servicio.nombre }}</div>
+                                        <small class="text-muted">Bs {{ "%.0f"|format(reserva.servicio.precio) }}</small>
+                                    </td>
+                                    <td class="py-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-cut text-muted me-2"></i>
+                                            <span>{{ reserva.empleado.nombre }}</span>
                                         </div>
                                     </td>
-                                    <td>
-                                        <span class="text-muted">{{ reserva.servicio.nombre }}</span>
+                                    <td class="py-3 text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="far fa-calendar-alt text-primary me-2"></i>
+                                            <span class="fw-semibold">{{ reserva.fecha.strftime('%d/%m/%Y') }}</span>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <span class="fw-semibold">{{ reserva.empleado.nombre }}</span>
+                                    <td class="py-3 text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="far fa-clock text-primary me-2"></i>
+                                            <span class="fw-semibold">{{ reserva.hora.strftime('%H:%M') }}</span>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <span class="text-muted">{{ reserva.fecha.strftime('%d/%m/%Y') }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-info text-dark">{{ reserva.hora.strftime('%H:%M') }}</span>
-                                    </td>
-                                    <td>
+                                    <td class="py-3 text-center">
                                         {% if reserva.estado == 'pendiente' %}
-                                        <span class="badge bg-warning text-dark">
-                                            <span class="status-indicator status-pending"></span>
-                                            Pendiente
+                                        <span class="badge bg-warning bg-opacity-15 text-warning border border-warning">
+                                            <i class="fas fa-clock me-1"></i>Pendiente
                                         </span>
                                         {% elif reserva.estado == 'confirmada' %}
-                                        <span class="badge bg-success">
-                                            <span class="status-indicator status-confirmed"></span>
-                                            Confirmada
+                                        <span class="badge bg-success bg-opacity-15 text-success border border-success">
+                                            <i class="fas fa-check-circle me-1"></i>Confirmada
                                         </span>
                                         {% elif reserva.estado == 'completada' %}
-                                        <span class="badge bg-info">
-                                            <span class="status-indicator status-completed"></span>
-                                            Completada
+                                        <span class="badge bg-info bg-opacity-15 text-info border border-info">
+                                            <i class="fas fa-check-double me-1"></i>Completada
                                         </span>
                                         {% elif reserva.estado == 'cancelada' %}
-                                        <span class="badge bg-danger">
-                                            <span class="status-indicator status-cancelled"></span>
-                                            Cancelada
+                                        <span class="badge bg-danger bg-opacity-15 text-danger border border-danger">
+                                            <i class="fas fa-times-circle me-1"></i>Cancelada
                                         </span>
                                         {% endif %}
                                     </td>
-                                    <td>
-                                        <div class="d-flex gap-1 justify-content-end">
+                                    <td class="py-3 text-center">
+                                        <div class="d-flex gap-1 justify-content-center">
                                             {% if reserva.estado == 'pendiente' %}
-                                            <a href="{{ url_for('admin.confirmar_reserva', reserva_id=reserva.id) }}" 
-                                               class="btn btn-success btn-sm px-3" 
-                                               title="Confirmar reserva">
+                                            <a href="{{ url_for('admin.confirmar_reserva', reserva_id=reserva.id) }}"
+                                                class="btn btn-success btn-sm"
+                                                title="Confirmar reserva">
                                                 <i class="fas fa-check"></i>
                                             </a>
                                             {% endif %}
                                             
                                             {% if reserva.estado in ['pendiente', 'confirmada'] %}
-                                            <a href="{{ url_for('admin.completar_reserva', reserva_id=reserva.id) }}" 
-                                               class="btn btn-info btn-sm px-3" 
-                                               title="Completar reserva">
-                                                <i class="fas fa-clipboard-check"></i>
+                                            <a href="{{ url_for('admin.completar_reserva', reserva_id=reserva.id) }}"
+                                                class="btn btn-info btn-sm"
+                                                title="Marcar como completada">
+                                                <i class="fas fa-check-double"></i>
                                             </a>
-                                            <a href="{{ url_for('admin.cancelar_reserva', reserva_id=reserva.id) }}" 
-                                               class="btn btn-danger btn-sm px-3" 
-                                               title="Cancelar reserva">
+                                            <a href="{{ url_for('admin.cancelar_reserva', reserva_id=reserva.id) }}"
+                                                class="btn btn-outline-danger btn-sm"
+                                                title="Cancelar reserva"
+                                               onclick="return confirm('¿Estás seguro de que quieres cancelar esta reserva?')">
                                                 <i class="fas fa-times"></i>
                                             </a>
                                             {% endif %}

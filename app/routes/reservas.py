@@ -139,21 +139,26 @@ def confirmar_reserva():
 @reservas_bp.route('/mis-reservas')
 @login_required
 def mis_reservas():
-    """Muestra las reservas del usuario actual"""
+    """Muestra las reservas del usuario actual con paginación para el historial"""
+    # Obtener página actual para el historial
+    page = request.args.get('page', 1, type=int)
+    per_page = 5  # 5 registros por página
+    
     # Obtener reservas activas (pendientes y confirmadas)
     reservas_activas = Reserva.query.filter_by(cliente_id=current_user.id)\
                                .filter(Reserva.estado.in_(['pendiente', 'confirmada']))\
                                .order_by(Reserva.fecha, Reserva.hora).all()
-    
-    # Obtener historial de reservas (completadas y canceladas)
-    historial = Reserva.query.filter_by(cliente_id=current_user.id)\
-                       .filter(Reserva.estado.in_(['completada', 'cancelada']))\
-                       .order_by(Reserva.fecha.desc(), Reserva.hora.desc()).all()
+      # Obtener historial de reservas con paginación (completadas y canceladas)
+    historial_paginado = Reserva.query.filter_by(cliente_id=current_user.id)\
+                                      .filter(Reserva.estado.in_(['completada', 'cancelada']))\
+                                      .order_by(Reserva.fecha.desc(), Reserva.hora.desc())\
+                                      .paginate(page=page, per_page=per_page, error_out=False)
     
     return render_template('reservas/mis_reservas.html',
                          title='Mis Reservas',
                          reservas_activas=reservas_activas,
-                         historial=historial)
+                         historial=historial_paginado.items,
+                         historial_paginado=historial_paginado)
 
 @reservas_bp.route('/cancelar/<int:reserva_id>', methods=['GET', 'POST'])
 @login_required
@@ -165,8 +170,7 @@ def cancelar_reserva(reserva_id):
     if reserva.cliente_id != current_user.id and not current_user.is_admin():
         flash('No tienes permiso para cancelar esta reserva', 'danger')
         return redirect(url_for('reservas.mis_reservas'))
-    
-    # Verificar que la reserva esté en estado cancelable
+      # Verificar que la reserva esté en estado cancelable
     if reserva.estado not in ['pendiente', 'confirmada']:
         flash('Esta reserva no puede ser cancelada', 'warning')
         return redirect(url_for('reservas.mis_reservas'))
@@ -174,12 +178,18 @@ def cancelar_reserva(reserva_id):
     form = CancelarReservaForm()
     
     if form.validate_on_submit():
+        print(f"Formulario validado correctamente para reserva {reserva_id}")
         if ReservaService.cancelar_reserva(reserva_id, form.motivo.data):
             flash('Reserva cancelada exitosamente', 'success')
         else:
             flash('Error al cancelar la reserva', 'danger')
         
         return redirect(url_for('reservas.mis_reservas'))
+    
+    # Agregar logs para debugging
+    if request.method == 'POST':
+        print(f"Formulario POST recibido pero no validado. Errores: {form.errors}")
+        flash('Error en el formulario de cancelación', 'danger')
     
     return render_template('reservas/cancelar_reserva.html',
                          title='Cancelar Reserva',

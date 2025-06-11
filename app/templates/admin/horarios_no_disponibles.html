@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container admin-dashboard py-5">
+<div class="container admin-dashboard py-5 horarios-page">
     <!-- Header moderno de gestión de horarios -->
     <div class="text-center mb-5">
         <div class="admin-header-badge mb-4">
@@ -24,9 +24,8 @@
     
     <div class="row g-4">
         <!-- Formulario para agregar horario no disponible -->
-        <div class="col-lg-6">
-            <div class="card admin-card shadow-sm">
-                <div class="card-header bg-primary text-white d-flex align-items-center">
+        <div class="col-lg-6">            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-dark elegant-dark-header text-white d-flex align-items-center">
                     <i class="fas fa-plus-circle me-2"></i>
                     <h5 class="card-title mb-0 fw-bold">Agregar Horario No Disponible</h5>
                 </div>
@@ -60,8 +59,7 @@
                             <input type="text" class="form-control" id="motivo" name="motivo" placeholder="Vacaciones, incapacidad, etc." required>
                             <small class="form-text text-muted">Describe brevemente el motivo de la ausencia</small>
                         </div>
-                        
-                        <div class="d-grid mt-4">
+                          <div class="d-grid mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="fas fa-plus-circle me-2"></i>Agregar Horario No Disponible
                             </button>
@@ -72,9 +70,8 @@
         </div>
         
         <!-- Lista de horarios no disponibles -->
-        <div class="col-lg-6">
-            <div class="card admin-card shadow-sm">
-                <div class="card-header bg-warning text-dark d-flex align-items-center justify-content-between">
+        <div class="col-lg-6">            <div class="card admin-card shadow-sm">
+                <div class="card-header bg-dark elegant-dark-header text-white d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-list-alt me-2"></i>
                         <h5 class="card-title mb-0 fw-bold">Horarios No Disponibles</h5>

@@ -7,6 +7,8 @@ class Empleado(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     especialidad = db.Column(db.String(100))
+    telefono = db.Column(db.String(20))
+    correo = db.Column(db.String(120))
     
     # Relación con la tabla reservas (un empleado puede tener muchas reservas)
     reservas = db.relationship('Reserva', backref='empleado', lazy='dynamic')

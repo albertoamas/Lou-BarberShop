@@ -1,105 +1,298 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Mis Reservas</h1>
-    
-    <div class="d-flex justify-content-end mb-3">
-        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-primary hover-lift-sm transition-all">
-            <i class="fas fa-plus"></i> Nueva Reserva
+<!-- Hero Section de Mis Reservas -->
+<section class="my-reservations-hero bg-dark text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="hero-content animate-fadeInUp">
+                    <div class="reservation-badge mb-4">
+                        <span class="badge bg-light text-dark px-4 py-3 rounded-pill fs-6">
+                            <i class="fas fa-calendar-check me-2"></i>Panel Personal
+                        </span>
+                    </div>                    <h1 class="display-4 fw-bold mb-3">Mis Reservas</h1>
+                    <p class="lead mb-4">Gestiona todas tus citas y revisa tu historial de servicios</p>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ reservas_activas|length }}</div>
+                        <div class="stat-label">Reservas Activas</div>
+                    </div>                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ historial_paginado.total if historial_paginado else 0 }}</div>
+                        <div class="stat-label">Historial Total</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container py-5 my-reservations-page">
+    <!-- Botón de nueva reserva destacado -->
+    <div class="text-center mb-5">
+        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-modern-primary-large">
+            <i class="fas fa-plus-circle me-2"></i>
+            Nueva Reserva
         </a>
+        <p class="text-muted mt-2">¿Necesitas otra cita? ¡Agenda ahora mismo!</p>
     </div>
-    
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h5 class="card-title mb-0">Reservas Pendientes</h5>
-        </div>
-        <div class="card-body">
-            {% if reservas_activas %}
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Servicio</th>
-                            <th>Barbero</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+      <!-- Reservas Activas -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card modern-card shadow-lg">
+                <div class="card-header modern-header bg-gradient-success">
+                    <div class="header-content">
+                        <div class="header-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="header-text">
+                            <h5 class="card-title mb-0 fw-bold">Reservas Pendientes</h5>
+                            <p class="header-subtitle mb-0">Tus próximas citas programadas</p>
+                        </div>
+                    </div>
+                    <div class="header-badge">
+                        <span class="badge bg-white text-success px-3 py-2 rounded-pill">
+                            {{ reservas_activas|length }} {{ 'reserva' if reservas_activas|length == 1 else 'reservas' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    {% if reservas_activas %}
+                    <div class="reservations-grid">
                         {% for reserva in reservas_activas %}
-                        <tr>
-                            <td>{{ reserva.servicio.nombre }}</td>
-                            <td>{{ reserva.empleado.nombre }}</td>
-                            <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
-                            <td>{{ reserva.hora.strftime('%H:%M') }}</td>
-                            <td>
-                                {% if reserva.estado == 'pendiente' %}
-                                <span class="badge bg-warning">Pendiente</span>
-                                {% elif reserva.estado == 'confirmada' %}
-                                <span class="badge bg-success">Confirmada</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <a href="{{ url_for('reservas.cancelar_reserva', reserva_id=reserva.id) }}" class="btn btn-danger btn-sm">
-                                    Cancelar
+                        <div class="reservation-card">
+                            <div class="reservation-header">
+                                <div class="service-info">
+                                    <div class="service-icon">
+                                        {% if 'corte' in reserva.servicio.nombre.lower() and 'barba' in reserva.servicio.nombre.lower() %}
+                                            <i class="fas fa-user-tie"></i>
+                                        {% elif 'corte' in reserva.servicio.nombre.lower() %}
+                                            <i class="fas fa-cut"></i>
+                                        {% elif 'barba' in reserva.servicio.nombre.lower() %}
+                                            <i class="fas fa-male"></i>
+                                        {% else %}
+                                            <i class="fas fa-scissors"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="service-details">
+                                        <h6 class="service-name">{{ reserva.servicio.nombre }}</h6>
+                                        <p class="service-price">Bs {{ "%.0f"|format(reserva.servicio.precio) }}</p>
+                                    </div>
+                                </div>
+                                <div class="reservation-status">
+                                    {% if reserva.estado == 'pendiente' %}
+                                    <span class="status-badge status-pending">
+                                        <i class="fas fa-clock me-1"></i>Pendiente
+                                    </span>
+                                    {% elif reserva.estado == 'confirmada' %}
+                                    <span class="status-badge status-confirmed">
+                                        <i class="fas fa-check-circle me-1"></i>Confirmada
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="reservation-details">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <span class="detail-label">Barbero</span>
+                                        <span class="detail-value">{{ reserva.empleado.nombre }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-day"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <span class="detail-label">Fecha</span>
+                                        <span class="detail-value">{{ reserva.fecha.strftime('%d/%m/%Y') }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <span class="detail-label">Hora</span>
+                                        <span class="detail-value">{{ reserva.hora.strftime('%H:%M') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="reservation-actions">
+                                <a href="{{ url_for('reservas.cancelar_reserva', reserva_id=reserva.id) }}" 
+                                   class="btn btn-cancel-modern">
+                                    <i class="fas fa-times me-2"></i>
+                                    Cancelar Reserva
                                 </a>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                         {% endfor %}
-                    </tbody>
-                </table>
+                    </div>
+                    {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h5 class="empty-title">No tienes reservas pendientes</h5>
+                        <p class="empty-description">
+                            ¡Es el momento perfecto para agendar tu próxima cita!
+                        </p>
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-modern-primary">
+                            <i class="fas fa-plus-circle me-2"></i>
+                            Agenda tu Primera Cita
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
-            {% else %}
-            <div class="alert alert-info">
-                No tienes reservas pendientes. 
-                <a href="{{ url_for('reservas.nueva_reserva') }}" class="alert-link">¡Agenda una cita ahora!</a>
-            </div>
-            {% endif %}
         </div>
     </div>
-    
-    <div class="card">
-        <div class="card-header bg-secondary text-white">
-            <h5 class="card-title mb-0">Historial de Reservas</h5>
-        </div>
-        <div class="card-body">
-            {% if historial %}
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Servicio</th>
-                            <th>Barbero</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+      <!-- Historial de Reservas -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card modern-card shadow-lg">
+                <div class="card-header modern-header bg-gradient-secondary">
+                    <div class="header-content">
+                        <div class="header-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="header-text">
+                            <h5 class="card-title mb-0 fw-bold">Historial de Reservas</h5>
+                            <p class="header-subtitle mb-0">Tus servicios anteriores</p>
+                        </div>
+                    </div>
+                    <div class="header-badge">
+                        <span class="badge bg-white text-secondary px-3 py-2 rounded-pill">
+                            {{ historial|length }} {{ 'registro' if historial|length == 1 else 'registros' }}
+                        </span>
+                    </div>
+                </div>                <div class="card-body p-0">
+                    {% if historial %}
+                    <div class="history-list">
                         {% for reserva in historial %}
-                        <tr>
-                            <td>{{ reserva.servicio.nombre }}</td>
-                            <td>{{ reserva.empleado.nombre }}</td>
-                            <td>{{ reserva.fecha.strftime('%d/%m/%Y') }}</td>
-                            <td>{{ reserva.hora.strftime('%H:%M') }}</td>
-                            <td>
-                                {% if reserva.estado == 'completada' %}
-                                <span class="badge bg-info">Completada</span>
-                                {% elif reserva.estado == 'cancelada' %}
-                                <span class="badge bg-danger">Cancelada</span>
-                                {% endif %}
-                            </td>
-                        </tr>
+                        <div class="history-item">
+                            <div class="history-date">
+                                <div class="date-circle">
+                                    <span class="date-day">{{ reserva.fecha.strftime('%d') }}</span>
+                                    <span class="date-month">{{ reserva.fecha.strftime('%b') }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="history-content">
+                                <div class="history-header">
+                                    <div class="service-info-history">
+                                        <h6 class="service-name">{{ reserva.servicio.nombre }}</h6>
+                                        <p class="service-employee">con {{ reserva.empleado.nombre }}</p>
+                                    </div>
+                                    <div class="history-status">
+                                        {% if reserva.estado == 'completada' %}
+                                        <span class="status-badge status-completed">
+                                            <i class="fas fa-check-double me-1"></i>Completada
+                                        </span>
+                                        {% elif reserva.estado == 'cancelada' %}
+                                        <span class="status-badge status-cancelled">
+                                            <i class="fas fa-times-circle me-1"></i>Cancelada
+                                        </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="history-details">
+                                    <span class="history-time">
+                                        <i class="fas fa-clock me-1"></i>
+                                        {{ reserva.hora.strftime('%H:%M') }}
+                                    </span>
+                                    <span class="history-price">
+                                        <i class="fas fa-money-bill-wave me-1"></i>
+                                        Bs {{ "%.0f"|format(reserva.servicio.precio) }}
+                                    </span>
+                                    {% if reserva.estado == 'completada' %}
+                                    <span class="history-rating">
+                                        <i class="fas fa-star text-warning me-1"></i>
+                                        Servicio realizado
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                         {% endfor %}
-                    </tbody>
-                </table>
+                    </div>
+                    
+                    <!-- Paginación -->
+                    {% if historial_paginado.pages > 1 %}
+                    <div class="pagination-container">
+                        <nav aria-label="Navegación del historial">
+                            <ul class="pagination pagination-modern">
+                                <!-- Botón Anterior -->
+                                <li class="page-item {{ 'disabled' if not historial_paginado.has_prev }}">
+                                    {% if historial_paginado.has_prev %}
+                                    <a class="page-link" href="{{ url_for('reservas.mis_reservas', page=historial_paginado.prev_num) }}" aria-label="Anterior">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                    {% else %}
+                                    <span class="page-link" aria-label="Anterior">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    {% endif %}
+                                </li>
+                                
+                                <!-- Números de página -->
+                                {% for page_num in historial_paginado.iter_pages() %}
+                                    {% if page_num %}
+                                        {% if page_num != historial_paginado.page %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ url_for('reservas.mis_reservas', page=page_num) }}">{{ page_num }}</a>
+                                        </li>
+                                        {% else %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ page_num }}</span>
+                                        </li>
+                                        {% endif %}
+                                    {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                <!-- Botón Siguiente -->
+                                <li class="page-item {{ 'disabled' if not historial_paginado.has_next }}">
+                                    {% if historial_paginado.has_next %}
+                                    <a class="page-link" href="{{ url_for('reservas.mis_reservas', page=historial_paginado.next_num) }}" aria-label="Siguiente">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                    {% else %}
+                                    <span class="page-link" aria-label="Siguiente">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                        <h5 class="empty-title">No tienes historial de reservas</h5>
+                        <p class="empty-description">
+                            Cuando completes tus primeras citas, aparecerán aquí
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
-            {% else %}
-            <div class="alert alert-info">No tienes historial de reservas.</div>
-            {% endif %}
         </div>
     </div>
 </div>

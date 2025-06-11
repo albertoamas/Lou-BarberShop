@@ -1,19 +1,21 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_wtf.csrf import CSRFProtect
 from app.config import Config
 
 # Inicializar las extensiones
 db = SQLAlchemy()
 migrate = Migrate()
+csrf = CSRFProtect()
 
 def create_app(config_class=Config):
     """Crear y configurar la aplicación Flask"""
     app = Flask(__name__)
-    app.config.from_object(config_class)
-      # Inicializar extensiones con la app
+    app.config.from_object(config_class)      # Inicializar extensiones con la app
     db.init_app(app)
     migrate.init_app(app, db)
+    csrf.init_app(app)
       # Inicializar Flask-Login
     from app.auth import login_manager
     login_manager.init_app(app)
@@ -43,8 +45,7 @@ def create_app(config_class=Config):
       # Registrar comandos CLI personalizados
     from app.cli import register_commands
     register_commands(app)
-    
-    # Registrar filtros personalizados de Jinja2
+      # Registrar filtros personalizados de Jinja2
     @app.template_filter('strftime')
     def strftime_filter(date, format_string='%Y-%m-%d %H:%M'):
         """Filtro personalizado para formatear fechas y horas en templates"""
@@ -62,6 +63,13 @@ def create_app(config_class=Config):
             return str(date)
         except (ValueError, AttributeError) as e:
             return 'Formato inválido'
+    
+    # Hacer que csrf_token esté disponible en todos los templates
+    @app.template_global('csrf_token')
+    def csrf_token():
+        """Generar token CSRF para usar en templates"""
+        from flask_wtf.csrf import generate_csrf
+        return generate_csrf()
     
     @app.route('/test')
     def test_route():

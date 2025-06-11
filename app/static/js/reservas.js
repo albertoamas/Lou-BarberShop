@@ -45,17 +45,37 @@ function initFechaInput(fechaInput) {
     // Si no hay fecha seleccionada, establecer hoy como valor por defecto
     if (!fechaInput.value) {
         fechaInput.value = fechaMinima;
-    }
-    
-    // Evento para cuando cambia la fecha
+    }    // Evento para cuando cambia la fecha
     fechaInput.addEventListener('change', function() {
-        const fechaSeleccionada = new Date(this.value);
+        // Usar una fecha local sin problemas de timezone
+        const fechaSeleccionada = new Date(this.value + 'T00:00:00');
         
         // Validar que no sea domingo (0 es domingo, 6 es sábado)
         if (fechaSeleccionada.getDay() === 0) {
-            alert('Lo sentimos, la barbería está cerrada los domingos. Por favor selecciona otro día.');
-            // Establecer como fecha mínima o dejar en blanco
+            // Limpiar el valor y mostrar error en el formulario
             this.value = '';
+            
+            // Buscar la sección del formulario y mostrar el error
+            const formSection = this.closest('.form-section');
+            if (formSection) {
+                const errorMessage = formSection.querySelector('.error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> La barbería está cerrada los domingos';
+                    errorMessage.style.display = 'block';
+                }
+                this.classList.add('error');
+            }
+            return;
+        }
+        
+        // Si la fecha es válida, remover errores
+        const formSection = this.closest('.form-section');
+        if (formSection) {
+            const errorMessage = formSection.querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+            this.classList.remove('error');
         }
         
         // Si estamos en la página de selección de hora, actualizar horas disponibles
@@ -699,19 +719,25 @@ function validateInput(input) {
             message = 'Por favor selecciona un servicio';
         }
     }
-    
-    if (input.classList.contains('modern-date')) {
+      if (input.classList.contains('modern-date')) {
         if (!input.value) {
             isValid = false;
             message = 'Por favor selecciona una fecha';
         } else {
-            const selectedDate = new Date(input.value);
+            // Usar fecha local sin problemas de timezone
+            const selectedDate = new Date(input.value + 'T00:00:00');
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             
             if (selectedDate < today) {
                 isValid = false;
                 message = 'La fecha no puede ser anterior a hoy';
+            }
+            
+            // Validar que no sea domingo
+            if (selectedDate.getDay() === 0) {
+                isValid = false;
+                message = 'La barbería está cerrada los domingos';
             }
         }
     }

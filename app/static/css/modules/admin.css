@@ -198,6 +198,30 @@
     left: 100%;
 }
 
+/* Estilos específicos para badges de estado en la columna Estado - COMPACTOS */
+.admin-card .table .badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* Asegurar que los badges de estado sean compactos y no desborden */
+.admin-card .table td:nth-child(6) .badge {
+    display: inline-block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* Botones de acciones más compactos */
+.admin-card .table .btn-sm {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+    margin: 0 1px;
+}
+
 /* Grupos de botones administrativos */
 .admin-card .btn-group-sm .btn {
     padding: 0.4rem 1rem;
@@ -318,53 +342,64 @@
     font-weight: 600;
 }
 
-/* Optimización para tabla de reservas */
+/* Optimización para tabla de reservas - SIN SCROLL HORIZONTAL */
 .admin-card .table-responsive-sm {
-    overflow-x: hidden;
+    overflow-x: hidden; /* Elimina completamente el scroll horizontal */
 }
 
 .admin-card .table {
-    table-layout: fixed;
+    table-layout: fixed; /* Fuerza anchos fijos para evitar desbordamiento */
     width: 100%;
 }
 
 .admin-card .table th,
 .admin-card .table td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: hidden; /* Previene desbordamiento de contenido */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+    white-space: nowrap; /* Evita salto de línea */
+    padding: 0.75rem 0.5rem; /* Padding compacto */
+    vertical-align: middle;
 }
 
-.admin-card .table th:first-child,
-.admin-card .table td:first-child {
-    width: 30%;
-    white-space: normal;
+/* Anchos porcentuales optimizados para las 7 columnas - SIN SCROLL */
+.admin-card .table th:nth-child(1),
+.admin-card .table td:nth-child(1) {
+    width: 23%; /* Cliente - Más espacio */
+    white-space: normal; /* Permite salto de línea solo para cliente */
 }
 
 .admin-card .table th:nth-child(2),
 .admin-card .table td:nth-child(2) {
-    width: 20%;
+    width: 16%; /* Servicio */
 }
 
 .admin-card .table th:nth-child(3),
 .admin-card .table td:nth-child(3) {
-    width: 15%;
+    width: 13%; /* Barbero */
 }
 
 .admin-card .table th:nth-child(4),
 .admin-card .table td:nth-child(4) {
-    width: 10%;
+    width: 12%; /* Fecha */
+    text-align: center;
 }
 
 .admin-card .table th:nth-child(5),
 .admin-card .table td:nth-child(5) {
-    width: 15%;
+    width: 10%; /* Hora */
+    text-align: center;
 }
 
-.admin-card .table th:last-child,
-.admin-card .table td:last-child {
-    width: 10%;
-    min-width: 120px;
+.admin-card .table th:nth-child(6),
+.admin-card .table td:nth-child(6) {
+    width: 14%; /* Estado */
+    text-align: center;
+}
+
+.admin-card .table th:nth-child(7),
+.admin-card .table td:nth-child(7) {
+    width: 12%; /* Acciones */
+    text-align: center;
 }
 
 /* Botones compactos solo con iconos */
@@ -376,6 +411,23 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Optimizaciones adicionales para evitar scroll horizontal */
+.admin-card .table .d-flex {
+    flex-wrap: nowrap;
+}
+
+.admin-card .table td:nth-child(4) .d-flex,
+.admin-card .table td:nth-child(5) .d-flex {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.admin-card .table td:nth-child(4) .d-flex i,
+.admin-card .table td:nth-child(5) .d-flex i {
+    font-size: 0.8rem;
 }
 
 /* Responsive para dispositivos móviles */
@@ -393,6 +445,53 @@
     .admin-card .table td {
         white-space: nowrap;
         min-width: auto;
+    }
+    
+    .admin-card .table th:nth-child(1),
+    .admin-card .table td:nth-child(1) {
+        width: 25%;
+    }
+    
+    .admin-card .table th:nth-child(2),
+    .admin-card .table td:nth-child(2) {
+        width: 15%;
+    }
+    
+    .admin-card .table th:nth-child(3),
+    .admin-card .table td:nth-child(3) {
+        width: 12%;
+    }
+    
+    .admin-card .table th:nth-child(4),
+    .admin-card .table td:nth-child(4) {
+        width: 10%;
+    }
+    
+    .admin-card .table th:nth-child(5),
+    .admin-card .table td:nth-child(5) {
+        width: 8%;
+    }
+    
+    .admin-card .table th:nth-child(6),
+    .admin-card .table td:nth-child(6) {
+        width: 15%;
+    }
+    
+    .admin-card .table th:nth-child(7),
+    .admin-card .table td:nth-child(7) {
+        width: 15%;
+    }
+    
+    /* Hacer badges aún más compactos en móviles */
+    .admin-card .table .badge {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    /* Botones aún más pequeños en móviles */
+    .admin-card .table .btn-sm {
+        padding: 0.2rem 0.3rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -872,5 +971,671 @@
     
     .table-responsive {
         font-size: 0.875rem;
+    }
+}
+
+/* === FILTRO DE RESERVAS MINIMALISTA === */
+.filter-container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.filter-header {
+    background: #f9fafb;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.filter-title {
+    color: #374151;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-title i {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: 0.75rem;
+}
+
+.filter-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #6b7280;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.filter-option:hover {
+    color: #374151;
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.filter-option.active {
+    color: #1f2937;
+    background: #e5e7eb;
+    border-color: #9ca3af;
+    font-weight: 600;
+}
+
+.filter-option.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #374151;
+    border-radius: 0 3px 3px 0;
+}
+
+/* Responsive para filtros */
+@media (max-width: 768px) {
+    .filter-options {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .filter-option {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .filter-header {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* === TABLA DE EMPLEADOS - ANCHOS OPTIMIZADOS === */
+.empleados-page .table th:nth-child(1),
+.empleados-page .table td:nth-child(1) {
+    width: 30%; /* Empleado - nombre con avatar */
+    min-width: 200px;
+}
+
+.empleados-page .table th:nth-child(2),
+.empleados-page .table td:nth-child(2) {
+    width: 25%; /* Especialidad */
+    min-width: 150px;
+}
+
+.empleados-page .table th:nth-child(3),
+.empleados-page .table td:nth-child(3) {
+    width: 30%; /* Contacto - teléfono y correo */
+    min-width: 180px;
+}
+
+.empleados-page .table th:nth-child(4),
+.empleados-page .table td:nth-child(4) {
+    width: 15%; /* Acciones - botones */
+    min-width: 100px;
+    max-width: 120px;
+}
+
+/* Asegurar que el texto no se desborde en columnas de contacto */
+.empleados-page .table td:nth-child(3) small {
+    font-size: 0.85rem;
+    word-break: break-word;
+}
+
+/* Botones de acción más compactos en empleados */
+.empleados-page .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive para tabla de empleados */
+@media (max-width: 768px) {
+    .empleados-page .table th:nth-child(1),
+    .empleados-page .table td:nth-child(1) {
+        width: 35%;
+        min-width: 150px;
+    }
+    
+    .empleados-page .table th:nth-child(2),
+    .empleados-page .table td:nth-child(2) {
+        width: 25%;
+        min-width: 120px;
+    }
+    
+    .empleados-page .table th:nth-child(3),
+    .empleados-page .table td:nth-child(3) {
+        width: 25%;
+        min-width: 140px;
+    }
+    
+    .empleados-page .table th:nth-child(4),
+    .empleados-page .table td:nth-child(4) {
+        width: 15%;
+        min-width: 80px;
+    }
+}
+
+/* === CORRECCIÓN DE MODALES - Z-INDEX Y POSICIONAMIENTO === */
+
+/* Asegurar que los modales aparezcan por encima de la navegación */
+.modal {
+    z-index: 1055 !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+/* Ajustar el posicionamiento del modal para evitar superposición con navbar */
+.modal-dialog {
+    margin-top: 5rem !important;
+    margin-bottom: 2rem !important;
+}
+
+/* En dispositivos móviles, ajustar aún más el margen superior */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin-top: 6rem !important;
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+}
+
+/* Asegurar que el contenido del modal sea visible */
+.modal-content {
+    position: relative;
+    z-index: 1056 !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Estilo mejorado para headers de modales */
+.modal-header.bg-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    border-bottom: none !important;
+}
+
+.modal-header.bg-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%) !important;
+    border-bottom: none !important;
+}
+
+/* Animación suave para la aparición del modal */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+/* === ESTILOS ESPECÍFICOS PARA MODALES DE EMPLEADOS === */
+
+/* Modal de edición de empleados */
+#editarEmpleado .modal-body {
+    padding: 2rem !important;
+}
+
+#eliminarEmpleado .modal-body {
+    padding: 2rem !important;
+}
+
+/* Campos de formulario en modales */
+.modal .form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.modal .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Labels en modales */
+.modal .form-label {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Botones en footer de modales */
+.modal-footer .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.modal-footer .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* === RESPONSIVE PARA MODALES === */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin-top: 4rem !important;
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+        max-width: calc(100% - 1rem) !important;
+    }
+    
+    .modal-header h5 {
+        font-size: 1.1rem;
+    }
+    
+    .modal-body {
+        padding: 1.5rem !important;
+    }
+    
+    .modal-footer {
+        padding: 1rem 1.5rem;
+    }
+    
+    .modal-footer .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* === ESTILOS ESPECÍFICOS PARA MODALES DE SERVICIOS === */
+
+/* Modal de edición de servicios */
+#editarServicio .modal-body {
+    padding: 1.5rem;
+}
+
+#eliminarServicio .modal-body {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+/* Asegurar que todos los modales con clase admin-modal funcionen correctamente */
+.admin-modal .modal-dialog {
+    margin-top: 5rem;
+}
+
+.admin-modal .modal-content {
+    border-radius: var(--admin-border-radius);
+    box-shadow: var(--admin-shadow);
+}
+
+/* Responsive para modales admin en móvil */
+@media (max-width: 768px) {
+    .admin-modal .modal-dialog {
+        margin-top: 6rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+/* === ESTILOS PERSONALIZADOS PARA FORMULARIO DE SERVICIOS === */
+
+/* Personalización de campos de formulario en el cuadro "Agregar Nuevo Servicio" */
+.admin-dashboard .card .form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+.admin-dashboard .card .form-control:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.15) !important;
+    outline: none;
+    background: #ffffff;
+}
+
+.admin-dashboard .card .form-control:hover {
+    border-color: var(--admin-secondary);
+}
+
+/* Personalización de form-select */
+.admin-dashboard .card .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+.admin-dashboard .card .form-select:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.15) !important;
+    outline: none;
+}
+
+.admin-dashboard .card .form-select:hover {
+    border-color: var(--admin-secondary);
+}
+
+/* Personalización de input-group */
+.admin-dashboard .card .input-group .form-control:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.15) !important;
+}
+
+.admin-dashboard .card .input-group-text {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    color: var(--admin-secondary);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.admin-dashboard .card .input-group:focus-within .input-group-text {
+    border-color: var(--admin-primary);
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%);
+    color: white;
+}
+
+/* Botón personalizado para "Agregar Servicio" */
+.admin-dashboard .card .btn-primary {
+    background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-secondary) 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(18, 18, 18, 0.2);
+}
+
+.admin-dashboard .card .btn-primary:hover {
+    background: linear-gradient(135deg, var(--admin-secondary) 0%, var(--admin-primary) 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(18, 18, 18, 0.3) !important;
+}
+
+.admin-dashboard .card .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(18, 18, 18, 0.25) !important;
+}
+
+.admin-dashboard .card .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(18, 18, 18, 0.2) !important;
+}
+
+/* Labels personalizados */
+.admin-dashboard .card .form-label {
+    color: var(--admin-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.admin-dashboard .card .form-label i {
+    color: var(--admin-accent);
+}
+
+/* Texto de ayuda */
+.admin-dashboard .card .form-text {
+    color: var(--admin-accent);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/* Responsive para formularios */
+@media (max-width: 768px) {
+    .admin-dashboard .card .btn-primary {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    .admin-dashboard .card .form-control,
+    .admin-dashboard .card .form-select {
+        font-size: 1rem;
+        padding: 0.875rem 1rem;
+    }
+}
+
+/* === TABLA DE SERVICIOS - ANCHOS OPTIMIZADOS PARA EVITAR SCROLL HORIZONTAL === */
+
+/* Contenedor de tabla sin scroll horizontal */
+.servicios-page .table-responsive {
+    overflow-x: visible !important;
+}
+
+/* Anchos específicos para tabla de servicios con 4 columnas */
+.servicios-page .table th:nth-child(1),
+.servicios-page .table td:nth-child(1) {
+    width: 45% !important;
+    min-width: 45% !important;
+    max-width: 45% !important;
+}
+
+.servicios-page .table th:nth-child(2),
+.servicios-page .table td:nth-child(2) {
+    width: 20% !important;
+    min-width: 20% !important;
+    max-width: 20% !important;
+    text-align: center;
+}
+
+.servicios-page .table th:nth-child(3),
+.servicios-page .table td:nth-child(3) {
+    width: 20% !important;
+    min-width: 20% !important;
+    max-width: 20% !important;
+    text-align: center;
+}
+
+.servicios-page .table th:nth-child(4),
+.servicios-page .table td:nth-child(4) {
+    width: 15% !important;
+    min-width: 15% !important;
+    max-width: 15% !important;
+    text-align: right;
+}
+
+/* Asegurar que el contenido no se desborde */
+.servicios-page .table {
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+
+.servicios-page .table td {
+    word-wrap: break-word !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Botones de acción más compactos para servicios */
+.servicios-page .btn-sm {
+    padding: 0.25rem 0.4rem !important;
+    font-size: 0.7rem !important;
+    margin: 0 1px !important;
+    border-radius: 6px !important;
+}
+
+/* Badges compactos para precio y duración */
+.servicios-page .badge {
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 15px !important;
+    font-weight: 600 !important;
+}
+
+/* Optimización para columna de servicio */
+.servicios-page .table td:nth-child(1) .fw-semibold {
+    display: block;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+}
+
+.servicios-page .table td:nth-child(1) small {
+    display: block;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    color: var(--admin-accent) !important;
+    max-height: 2.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Responsive para tabla de servicios */
+@media (max-width: 768px) {
+    .servicios-page .table th:nth-child(1),
+    .servicios-page .table td:nth-child(1) {
+        width: 50% !important;
+    }
+    
+    .servicios-page .table th:nth-child(2),
+    .servicios-page .table td:nth-child(2) {
+        width: 18% !important;
+    }
+    
+    .servicios-page .table th:nth-child(3),
+    .servicios-page .table td:nth-child(3) {
+        width: 18% !important;
+    }
+    
+    .servicios-page .table th:nth-child(4),
+    .servicios-page .table td:nth-child(4) {
+        width: 14% !important;
+    }
+    
+    .servicios-page .btn-sm {
+        padding: 0.2rem 0.3rem !important;
+        font-size: 0.65rem !important;
+    }
+    
+    .servicios-page .badge {
+        font-size: 0.65rem !important;
+        padding: 0.3rem 0.6rem !important;
+    }
+}
+
+/* === ESTILOS ESPECÍFICOS PARA HORARIOS NO DISPONIBLES === */
+
+/* Optimización de tabla de horarios - SIN SCROLL HORIZONTAL */
+.horarios-page .table-responsive {
+    overflow-x: hidden; /* Elimina scroll horizontal */
+}
+
+/* Anchos fijos para columnas de horarios no disponibles */
+.horarios-page .table th:nth-child(1),
+.horarios-page .table td:nth-child(1) {
+    width: 30% !important; /* Empleado */
+    min-width: 120px;
+}
+
+.horarios-page .table th:nth-child(2),
+.horarios-page .table td:nth-child(2) {
+    width: 25% !important; /* Fecha */
+    min-width: 100px;
+    text-align: center;
+}
+
+.horarios-page .table th:nth-child(3),
+.horarios-page .table td:nth-child(3) {
+    width: 30% !important; /* Motivo */
+    min-width: 120px;
+}
+
+.horarios-page .table th:nth-child(4),
+.horarios-page .table td:nth-child(4) {
+    width: 15% !important; /* Acciones */
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Tabla con layout fijo para evitar desbordamiento */
+.horarios-page .table {
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+/* Estilos para celdas de la tabla */
+.horarios-page .table td {
+    vertical-align: middle;
+    padding: 0.75rem 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Botones de acciones más pequeños y elegantes */
+.horarios-page .btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* Badge de contador */
+.horarios-page .badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Estilos específicos para empleados */
+.horarios-page .table td:nth-child(1) .fw-semibold {
+    color: var(--admin-primary);
+    font-size: 0.95rem;
+}
+
+/* Estilos para motivos */
+.horarios-page .table td:nth-child(3) {
+    color: var(--admin-secondary);
+    font-size: 0.9rem;
+}
+
+/* Responsive para horarios */
+@media (max-width: 768px) {
+    .horarios-page .table th:nth-child(1),
+    .horarios-page .table td:nth-child(1) {
+        width: 35% !important;
+    }
+    
+    .horarios-page .table th:nth-child(2),
+    .horarios-page .table td:nth-child(2) {
+        width: 25% !important;
+    }
+    
+    .horarios-page .table th:nth-child(3),
+    .horarios-page .table td:nth-child(3) {
+        width: 25% !important;
+    }
+    
+    .horarios-page .table th:nth-child(4),
+    .horarios-page .table td:nth-child(4) {
+        width: 15% !important;
+    }
+    
+    .horarios-page .btn-sm {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
     }
 }
