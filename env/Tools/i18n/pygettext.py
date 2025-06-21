@@ -174,6 +174,7 @@ DEFAULTKEYWORDS = ', '.join(default_keywords)
 EMPTYSTRING = ''
 
 
+
 # The normal pot-file header. msgmerge and Emacs's po-mode work better if it's
 # there.
 pot_header = _('''\
@@ -195,7 +196,7 @@ msgstr ""
 
 ''')
 
-
+
 def usage(code, msg=''):
     print(__doc__ % globals(), file=sys.stderr)
     if msg:
@@ -203,6 +204,7 @@ def usage(code, msg=''):
     sys.exit(code)
 
 
+
 def make_escapes(pass_nonascii):
     global escapes, escape
     if pass_nonascii:
@@ -256,7 +258,7 @@ def normalize(s, encoding):
         s = '""\n"' + lineterm.join(lines) + '"'
     return s
 
-
+
 def containsAny(str, set):
     """Check whether 'str' contains ANY of the chars in 'set'"""
     return 1 in [c in str for c in set]
@@ -305,7 +307,7 @@ def getFilesForName(name):
 
     return []
 
-
+
 class TokenEater:
     def __init__(self, options):
         self.__options = options
@@ -341,9 +343,6 @@ class TokenEater:
             if ttype == tokenize.NAME and tstring in ('class', 'def'):
                 self.__state = self.__suiteseen
                 return
-        if ttype == tokenize.NAME and tstring in ('class', 'def'):
-            self.__state = self.__ignorenext
-            return
         if ttype == tokenize.NAME and tstring in opts.keywords:
             self.__state = self.__keywordseen
             return
@@ -451,9 +450,6 @@ class TokenEater:
                 }, file=sys.stderr)
             self.__state = self.__waiting
 
-    def __ignorenext(self, ttype, tstring, lineno):
-        self.__state = self.__waiting
-
     def __addentry(self, msg, lineno=None, isdocstring=0):
         if lineno is None:
             lineno = self.__lineno
@@ -519,6 +515,7 @@ class TokenEater:
                 print('msgstr ""\n', file=fp)
 
 
+
 def main():
     global default_keywords
     try:
@@ -678,7 +675,7 @@ def main():
         if closep:
             fp.close()
 
-
+
 if __name__ == '__main__':
     main()
     # some more test strings

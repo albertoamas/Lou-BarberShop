@@ -111,9 +111,6 @@ class CodecInfo(tuple):
                 (self.__class__.__module__, self.__class__.__qualname__,
                  self.name, id(self))
 
-    def __getnewargs__(self):
-        return tuple(self)
-
 class Codec:
 
     """ Defines the interface for stateless encoders/decoders.
@@ -417,9 +414,6 @@ class StreamWriter(Codec):
     def __exit__(self, type, value, tb):
         self.stream.close()
 
-    def __reduce_ex__(self, proto):
-        raise TypeError("can't serialize %s" % self.__class__.__name__)
-
 ###
 
 class StreamReader(Codec):
@@ -669,9 +663,6 @@ class StreamReader(Codec):
     def __exit__(self, type, value, tb):
         self.stream.close()
 
-    def __reduce_ex__(self, proto):
-        raise TypeError("can't serialize %s" % self.__class__.__name__)
-
 ###
 
 class StreamReaderWriter:
@@ -758,9 +749,6 @@ class StreamReaderWriter:
 
     def __exit__(self, type, value, tb):
         self.stream.close()
-
-    def __reduce_ex__(self, proto):
-        raise TypeError("can't serialize %s" % self.__class__.__name__)
 
 ###
 
@@ -877,9 +865,6 @@ class StreamRecoder:
 
     def __exit__(self, type, value, tb):
         self.stream.close()
-
-    def __reduce_ex__(self, proto):
-        raise TypeError("can't serialize %s" % self.__class__.__name__)
 
 ### Shortcuts
 
@@ -1130,3 +1115,13 @@ except LookupError:
 _false = 0
 if _false:
     import encodings
+
+### Tests
+
+if __name__ == '__main__':
+
+    # Make stdout translate Latin-1 output into UTF-8 output
+    sys.stdout = EncodedFile(sys.stdout, 'latin-1', 'utf-8')
+
+    # Have stdin translate Latin-1 input into UTF-8 input
+    sys.stdin = EncodedFile(sys.stdin, 'utf-8', 'latin-1')

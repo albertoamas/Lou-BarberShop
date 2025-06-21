@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block meta_description %}Mis reservas en Lou Barbershop. Gestiona tus citas, revisa tu historial y programa nuevas reservas. Panel de control personal.{% endblock %}
+
 {% block content %}
 <!-- Hero Section de Mis Reservas -->
 <section class="my-reservations-hero bg-dark text-white py-5">
@@ -9,18 +11,18 @@
                 <div class="hero-content animate-fadeInUp">
                     <div class="reservation-badge mb-4">
                         <span class="badge bg-light text-dark px-4 py-3 rounded-pill fs-6">
-                            <i class="fas fa-calendar-check me-2"></i>Panel Personal
+                            <i class="fas fa-calendar-check me-2" aria-hidden="true"></i>Panel Personal
                         </span>
                     </div>                    <h1 class="display-4 fw-bold mb-3">Mis Reservas</h1>
                     <p class="lead mb-4">Gestiona todas tus citas y revisa tu historial de servicios</p>
                 </div>
             </div>
             <div class="col-lg-4 text-center">
-                <div class="hero-stats">
+                <div class="hero-stats" role="region" aria-label="Estadísticas de reservas">
                     <div class="stat-item">
                         <div class="stat-number">{{ reservas_activas|length }}</div>
                         <div class="stat-label">Reservas Activas</div>
-                    </div>                    <div class="stat-divider"></div>
+                    </div>                    <div class="stat-divider" aria-hidden="true"></div>
                     <div class="stat-item">
                         <div class="stat-number">{{ historial_paginado.total if historial_paginado else 0 }}</div>
                         <div class="stat-label">Historial Total</div>
@@ -34,8 +36,8 @@
 <div class="container py-5 my-reservations-page">
     <!-- Botón de nueva reserva destacado -->
     <div class="text-center mb-5">
-        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-modern-primary-large">
-            <i class="fas fa-plus-circle me-2"></i>
+        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-modern-primary-large" aria-label="Crear nueva reserva">
+            <i class="fas fa-plus-circle me-2" aria-hidden="true"></i>
             Nueva Reserva
         </a>
         <p class="text-muted mt-2">¿Necesitas otra cita? ¡Agenda ahora mismo!</p>

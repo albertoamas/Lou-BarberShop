@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Lou Barbershop - Barbería profesional en Tarija. Cortes modernos, arreglo de barba y servicios premium. Reserva tu cita online.{% endblock %}">
     <title>{{ title }} - Lou Barbershop</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">    <!-- Google Fonts -->
@@ -17,8 +18,7 @@
                     <div class="brand-name">Lou</div>
                     <div class="brand-type">BARBERSHOP</div>
                 </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            </a>            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse navbar-collapse-modern" id="navbarNav">
@@ -27,18 +27,17 @@
                             <i class="fas fa-home me-1"></i> Inicio
                         </a>
                     </li>                    <li class="nav-item">
-                        <a class="nav-link nav-link-modern" href="{{ url_for('reservas.index') }}">
-                            <i class="fas fa-list me-1"></i> Servicios
+                        <a class="nav-link nav-link-modern" href="{{ url_for('servicios.index') }}" aria-label="Ver catálogo de servicios">
+                            <i class="fas fa-list me-1" aria-hidden="true"></i> Servicios
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-modern" href="{{ url_for('reservas.nueva_reserva') }}">
-                            <i class="fas fa-calendar-plus me-1"></i> Reservar
+                        <a class="nav-link nav-link-modern" href="{{ url_for('reservas.nueva_reserva') }}" aria-label="Reservar una cita">
+                            <i class="fas fa-calendar-plus me-1" aria-hidden="true"></i> Reservar
                         </a>
                     </li>{% if current_user.is_authenticated %}
-                    <li class="nav-item dropdown user-dropdown">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-modern" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-1"></i> {{ current_user.nombre }}
+                    <li class="nav-item dropdown user-dropdown">                        <a class="nav-link dropdown-toggle dropdown-toggle-modern" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menú de usuario">
+                            <i class="fas fa-user-circle me-1" aria-hidden="true"></i> {{ current_user.nombre }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-modern">
                             <li>
@@ -186,9 +185,10 @@
                 </div>
             </div>
         </div>
-    </footer><!-- Bootstrap JS -->
+    </footer>    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Scripts personalizados -->
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>

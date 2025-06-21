@@ -1,27 +1,28 @@
 {% extends "base.html" %}
 
+{% block meta_description %}Iniciar sesión en Lou Barbershop. Accede a tu cuenta para gestionar reservas, ver historial y actualizar tu perfil. Barbería profesional en Tarija.{% endblock %}
+
 {% block content %}
 <div class="auth-container">
     <h2 class="auth-title">Iniciar Sesión</h2>
-    
-    <form method="POST" action="{{ url_for('auth.login') }}">
+      <form method="POST" action="{{ url_for('auth.login') }}" role="form" aria-labelledby="login-title">
         {{ form.hidden_tag() }}
         
         <div class="form-group">
-            <label for="email">{{ form.email.label }}</label>
-            {{ form.email(class="form-control", placeholder="tu@email.com") }}
+            <label for="{{ form.email.id }}">{{ form.email.label }}</label>
+            {{ form.email(class="form-control", placeholder="tu@email.com", required=true, autocomplete="email") }}
             {% for error in form.email.errors %}
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" role="alert">
                 {{ error }}
             </div>
             {% endfor %}
         </div>
         
         <div class="form-group">
-            <label for="password">{{ form.password.label }}</label>
-            {{ form.password(class="form-control", placeholder="Contraseña") }}
+            <label for="{{ form.password.id }}">{{ form.password.label }}</label>
+            {{ form.password(class="form-control", placeholder="Contraseña", required=true, autocomplete="current-password") }}
             {% for error in form.password.errors %}
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" role="alert">
                 {{ error }}
             </div>
             {% endfor %}

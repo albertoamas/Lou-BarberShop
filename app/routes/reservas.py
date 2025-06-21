@@ -12,10 +12,10 @@ from app.services.reserva_service import ReservaService
 reservas_bp = Blueprint('reservas', __name__, url_prefix='/reservas')
 
 @reservas_bp.route('/')
+@login_required
 def index():
-    """Página principal de reservas - Muestra servicios disponibles"""
-    servicios = Servicio.query.all()
-    return render_template('reservas/index.html', title='Nuestros Servicios', servicios=servicios)
+    """Redirige directamente al formulario de nueva reserva"""
+    return redirect(url_for('reservas.nueva_reserva'))
 
 @reservas_bp.route('/nueva', methods=['GET', 'POST'])
 @login_required

@@ -30,10 +30,13 @@ def create_app(config_class=Config):
     # Registrar blueprint de autenticación
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp)
-    
-    # Registrar blueprint de reservas
+      # Registrar blueprint de reservas
     from app.routes.reservas import reservas_bp
     app.register_blueprint(reservas_bp)
+    
+    # Registrar blueprint de servicios
+    from app.routes.servicios import servicios_bp
+    app.register_blueprint(servicios_bp)
     
     # Registrar blueprint de admin
     from app.routes.admin import admin_bp

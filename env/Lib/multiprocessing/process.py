@@ -61,7 +61,7 @@ def parent_process():
 def _cleanup():
     # check for processes which have finished
     for p in list(_children):
-        if (child_popen := p._popen) and child_popen.poll() is not None:
+        if p._popen.poll() is not None:
             _children.discard(p)
 
 #
@@ -310,8 +310,11 @@ class BaseProcess(object):
                 # _run_after_forkers() is executed
                 del old_process
             util.info('child process calling self.run()')
-            self.run()
-            exitcode = 0
+            try:
+                self.run()
+                exitcode = 0
+            finally:
+                util._exit_function()
         except SystemExit as e:
             if e.code is None:
                 exitcode = 0
@@ -430,7 +433,6 @@ _exitcode_to_name = {}
 for name, signum in list(signal.__dict__.items()):
     if name[:3]=='SIG' and '_' not in name:
         _exitcode_to_name[-signum] = f'-{name}'
-del name, signum
 
 # For debug and leak testing
 _dangling = WeakSet()

@@ -14,11 +14,6 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
     background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 50%, var(--secondary) 100%) !important;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
 /* Asegurar que todos los textos en el hero sean blancos */
 .appointment-hero h1,
 .appointment-hero .display-3 {
@@ -32,53 +27,6 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
 }
 
 .appointment-hero .text-white-50 {
-    color: rgba(255, 255, 255, 0.75) !important;
-}
-
-/* ========== HERO SECTION DE SERVICIOS ========== */
-.services-hero {
-    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 50%, var(--secondary) 100%) !important;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-/* Sobrescribir Bootstrap bg-dark específicamente para hero sections */
-.services-hero.bg-dark {
-    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 50%, var(--secondary) 100%) !important;
-}
-
-.services-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="white" fill-opacity="0.03"><path d="M30,30 L60,0 L60,60 L0,60 Z"/></g></svg>');
-    animation: float 25s ease-in-out infinite;
-    z-index: 0;
-}
-
-.services-icon {
-    animation: pulse 2s ease-in-out infinite;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-    will-change: transform;
-}
-
-/* Asegurar que todos los textos en el hero sean blancos */
-.services-hero h1,
-.services-hero .display-3 {
-    color: #FFFFFF !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.services-hero p,
-.services-hero .lead {
-    color: #FFFFFF !important;
-}
-
-.services-hero .text-white-50 {
     color: rgba(255, 255, 255, 0.75) !important;
 }
 
@@ -96,281 +44,14 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
     color: var(--dark) !important;
 }
 
-.services-grid {
-    max-height: 500px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-.services-grid::-webkit-scrollbar {
-    width: 6px;
-}
-
-.services-grid::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-.services-grid::-webkit-scrollbar-thumb {
-    background: var(--dark);
-    border-radius: 10px;
-}
-
-/* ========== TARJETAS DE SERVICIOS MODERNAS ========== */
-.service-card-modern {
-    border: 2px solid #e9ecef;
-    border-radius: 15px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    background: white;
-}
-
-.service-card-modern:hover {
-    border-color: var(--dark);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.service-card-modern.selected {
-    border-color: var(--dark);
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.service-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
-
-.service-card-modern:hover .service-image {
-    transform: scale(1.1);
-}
-
-.service-icon {
-    font-size: 1.5rem;
-    color: white;
-}
-
-.service-content .service-name {
-    color: var(--dark);
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-
-.service-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.service-duration, .service-price {
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-}
-
-.service-duration {
-    color: #6c757d;
-}
-
-.service-price {
-    color: var(--success);
-    font-weight: bold;
-}
-
-.service-details .service-duration i,
-.service-details .service-price i {
-    color: var(--gray) !important;
-}
-
-.service-select-indicator {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: var(--success);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 0.8rem;
-}
-
-.service-card-modern.selected .service-select-indicator {
-    display: flex;
-}
-
 /* ========== CONTENEDOR DE SERVICIOS ========== */
 .services-container {
     position: relative;
 }
 
 /* ========== TARJETAS DE SERVICIOS PREMIUM ========== */
-.service-card-premium {
-    border: none;
-    border-radius: 20px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: all 0.4s ease;
-    position: relative;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.service-card-premium:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-}
-
-.service-card-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 100%);
-}
-
-/* Header de tarjeta de servicio */
-.service-card-header {
-    padding: 2rem 2rem 1rem;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.service-icon-modern {
-    color: white;
-    font-size: 2rem;
-}
-
-.service-card-premium:hover .service-icon-modern {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.service-badge {
-    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-    color: var(--dark);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 2px solid rgba(18, 18, 18, 0.1);
-}
-
-/* Cuerpo de tarjeta de servicio */
-.service-card-body {
-    padding: 0 2rem 1rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.service-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--dark);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.service-description {
-    color: #6c757d;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    flex: 1;
-}
-
-.service-features {
-    margin-bottom: 1.5rem;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #495057;
-}
-
-.feature-item:last-child {
-    margin-bottom: 0;
-}
-
-/* Footer de tarjeta de servicio */
-.service-card-footer {
-    padding: 1.5rem 2rem 2rem;
-    border-top: 1px solid #f1f3f4;
-    margin-top: auto;
-}
-
-.service-price {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.price-label {
-    color: #6c757d;
-    font-weight: 500;
-}
-
-.price-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--dark);
-}
-
-.btn-service-premium {
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-service-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn-service-premium:hover::before {
-    left: 100%;
-}
-
-.btn-service-premium:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    color: white;
-}
+/* Todas las definiciones base movidas a cards.css para evitar duplicación */
+/* Botones movidos a buttons.css para evitar duplicación */
 
 /* ========== SECCIÓN CALL TO ACTION ========== */
 .cta-section {
@@ -1507,7 +1188,9 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
     color: white;
 }
 
-.hero-stats .stat-number {
+/* Estadísticas específicas de hero sections en reservas */
+.my-reservations-hero .hero-stats .stat-number,
+.appointment-hero .hero-stats .stat-number {
     font-size: 2.5rem;
     font-weight: 900;
     line-height: 1;
@@ -1515,7 +1198,9 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.stat-label {
+/* Labels específicas de hero sections en reservas */
+.my-reservations-hero .stat-label,
+.appointment-hero .stat-label {
     font-size: 0.9rem;
     opacity: 0.9;
     margin-top: 0.5rem;
@@ -1524,7 +1209,9 @@ Detalles de la Cita/* ==================== RESERVAS PAGE STYLES - Lou Barbershop
     color: rgba(255, 255, 255, 0.9) !important;
 }
 
-.stat-divider {
+/* Divisor específico de hero sections en reservas */
+.my-reservations-hero .stat-divider,
+.appointment-hero .stat-divider {
     width: 2px;
     height: 40px;
     background: rgba(255, 255, 255, 0.3);

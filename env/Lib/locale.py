@@ -25,10 +25,10 @@ import functools
 # Yuck:  LC_MESSAGES is non-standard:  can't tell whether it exists before
 # trying the import.  So __all__ is also fiddled at the end of the file.
 __all__ = ["getlocale", "getdefaultlocale", "getpreferredencoding", "Error",
-           "setlocale", "localeconv", "strcoll", "strxfrm",
-           "str", "atof", "atoi", "format_string", "currency",
+           "setlocale", "resetlocale", "localeconv", "strcoll", "strxfrm",
+           "str", "atof", "atoi", "format", "format_string", "currency",
            "normalize", "LC_CTYPE", "LC_COLLATE", "LC_TIME", "LC_MONETARY",
-           "LC_NUMERIC", "LC_ALL", "CHAR_MAX", "getencoding"]
+           "LC_NUMERIC", "LC_ALL", "CHAR_MAX"]
 
 def _strcoll(a,b):
     """ strcoll(string,string) -> int.
@@ -246,6 +246,21 @@ def format_string(f, val, grouping=False, monetary=False):
     val = tuple(new_val)
 
     return new_f % val
+
+def format(percent, value, grouping=False, monetary=False, *additional):
+    """Deprecated, use format_string instead."""
+    import warnings
+    warnings.warn(
+        "This method will be removed in a future version of Python. "
+        "Use 'locale.format_string()' instead.",
+        DeprecationWarning, stacklevel=2
+    )
+
+    match = _percent_re.match(percent)
+    if not match or len(match.group())!= len(percent):
+        raise ValueError(("format() must be given exactly one %%char "
+                         "format specifier, %s not valid") % repr(percent))
+    return _format(percent, value, grouping, monetary, *additional)
 
 def currency(val, symbol=True, grouping=False, international=False):
     """Formats val according to the currency settings
@@ -540,16 +555,6 @@ def getdefaultlocale(envvars=('LC_ALL', 'LC_CTYPE', 'LANG', 'LANGUAGE')):
 
     """
 
-    import warnings
-    warnings._deprecated(
-        "locale.getdefaultlocale",
-        "{name!r} is deprecated and slated for removal in Python {remove}. "
-        "Use setlocale(), getencoding() and getlocale() instead.",
-        remove=(3, 15))
-    return _getdefaultlocale(envvars)
-
-
-def _getdefaultlocale(envvars=('LC_ALL', 'LC_CTYPE', 'LANG', 'LANGUAGE')):
     try:
         # check if it's supported by the _locale module
         import _locale
@@ -614,45 +619,49 @@ def setlocale(category, locale=None):
         locale = normalize(_build_localename(locale))
     return _setlocale(category, locale)
 
+def resetlocale(category=LC_ALL):
+
+    """ Sets the locale for category to the default setting.
+
+        The default setting is determined by calling
+        getdefaultlocale(). category defaults to LC_ALL.
+
+    """
+    _setlocale(category, _build_localename(getdefaultlocale()))
+
 
 try:
-    from _locale import getencoding
+    from _locale import _get_locale_encoding
 except ImportError:
-    # When _locale.getencoding() is missing, locale.getencoding() uses the
-    # Python filesystem encoding.
-    def getencoding():
-        return sys.getfilesystemencoding()
-
+    def _get_locale_encoding():
+        if hasattr(sys, 'getandroidapilevel'):
+            # On Android langinfo.h and CODESET are missing, and UTF-8 is
+            # always used in mbstowcs() and wcstombs().
+            return 'UTF-8'
+        if sys.flags.utf8_mode:
+            return 'UTF-8'
+        encoding = getdefaultlocale()[1]
+        if encoding is None:
+            # LANG not set, default conservatively to ASCII
+            encoding = 'ascii'
+        return encoding
 
 try:
     CODESET
 except NameError:
     def getpreferredencoding(do_setlocale=True):
         """Return the charset that the user is likely using."""
-        if sys.flags.warn_default_encoding:
-            import warnings
-            warnings.warn(
-                "UTF-8 Mode affects locale.getpreferredencoding(). Consider locale.getencoding() instead.",
-                EncodingWarning, 2)
-        if sys.flags.utf8_mode:
-            return 'utf-8'
-        return getencoding()
+        return _get_locale_encoding()
 else:
     # On Unix, if CODESET is available, use that.
     def getpreferredencoding(do_setlocale=True):
         """Return the charset that the user is likely using,
         according to the system configuration."""
-
-        if sys.flags.warn_default_encoding:
-            import warnings
-            warnings.warn(
-                "UTF-8 Mode affects locale.getpreferredencoding(). Consider locale.getencoding() instead.",
-                EncodingWarning, 2)
         if sys.flags.utf8_mode:
-            return 'utf-8'
+            return 'UTF-8'
 
         if not do_setlocale:
-            return getencoding()
+            return _get_locale_encoding()
 
         old_loc = setlocale(LC_CTYPE)
         try:
@@ -660,7 +669,7 @@ else:
                 setlocale(LC_CTYPE, "")
             except Error:
                 pass
-            return getencoding()
+            return _get_locale_encoding()
         finally:
             setlocale(LC_CTYPE, old_loc)
 
@@ -737,7 +746,6 @@ locale_encoding_alias = {
 for k, v in sorted(locale_encoding_alias.items()):
     k = k.replace('_', '')
     locale_encoding_alias.setdefault(k, v)
-del k, v
 
 #
 # The locale_alias table maps lowercase alias names to C locale names
@@ -939,7 +947,7 @@ locale_alias = {
     'c.ascii':                              'C',
     'c.en':                                 'C',
     'c.iso88591':                           'en_US.ISO8859-1',
-    'c.utf8':                               'C.UTF-8',
+    'c.utf8':                               'en_US.UTF-8',
     'c_c':                                  'C',
     'c_c.c':                                'C',
     'ca':                                   'ca_ES.ISO8859-1',
@@ -1460,8 +1468,7 @@ locale_alias = {
 # to include every locale up to Windows Vista.
 #
 # NOTE: this mapping is incomplete.  If your language is missing, please
-# submit a bug report as detailed in the Python devguide at:
-#    https://devguide.python.org/triage/issue-tracker/
+# submit a bug report to the Python bug tracker at http://bugs.python.org/
 # Make sure you include the missing language identifier and the suggested
 # locale code.
 #
@@ -1700,6 +1707,17 @@ def _print_locale():
 
     print('Locale settings on startup:')
     print('-'*72)
+    for name,category in categories.items():
+        print(name, '...')
+        lang, enc = getlocale(category)
+        print('   Language: ', lang or '(undefined)')
+        print('   Encoding: ', enc or '(undefined)')
+        print()
+
+    print()
+    print('Locale settings after calling resetlocale():')
+    print('-'*72)
+    resetlocale()
     for name,category in categories.items():
         print(name, '...')
         lang, enc = getlocale(category)

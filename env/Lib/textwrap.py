@@ -63,7 +63,10 @@ class TextWrapper:
         Append to the last line of truncated text.
     """
 
-    unicode_whitespace_trans = dict.fromkeys(map(ord, _whitespace), ord(' '))
+    unicode_whitespace_trans = {}
+    uspace = ord(' ')
+    for x in _whitespace:
+        unicode_whitespace_trans[ord(x)] = uspace
 
     # This funky little regex is just the trick for splitting
     # text up into word-wrappable chunks.  E.g.
@@ -476,19 +479,13 @@ def indent(text, prefix, predicate=None):
     consist solely of whitespace characters.
     """
     if predicate is None:
-        # str.splitlines(True) doesn't produce empty string.
-        #  ''.splitlines(True) => []
-        #  'foo\n'.splitlines(True) => ['foo\n']
-        # So we can use just `not s.isspace()` here.
-        predicate = lambda s: not s.isspace()
+        def predicate(line):
+            return line.strip()
 
-    prefixed_lines = []
-    for line in text.splitlines(True):
-        if predicate(line):
-            prefixed_lines.append(prefix)
-        prefixed_lines.append(line)
-
-    return ''.join(prefixed_lines)
+    def prefixed_lines():
+        for line in text.splitlines(True):
+            yield (prefix + line if predicate(line) else line)
+    return ''.join(prefixed_lines())
 
 
 if __name__ == "__main__":

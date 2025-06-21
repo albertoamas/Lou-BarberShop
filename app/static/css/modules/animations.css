@@ -1,6 +1,99 @@
 /* ==================== ANIMATIONS - Lou Barbershop ==================== */
 /* Todas las animaciones, keyframes y efectos de movimiento */
 
+/* ========== ANIMACIONES DE TARJETAS DE SERVICIOS PREMIUM ========== */
+/* Animaciones principales de las tarjetas */
+.service-card-premium {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
+    transform: translateZ(0); /* Optimización de hardware */
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+/* Efecto hover principal - elevación suave */
+.service-card-premium:hover {
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* Animaciones de iconos dentro de las tarjetas */
+.service-card-premium .service-icon-modern {
+    transition: all 0.3s ease;
+}
+
+.service-card-premium:hover .service-icon-modern {
+    transform: scale(1.15) rotate(8deg);
+}
+
+/* Animaciones del badge */
+.service-card-premium .service-badge {
+    transition: all 0.3s ease;
+}
+
+.service-card-premium:hover .service-badge {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Efecto de shimmer en los botones */
+.service-card-premium .btn-service-premium {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.service-card-premium:hover .btn-service-premium {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Animación de contenido */
+.service-card-premium .service-card-body {
+    transition: all 0.3s ease;
+}
+
+.service-card-premium:hover .service-card-body {
+    transform: translateY(-2px);
+}
+
+/* Animación de entrada en cascada */
+.service-card-premium:nth-child(1) { animation-delay: 0.1s; }
+.service-card-premium:nth-child(2) { animation-delay: 0.2s; }
+.service-card-premium:nth-child(3) { animation-delay: 0.3s; }
+.service-card-premium:nth-child(4) { animation-delay: 0.4s; }
+.service-card-premium:nth-child(5) { animation-delay: 0.5s; }
+.service-card-premium:nth-child(6) { animation-delay: 0.6s; }
+
+/* Animación de focus para accesibilidad */
+.service-card-premium:focus-within {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+/* Responsive optimizations */
+@media (max-width: 768px) {
+    .service-card-premium:hover {
+        transform: translateY(-5px) scale(1.005);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* Optimización para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+    .service-card-premium:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-card-premium:active {
+        transform: translateY(-3px) scale(0.98);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
 /* ========== ANIMACIONES BÁSICAS ========== */
 @keyframes fadeInUp {
     from {
@@ -168,10 +261,6 @@
 }
 
 .feature-card-modern:hover .feature-icon-modern {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.service-card-premium:hover .service-icon-modern {
     transform: scale(1.1) rotate(5deg);
 }
 

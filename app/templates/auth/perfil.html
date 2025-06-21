@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block meta_description %}Perfil de usuario en Lou Barbershop. Gestiona tu información personal, historial de reservas y preferencias. Panel de control personalizado.{% endblock %}
+
 {% block extra_head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/perfil.css') }}">
 {% endblock %}
@@ -12,7 +14,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <div class="profile-badge profile-fade-in">
-                        <i class="fas fa-user-circle me-2"></i>Panel Personal
+                        <i class="fas fa-user-circle me-2" aria-hidden="true"></i>Panel Personal
                     </div>
                     <h1 class="profile-fade-in">Mi Perfil</h1>
                     <p class="profile-fade-in">Gestiona tu información personal y preferencias</p>
@@ -35,8 +37,8 @@
                                     <img src="https://ui-avatars.com/api/?name={{ current_user.nombre }}&background=667eea&color=fff&size=200&bold=true" 
                                          alt="Avatar de {{ current_user.nombre }}" 
                                          class="profile-avatar">
-                                    <div class="profile-avatar-badge">
-                                        <i class="fas fa-check"></i>
+                                    <div class="profile-avatar-badge" aria-label="Perfil verificado">
+                                        <i class="fas fa-check" aria-hidden="true"></i>
                                     </div>
                                 </div>
                                 
@@ -44,12 +46,12 @@
                                 <p class="profile-role">
                                     Cliente Premium
                                     <span class="profile-verified-badge">
-                                        <i class="fas fa-shield-alt"></i> Verificado
+                                        <i class="fas fa-shield-alt" aria-hidden="true"></i> Verificado
                                     </span>
                                 </p>
                                 
                                 <!-- Estadísticas del usuario -->
-                                <div class="profile-stats">
+                                <div class="profile-stats" role="region" aria-label="Estadísticas del usuario">
                                     <div class="profile-stat">
                                         <span class="profile-stat-number">{{ current_user.reservas.count() }}</span>
                                         <span class="profile-stat-label">Reservas</span>

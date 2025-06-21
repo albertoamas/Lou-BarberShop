@@ -1,69 +1,79 @@
 {% extends "base.html" %}
 
+{% block meta_description %}Regístrate en Lou Barbershop Tarija. Crea tu cuenta para reservar citas, gestionar tu historial y recibir ofertas exclusivas. Registro rápido y seguro.{% endblock %}
+
 {% block content %}
 <div class="auth-container">
-    <h2 class="auth-title">Registro de Usuario</h2>
+    <h2 class="auth-title" id="registro-title">Registro de Usuario</h2>
     
-    <form method="POST" action="{{ url_for('auth.registro') }}">
+    <form method="POST" action="{{ url_for('auth.registro') }}" role="form" aria-labelledby="registro-title">
         {{ form.hidden_tag() }}
         
-        <div class="form-group">
-            <label for="nombre">{{ form.nombre.label }}</label>
-            {{ form.nombre(class="form-control", placeholder="Ej. Juan Pérez") }}
-            {% for error in form.nombre.errors %}
-            <div class="invalid-feedback">
-                {{ error }}
+        <fieldset>
+            <legend class="sr-only">Información personal</legend>
+            
+            <div class="form-group">
+                <label for="{{ form.nombre.id }}">{{ form.nombre.label }}</label>
+                {{ form.nombre(class="form-control", placeholder="Ej. Juan Pérez", required=true, autocomplete="name") }}
+                {% for error in form.nombre.errors %}
+                <div class="invalid-feedback" role="alert">
+                    {{ error }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+            
+            <div class="form-group">
+                <label for="{{ form.email.id }}">{{ form.email.label }}</label>
+                {{ form.email(class="form-control", placeholder="tu@email.com", required=true, autocomplete="email") }}
+                {% for error in form.email.errors %}
+                <div class="invalid-feedback" role="alert">
+                    {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.telefono.id }}">{{ form.telefono.label }}</label>
+                {{ form.telefono(class="form-control", placeholder="Ej. 77123456", required=true, autocomplete="tel") }}
+                {% for error in form.telefono.errors %}
+                <div class="invalid-feedback" role="alert">
+                    {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+        
+        <fieldset>
+            <legend class="sr-only">Información de seguridad</legend>
+            
+            <div class="form-group">
+                <label for="{{ form.password.id }}">{{ form.password.label }}</label>
+                {{ form.password(class="form-control", placeholder="Mínimo 6 caracteres", required=true, autocomplete="new-password") }}
+                {% for error in form.password.errors %}
+                <div class="invalid-feedback" role="alert">
+                    {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password2.id }}">{{ form.password2.label }}</label>
+                {{ form.password2(class="form-control", placeholder="Repite tu contraseña", required=true, autocomplete="new-password") }}
+                {% for error in form.password2.errors %}
+                <div class="invalid-feedback" role="alert">
+                    {{ error }}
+                </div>
+                {% endfor %}
+            </div>
+        </fieldset>
         
         <div class="form-group">
-            <label for="email">{{ form.email.label }}</label>
-            {{ form.email(class="form-control", placeholder="tu@email.com") }}
-            {% for error in form.email.errors %}
-            <div class="invalid-feedback">
-                {{ error }}
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="form-group">
-            <label for="telefono">{{ form.telefono.label }}</label>
-            {{ form.telefono(class="form-control", placeholder="Ej. 5512345678") }}
-            {% for error in form.telefono.errors %}
-            <div class="invalid-feedback">
-                {{ error }}
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="form-group">
-            <label for="password">{{ form.password.label }}</label>
-            {{ form.password(class="form-control", placeholder="Mínimo 6 caracteres") }}
-            {% for error in form.password.errors %}
-            <div class="invalid-feedback">
-                {{ error }}
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="form-group">
-            <label for="password2">{{ form.password2.label }}</label>
-            {{ form.password2(class="form-control", placeholder="Repite tu contraseña") }}
-            {% for error in form.password2.errors %}
-            <div class="invalid-feedback">
-                {{ error }}
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary btn-auth hover-lift-sm transition-all") }}
+            {{ form.submit(class="btn btn-primary btn-auth hover-lift-sm transition-all", aria-label="Crear cuenta en Lou Barbershop") }}
         </div>
     </form>
     
     <div class="auth-footer mt-3">
-        <p>¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">Inicia sesión aquí</a></p>
+        <p>¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}" aria-label="Ir a página de inicio de sesión">Inicia sesión aquí</a></p>
     </div>
 </div>
 {% endblock %}

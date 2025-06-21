@@ -132,7 +132,7 @@ def v4_int_to_packed(address):
 
     """
     try:
-        return address.to_bytes(4)  # big endian
+        return address.to_bytes(4, 'big')
     except OverflowError:
         raise ValueError("Address negative or too large for IPv4")
 
@@ -148,7 +148,7 @@ def v6_int_to_packed(address):
 
     """
     try:
-        return address.to_bytes(16)  # big endian
+        return address.to_bytes(16, 'big')
     except OverflowError:
         raise ValueError("Address negative or too large for IPv6")
 
@@ -734,7 +734,7 @@ class _BaseNetwork(_IPAddressBase):
             return NotImplemented
 
     def __hash__(self):
-        return hash(int(self.network_address) ^ int(self.netmask))
+        return hash((int(self.network_address), int(self.netmask)))
 
     def __contains__(self, other):
         # always false if one is v4 and the other is v6.
@@ -1077,20 +1077,15 @@ class _BaseNetwork(_IPAddressBase):
 
     @property
     def is_private(self):
-        """Test if this network belongs to a private range.
+        """Test if this address is allocated for private networks.
 
         Returns:
-            A boolean, True if the network is reserved per
+            A boolean, True if the address is reserved per
             iana-ipv4-special-registry or iana-ipv6-special-registry.
 
         """
-        return any(self.network_address in priv_network and
-                   self.broadcast_address in priv_network
-                   for priv_network in self._constants._private_networks) and all(
-                    self.network_address not in network and
-                    self.broadcast_address not in network
-                    for network in self._constants._private_networks_exceptions
-                )
+        return (self.network_address.is_private and
+                self.broadcast_address.is_private)
 
     @property
     def is_global(self):
@@ -1126,15 +1121,6 @@ class _BaseNetwork(_IPAddressBase):
         """
         return (self.network_address.is_loopback and
                 self.broadcast_address.is_loopback)
-
-
-class _BaseConstants:
-
-    _private_networks = []
-
-
-_BaseNetwork._constants = _BaseConstants
-
 
 class _BaseV4:
 
@@ -1308,7 +1294,7 @@ class IPv4Address(_BaseV4, _BaseAddress):
         # Constructing from a packed address
         if isinstance(address, bytes):
             self._check_packed_address(address, 4)
-            self._ip = int.from_bytes(address)  # big endian
+            self._ip = int.from_bytes(address, 'big')
             return
 
         # Assume input argument to be string or any object representation
@@ -1415,16 +1401,6 @@ class IPv4Address(_BaseV4, _BaseAddress):
 
         """
         return self in self._constants._linklocal_network
-
-    @property
-    def ipv6_mapped(self):
-        """Return the IPv4-mapped IPv6 address.
-
-        Returns:
-            The IPv4-mapped IPv6 address per RFC 4291.
-
-        """
-        return IPv6Address(f'::ffff:{self}')
 
 
 class IPv4Interface(IPv4Address):
@@ -1615,7 +1591,6 @@ class _IPv4Constants:
 
 
 IPv4Address._constants = _IPv4Constants
-IPv4Network._constants = _IPv4Constants
 
 
 class _BaseV6:
@@ -1674,8 +1649,18 @@ class _BaseV6:
         """
         if not ip_str:
             raise AddressValueError('Address cannot be empty')
+        if len(ip_str) > 45:
+            shorten = ip_str
+            if len(shorten) > 100:
+                shorten = f'{ip_str[:45]}({len(ip_str)-90} chars elided){ip_str[-45:]}'
+            raise AddressValueError(f"At most 45 characters expected in "
+                                    f"{shorten!r}")
 
-        parts = ip_str.split(':')
+        # We want to allow more parts than the max to be 'split'
+        # to preserve the correct error message when there are
+        # too many parts combined with '::'
+        _max_parts = cls._HEXTET_COUNT + 1
+        parts = ip_str.split(':', maxsplit=_max_parts)
 
         # An IPv6 address needs at least 2 colons (3 parts).
         _min_parts = 3
@@ -1695,7 +1680,6 @@ class _BaseV6:
         # An IPv6 address can't have more than 8 colons (9 parts).
         # The extra colon comes from using the "::" notation for a single
         # leading or trailing zero part.
-        _max_parts = cls._HEXTET_COUNT + 1
         if len(parts) > _max_parts:
             msg = "At most %d colons permitted in %r" % (_max_parts-1, ip_str)
             raise AddressValueError(msg)
@@ -2022,9 +2006,6 @@ class IPv6Address(_BaseV6, _BaseAddress):
         if not address_equal:
             return False
         return self._scope_id == getattr(other, '_scope_id', None)
-
-    def __reduce__(self):
-        return (self.__class__, (str(self),))
 
     @property
     def scope_id(self):
@@ -2428,4 +2409,3 @@ class _IPv6Constants:
 
 
 IPv6Address._constants = _IPv6Constants
-IPv6Network._constants = _IPv6Constants

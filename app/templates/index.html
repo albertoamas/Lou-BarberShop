@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block meta_description %}Lou Barbershop - Barbería profesional en Tarija. Cortes modernos, arreglo de barba, servicios premium. Reserva online 24/7. Expertos certificados.{% endblock %}
+
 {% block content %}
 <!-- Hero Section Modernizado -->
 <section class="home-hero pt-3 pb-5">
@@ -8,25 +10,22 @@
             <div class="col-lg-6 animate-fadeInUp">
                 <div class="hero-content">                    <div class="hero-badge mb-4">
                         <span class="badge bg-dark text-white px-3 py-2 rounded-pill">
-                            <i class="fas fa-cut me-2"></i>Barbería Premium
+                            <i class="fas fa-cut me-2" aria-hidden="true"></i>Barbería Premium
                         </span>
                     </div><h1 class="display-2 fw-bold mb-4 text-dark">
                         Estilo y <span class="highlight-modern">Confianza</span><br>
                         en Cada Corte
-                    </h1>
-                    <div class="divider-custom mx-0 mb-4">
+                    </h1>                    <div class="divider-custom mx-0 mb-4">
                         <div class="divider-custom-line"></div>
-                        <div class="divider-custom-icon"><i class="fas fa-scissors"></i></div>
+                        <div class="divider-custom-icon"><i class="fas fa-scissors" aria-hidden="true"></i></div>
                         <div class="divider-custom-line"></div>
-                    </div>                    <p class="lead mb-5 text-dark">
+                    </div><p class="lead mb-5 text-dark">
                         En <span class="fw-bold text-dark">Lou Barbershop</span> ofrecemos el mejor servicio de barbería con estilo moderno y ambiente acogedor. Nuestros barberos expertos harán que luzcas y te sientas mejor.
-                    </p>
-                    <div class="hero-buttons d-flex flex-wrap gap-3">
-                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-hero-primary btn-lg">
-                            <i class="fas fa-calendar-plus me-2"></i>Reservar Ahora
-                        </a>
-                        <a href="{{ url_for('reservas.index') }}" class="btn btn-hero-secondary btn-lg">
-                            <i class="fas fa-list me-2"></i>Ver Servicios
+                    </p>                    <div class="hero-buttons d-flex flex-wrap gap-3">
+                        <a href="{{ url_for('reservas.nueva_reserva') }}" class="btn btn-hero-primary btn-lg" aria-label="Reservar cita en Lou Barbershop">
+                            <i class="fas fa-calendar-plus me-2" aria-hidden="true"></i>Reservar Ahora
+                        </a>                        <a href="{{ url_for('servicios.index') }}" class="btn btn-hero-secondary btn-lg" aria-label="Ver catálogo completo de servicios">
+                            <i class="fas fa-list me-2" aria-hidden="true"></i>Ver Servicios
                         </a>
                     </div>
                 </div>
@@ -35,7 +34,7 @@
                 <div class="hero-image-container">
                     <div class="hero-decoration-1"></div>
                     <div class="hero-decoration-2"></div>
-                    <img src="{{ url_for('static', filename='img/LouBarbershop.png') }}" class="img-fluid hero-image-modern" alt="Lou Barbershop">
+                    <img src="{{ url_for('static', filename='img/LouBarbershop.png') }}" class="img-fluid hero-image-modern" alt="Lou Barbershop - Barbería moderna y profesional en Tarija">
                 </div>
             </div>
         </div>
@@ -202,9 +201,8 @@
                 </div>
             </div>
         </div>
-        
-        <div class="text-center">
-            <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-dark btn-lg">
+          <div class="text-center">
+            <a href="{{ url_for('servicios.index') }}" class="btn btn-outline-dark btn-lg">
                 <i class="fas fa-list me-2"></i>Ver Todos los Servicios
             </a>
         </div>
@@ -237,91 +235,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-    // Inicializar animaciones al cargar la página
-    document.addEventListener('DOMContentLoaded', function() {
-        const animatedElements = document.querySelectorAll('.animate-fadeInUp');
-        
-        // Función para verificar si un elemento está en el viewport
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.bottom >= 0
-            );
-        }
-        
-        // Activar animación para elementos visibles
-        function checkAnimations() {
-            animatedElements.forEach(element => {
-                if (isInViewport(element)) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
-            });
-        }
-        
-        // Inicializar todos los elementos como invisibles
-        animatedElements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'all 0.6s ease';
-        });
-        
-        // Comprobar animaciones al cargar y al hacer scroll
-        checkAnimations();
-        window.addEventListener('scroll', checkAnimations);
-        
-        // Efecto parallax suave para decoraciones
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.hero-decoration-1, .hero-decoration-2');
-            
-            parallaxElements.forEach(element => {
-                const speed = element.classList.contains('hero-decoration-1') ? 0.5 : 0.3;
-                element.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
-        
-        // Contador animado para estadísticas
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number-home');
-            
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent.replace(/\D/g, ''));
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += step;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    
-                    if (counter.textContent.includes('%')) {
-                        counter.textContent = Math.floor(current) + '%';
-                    } else if (counter.textContent.includes('+')) {
-                        counter.textContent = Math.floor(current) + '+';
-                    } else {
-                        counter.textContent = Math.floor(current);
-                    }
-                }, 16);
-            });
-        }
-        
-        // Iniciar contador cuando la sección sea visible
-        const heroSection = document.querySelector('.home-hero');
-        if (heroSection && isInViewport(heroSection)) {
-            setTimeout(animateCounters, 1000);
-        }
-        
-        window.addEventListener('scroll', function() {
-            if (heroSection && isInViewport(heroSection)) {
-                setTimeout(animateCounters, 1000);
-            }
-        });
-    });
-</script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}

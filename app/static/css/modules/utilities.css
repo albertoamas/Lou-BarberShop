@@ -1,6 +1,36 @@
 /* ==================== UTILITY CLASSES - Lou Barbershop ==================== */
 /* Clases utilitarias reutilizables para gradientes, iconos, efectos y más */
 
+/* ========== ACCESSIBILIDAD ========== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ========== HERO UTILITIES ========== */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
 /* ========== GRADIENTES ========== */
 .gradient-primary {
     background: linear-gradient(135deg, var(--dark) 0%, #2A2A2A 100%);
