@@ -54,12 +54,12 @@
                         
                         <div class="mb-3">
                             <label for="motivo" class="form-label">{{ form.motivo.label }}</label>
-                            {{ form.motivo(class="form-control", placeholder="Por favor indícanos por qué cancelaste tu reserva (opcional)") }}
+                            {{ form.motivo(class_="form-control", placeholder="Por favor indícanos por qué cancelaste tu reserva (opcional)") }}
                         </div>
                         
                         <div class="d-flex justify-content-between">
                             <a href="{{ url_for('reservas.mis_reservas') }}" class="btn btn-secondary">Volver</a>
-                            {{ form.submit(class="btn btn-danger") }}
+                            {{ form.submit(class_="btn btn-danger") }}
                         </div>
                     </form>
                 </div>
